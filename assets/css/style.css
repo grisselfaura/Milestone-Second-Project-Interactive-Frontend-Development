@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700');
+
+body { 
+    font-family: "Lato", sans-serif;
+}
+
+/*---------------------------------Special paddings/margins/text*/
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    font-weight: bold;
+    color: #fff!important;
+}
+
+.text-white {
+    color: #fff!important;
+}
+
+.bg-header {
+    background-image: url("../images/landing.jpg");
+    background-color: #212529;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0.9;
+    height: 100vh;
+}
