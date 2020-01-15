@@ -14,12 +14,15 @@ h4 {
     color: #fff!important;
 }
 
-.text-white {
-    color: #fff!important;
+.text-header {
+    color: #f8f9fa!important;
+    text-align: justify;
+    font-weight: 500;
+    font-size: 1.75em;
 }
 
 .bg-header {
-    background-image: url("../images/landing.jpg");
+    background-image: url("../images/landing-img.jpg");
     background-color: #212529;
     background-size: cover;
     -webkit-background-size: cover;
@@ -37,4 +40,10 @@ h4 {
     position: relative;
     opacity: 0.9;
     height: 100vh;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: block
 }
