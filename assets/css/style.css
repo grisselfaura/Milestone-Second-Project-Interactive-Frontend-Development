@@ -46,8 +46,16 @@ h4 {
     margin-left: auto;
     margin-right: auto;
     display: block
-}3
-.icons-padding {}}
-    
+}
 
-    padding-top: 30px;
+.text-effect {
+    transition: all .2s ease-in-out;
+}
+
+.text-effect:hover {
+    transform: scale(1.1);
+}
+
+.icons-padding {
+    padding-top: 30px; 
+}
