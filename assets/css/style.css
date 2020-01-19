@@ -75,3 +75,8 @@ h1 {
     clear: left;
     width: 281px;
 }
+
+/* Join-form-section*/
+.join-form {
+    padding-left: 20px;
+}
