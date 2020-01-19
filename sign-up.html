@@ -8,8 +8,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- CHECK IF WE NEED THIS LINK -->
-    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
+    <!-- CHECK IF WE NEED THIS LINK 
+    <link href="assets/css/dc.min.css" rel="stylesheet" type="text/css">
+    -->
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -25,11 +26,14 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="assets/js/d3.min.js"></script>
-    <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
-    <script type="text/javascript" src="assets/js/dc.min.js"></script>
-    <script type="text/javascript" src="assets/js/queue.min.js"></script>
-    <script type="text/javascript" src="assets/js/graph.js"></script>
+    
+    <!-- Script for the email -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("user_UJ2mrzhb0BezS8KVFfnlD");
+        })();
+    </script>
 
 
 </head>
@@ -400,9 +404,13 @@
     </div>
   </footer>
 
+<!-- Script send email code from code course -->
+<script src="assets/js/sendEmail.js"></script>
+
 <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>
