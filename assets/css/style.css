@@ -76,7 +76,25 @@ h1 {
     width: 281px;
 }
 
-/* Join-form-section*/
+/*Join-form-section*/
 .join-form {
     padding-left: 20px;
+}
+
+/*Reduce.html*/
+
+.underline {
+  text-decoration: underline;
+}
+
+.hr-style {
+    border-top: 3px solid #fff;
+}
+
+.bullets {
+  list-style-type:disc;
+}
+
+.myList {
+  list-style-type: decimal;
 }
