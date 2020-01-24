@@ -76,9 +76,10 @@ h1 {
     justify-content: center;
     position: relative;
     height: auto;
-    min-width: 100%;
-    width: auto;
+    width: 100%;
+    
  }
+
 
 .icons-padding {
     margin-top: 20px; 
