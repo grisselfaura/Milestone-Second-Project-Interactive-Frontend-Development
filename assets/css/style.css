@@ -59,10 +59,32 @@ h1 {
     transform: scale(1.1);
 }
 
+/*Images*/
+.showcase .showcase-img .custom-responsiveness {
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    height: auto;
+    min-width: 100%;
+    width: auto;
+ }
+
 .icons-padding {
     margin-top: 20px; 
 }
 
+/*Form*/
 .label-style {
     width: 100px;
     font-weight: bold;
@@ -100,6 +122,3 @@ h1 {
   text-indent: 15px;
 }
 
-.custom-responsiveness {
-    height: auto;
-}

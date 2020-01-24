@@ -55,11 +55,9 @@ header.masthead h1 {
   padding: 3rem;
 }
 
-.showcase .showcase-img {/*width and height added*/
+.showcase .showcase-img {
   min-height: 30rem;
   background-size: cover;
-  width: 100%;
-  height: auto;
 }
 
 @media (min-width: 768px) {
