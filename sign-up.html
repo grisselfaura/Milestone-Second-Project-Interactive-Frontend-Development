@@ -25,15 +25,19 @@
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+    
+    <!-- Personal Styles for this website add jquery and js file
+     -->
     
     <!-- Script for the email -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
             emailjs.init("user_UJ2mrzhb0BezS8KVFfnlD");
         })();
     </script>
+    <script src="assets/js/loader.js"></script>
 
 
 </head>
@@ -363,7 +367,7 @@
                 <input type="checkbox" required> Yes, I give my consent to the processing of my personal data for subscriber purposes.
               </div>
             </div><br>
-            <button type="submit" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button><!--********not connected yet********-->
+            <button id="user-data" type="submit" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button><!--********not connected yet********-->
           </form>
         </div>
       </div>

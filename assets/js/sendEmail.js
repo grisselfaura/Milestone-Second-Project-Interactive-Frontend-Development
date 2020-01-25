@@ -7,6 +7,7 @@ function sendMail(signInForm) {
         "from_last_name": signInForm.exampleInputLastName.value,
         "from_country": signInForm.exampleInputCountry.value,
         })
+    
     .then(
         function(response) {
             console.log("SUCCESS", response);
