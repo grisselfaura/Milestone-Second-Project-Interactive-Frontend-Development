@@ -96,7 +96,7 @@
           <hr>
           <p class="lead mb-0">Join our network of digital activists around the world</p>
           <br>
-          <form onsubmit= "return sendMail(this);" method="POST"> <!--******** code from  bootstrap ********-->
+          <form id="user-data" onsubmit= "return sendEmail(this)" method="POST"> <!--******** code from  bootstrap ********-->
             <div class="form-row">
               <div class="col">
                 <label for="exampleInputName" class="label-style">*First Name</label>
@@ -367,7 +367,7 @@
                 <input type="checkbox" required> Yes, I give my consent to the processing of my personal data for subscriber purposes.
               </div>
             </div><br>
-            <button id="user-data" type="submit" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button><!--********not connected yet********-->
+            <button id="submitted-data" onclick="submit" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button><!--********not connected yet********-->
           </form>
         </div>
       </div>
