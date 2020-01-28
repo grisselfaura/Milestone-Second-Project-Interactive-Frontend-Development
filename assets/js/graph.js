@@ -23,23 +23,3 @@ function makeGraphs(error, salaryData){/*salarrydatareplace*/
         .group(total_salary_per_rank); /*replace by:  total_emissions_per_country */ 
     dc.renderAll();
 }
-
-
-/* function makeGraphs(error, emissionSectorData){
-    var ndx = crossfilter(emissionSectorData);
-
-    var country_dim = ndx.dimension(dc.pluck('Entity'));
-    var total_emissions_per_country = country_dim.group().reduceSum(dc.pluck('Transport(tonnes)'));
-
-    var group = dim.group();
-
-    dc.pieChart('#emissions-per-sector')
-                .height(330)
-                .radius(90)
-                .transitionDuration(1500)
-                .dimension(country_dim)
-                .group(total_emissions_per_country);
-
-    dc.renderAll();
-} 
-*/

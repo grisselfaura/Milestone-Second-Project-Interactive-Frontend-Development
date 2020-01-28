@@ -27,11 +27,12 @@
       
    <!-- Load D3 -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
     <script type="text/javascript" src="assets/js/dc.min.js"></script>
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
     <script type="text/javascript" src="assets/js/graph.js" ></script>
+    <script type="text/javascript" src="assets/js/graph-sector-pie.js" ></script>
 
 </head>
 <body>
@@ -70,29 +71,27 @@
     <div class="container-fluid p-0">
       <div class="row no-gutters">
 
-        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" id="emissions-per-sector"></div>
+        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" id="emissions-per-sector-animated"></div>
          
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-          <h2 class="mb-2">Emisions per sector</h2>
+          <h2 class="mb-2">Emisions per sector animatted chart</h2>
           <p class="lead mb-0">dfgdfgd</p>
           
         </div>
       </div>
-      <div class="row no-gutters">
-        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="pie-salaries-test"></div>
-           
+      <div class="row no-gutters">        
         <div class="col-lg-6 my-auto showcase-text">
           <h2 class="mb-2">Graph2</h2>
           <p class="lead mb-0">pie-salaries-test</p>
-          
         </div>
+        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="pie-salaries-test"></div> 
       </div>
       <div class="row no-gutters">
-        <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('assets/images/reduce_img/); min-height: 120vh;"></div>
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2 class="mb-2">Graph3</h2>
-          <p class="lead mb-0">xxxxxxxxxxx.</p>
+          <p class="lead mb-0">emissions-per-sector</p>
         </div>
+        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="emissions-per-sector"></div> 
       </div>
     </div>
   </section>
