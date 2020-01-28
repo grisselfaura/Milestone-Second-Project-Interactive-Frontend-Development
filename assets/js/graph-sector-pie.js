@@ -8,16 +8,6 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
     emissionSectorData.forEach(function(d){
         d.year = parseInt(d.year);
         d.Transport = parseInt(d.Transport);
-        d.Forestry = parseInt(d.Forestry(tonnes));
-        d.Energy  = parseInt(d.Energy(tonnes));
-        d.Other = parseInt(d.Othersources(tonnes));
-        d.Agriculture, Land Use & Forestry = parseInt(d.["Agriculture, Land Use & Forestry(tonnes)"]);
-        d.Residential & commercial = parseInt(d.Residential & commercial(tonnes));
-        d.Industry = parseInt(d.Industry(tonnes));
-        d.Agriculture = parseInt(d.Agriculture(tonnes));
-        /*example 
-        d.yrs_since_phd = parseInt(d["yrs.since.phd"])  //also to parse my yrs_since_phd from string to int.REMOVE DOTS TO AVOID PROBLEMS
-        */
     });
 
     var Entity_dim = ndx.dimension(dc.pluck('Entity'));/*replace by */ 
@@ -31,4 +21,19 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         .group(total_emissions_per_sector); /*replace by:  total_emissions_per_sector */ 
     dc.renderAll();
 }
-
+/*example 
+emissionSectorData.forEach(function(d){
+        d.year = parseInt(d.year);
+        d.Transport = parseInt(d.Transport);
+        d.Forestry = parseInt(d.Forestry(tonnes));
+        d.Energy  = parseInt(d.Energy(tonnes));
+        d.Other = parseInt(d.Othersources(tonnes));
+        d.Agriculture,_Land_Use_&_Forestry = parseInt(d.["Agriculture, Land Use & Forestry(tonnes)"]);
+        d.Residential_&_commercial = parseInt(d.Residential & commercial(tonnes));
+        d.Industry = parseInt(d.Industry(tonnes));
+        d.Agriculture = parseInt(d.Agriculture(tonnes));
+        
+        d.yrs_since_phd = parseInt(d["yrs.since.phd"])  //also to parse my yrs_since_phd from string to int.REMOVE DOTS TO AVOID PROBLEMS
+        
+    });
+    */
