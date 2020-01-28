@@ -31,7 +31,7 @@
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
     <script type="text/javascript" src="assets/js/dc.min.js"></script>
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
-    <script type="text/javascript" src="" ></script>
+    <script type="text/javascript" src="assets/js/graph.js" ></script>
 
 </head>
 <body>
@@ -65,14 +65,13 @@
     </div>
   </nav>
 
-<!-- Dashboard panel option 2 --> 
+<!-- Dashboard panel --> 
   <section class="showcase">
     <div class="container-fluid p-0">
       <div class="row no-gutters">
 
         <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" id="emissions-per-sector"></div>
-        <!-- pie-graph -->
-            <script type="text/javascript" src="assets/js/pie-graph.js"></script> 
+         
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2 class="mb-2">Emisions per sector</h2>
           <p class="lead mb-0">dfgdfgd</p>
@@ -80,11 +79,11 @@
         </div>
       </div>
       <div class="row no-gutters">
-        <div class="col-lg-6 text-white showcase-img custom-responsiveness"></div>
+        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="pie-salaries-test"></div>
            
         <div class="col-lg-6 my-auto showcase-text">
           <h2 class="mb-2">Graph2</h2>
-          <p class="lead mb-0">dfdfsdf</p>
+          <p class="lead mb-0">pie-salaries-test</p>
           
         </div>
       </div>
@@ -97,6 +96,8 @@
       </div>
     </div>
   </section>
+    <!-- pie-graph
+    <script type="text/javascript" src="assets/js/pie-animated-graph.js"></script> -->
 
 <!-- Footer -->
   <footer class="footer bg-light">
