@@ -10,6 +10,17 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         d.Transport = parseInt(d.Transport);
     });
 
+    show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
+
+function show_country_selector(ndx) {
+    var dim = ndx.dimension(dc.pluck('Entity'));
+    var group = dim.group();
+    
+    dc.selectMenu("#country-selector")
+        .dimension(dim)
+        .group(group) /*not showing the count numner*/
+}
+
     var Entity_dim = ndx.dimension(dc.pluck('Entity'));/*replace by */ 
     var total_emissions_per_sector = Entity_dim.group().reduceSum(dc.pluck('Transport'));/*replace by country and sector*/ 
 
