@@ -32,7 +32,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // import data 
-d3.csv("test-data.csv", function(error, data) {
+d3.csv("data/data.csv", function(error, data) {
   if (error) throw error;
     
     // parse data
@@ -50,10 +50,9 @@ d3.csv("test-data.csv", function(error, data) {
   // append path 
   g.append("path")
       .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.fruit); }) // or .style("fill","blue") 
-    
-      // transition 
-    .transition()
+      .style("fill", function(d) { return color(d.data.fruit); }) 
+        // transition 
+      .transition()
       .ease(d3.easeLinear)
       .duration(2000)
       .attrTween("d", tweenPie);
@@ -63,10 +62,12 @@ d3.csv("test-data.csv", function(error, data) {
     .transition()
       .ease(d3.easeLinear)
       .duration(2000)
-    .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
-      .text(function(d) { return d.data.fruit; });
-    
+      .text(function(d) { return d.data.fruit;});
+
+});
+
 // Helper function for animation of pie chart and donut chart
 function tweenPie(b) {
   b.innerRadius = 0;
