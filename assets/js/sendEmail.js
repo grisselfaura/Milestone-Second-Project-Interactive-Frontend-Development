@@ -7,6 +7,16 @@ function sendEmail(signInForm) {
         "from_last_name": signInForm.exampleInputLastName.value,
         "from_country": signInForm.exampleInputCountry.value,
         })
+
+        /*IF 
+        $("#submitted-data").click(function (){ /*code to show loader 
+            $(this).html(
+            `<div id="loader">
+            <img src="assets/css/loader.gif" alt="loading..." />
+            </div>`
+            );
+        return false });*/
+
         .then (
             function(response) {
             alert("Your mail is sent!", response);
@@ -16,10 +26,13 @@ function sendEmail(signInForm) {
             alert("Oops...", error);    
             console.log("FAILED...", error);
             },
-            .then (
-                function(suscription) {
-            $("#exampleInputName").val("");
-            $("#exampleInputLastName").val("");
+        )
+           
+        .then ( /*this function still not working : i also tried 
+            document.getElementById("user-data").reset();*/
+            function(resetForm) {
+            $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+            $(':checkbox, :radio').prop('checked', false);
             }            
             );
     return false;

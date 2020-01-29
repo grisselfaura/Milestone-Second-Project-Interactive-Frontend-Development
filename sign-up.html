@@ -24,8 +24,11 @@
     <!-- Personal Styles for this website -->
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!-- Personal Styles for this website add jquery and js file
      -->
     
@@ -364,10 +367,10 @@
             </div><br>
             <div class="form-row">
               <div class="col">
-                <input type="checkbox" required> Yes, I give my consent to the processing of my personal data for subscriber purposes.
+                <input type="checkbox" id="econsent" required> Yes, I give my consent to the processing of my personal data for subscriber purposes.
               </div>
             </div><br>
-            <button id="submitted-data" onclick="submit" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button><!--********not connected yet********-->
+            <button id="submitted-data" onclick="resetForm()" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button><!--********not connected yet********-->
           </form>
         </div>
       </div>
@@ -408,9 +411,7 @@
     </div>
   </footer>
 
-<!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 
 <!-- Script send email code from code course -->
 <script src="assets/js/sendEmail.js"></script>
