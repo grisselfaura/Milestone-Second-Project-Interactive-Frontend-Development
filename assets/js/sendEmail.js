@@ -16,10 +16,17 @@ function sendEmail(signInForm) {
             alert("Oops...", error);    
             console.log("FAILED...", error);
             },
-            .then (function (reset()))
-        );
+            .then (
+                function(suscription) {
+            $("#exampleInputName").val("");
+            $("#exampleInputLastName").val("");
+            }            
+            );
     return false;
 }  
 /*Script to reset the form doesnt work
 document.getElementById("user-data").reset();
+*/
+/*
+.then (function (reset()))
 */

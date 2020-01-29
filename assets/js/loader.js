@@ -8,7 +8,7 @@ $("#submitted-data").click(function (){ /*code to show loader */
 
 
 /*code to refresh after send to be updated*/
-function submit() {
+function suscription() {
   $("#exampleInputName").val("");
   $("#exampleInputLastName").val("");
 }
