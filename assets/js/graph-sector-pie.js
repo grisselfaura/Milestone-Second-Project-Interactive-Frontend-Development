@@ -18,7 +18,8 @@ function show_country_selector(ndx) {
     
     dc.selectMenu("#country-selector")
         .dimension(dim)
-        .group(group) /*not showing the count numner*/
+        .group(group) 
+        .title(kv => kv.key);/*not showing the count numner*/
 }
 
     var Entity_dim = ndx.dimension(dc.pluck('Entity'));/*replace by */ 

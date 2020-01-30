@@ -8,14 +8,15 @@ function sendEmail(signInForm) {
         "from_country": signInForm.exampleInputCountry.value,
         })
 
-        /*IF 
-        $("#submitted-data").click(function (){ /*code to show loader 
-            $(this).html(
-            `<div id="loader">
-            <img src="assets/css/loader.gif" alt="loading..." />
-            </div>`
-            );
-        return false });*/
+        
+       .then (
+            $("#submitted-data").click(function(resetForm){ /*code to show loader */
+                $(this).html(
+                    `<div id="loader">
+                    <img src="assets/css/loader.gif" alt="loading..." />
+                    </div>`);
+                return false }),
+        )
 
         .then (
             function(response) {
@@ -28,18 +29,11 @@ function sendEmail(signInForm) {
             },
         )
            
-        .then ( /*this function still not working : i also tried 
-            document.getElementById("user-data").reset();*/
+        .then ( 
             function(resetForm) {
             $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
             $(':checkbox, :radio').prop('checked', false);
             }            
-            );
+        )
     return false;
 }  
-/*Script to reset the form doesnt work
-document.getElementById("user-data").reset();
-*/
-/*
-.then (function (reset()))
-*/
