@@ -28,11 +28,11 @@ function sendEmail(signInForm) {
     return false;
 }  
 
-var myLoader = $("#loading");
-    $("#user-data").submit(function sendEmail(signInForm) { /*code to show loader */
+/*var myLoader = $("#loading");
+    $("#user-data").submit(function sendEmail(signInForm) { /*code to show loader 
         setTimeout(function(){
             let loading = document.getElementById("loading").value;
             console.log(loading);
             $("#loading").hide();
         })
-    })   
+    })   */

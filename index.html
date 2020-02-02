@@ -150,7 +150,7 @@
                         <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
                 </div>
                     <div class="col-12 col-md-3">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">SIGN UP!</button>
+                        <button onclick="redirectToForm()" class="btn btn-block btn-lg btn-primary value="Submit"">SIGN UP!</button>
                     </div>
                 </div>
             </form>
@@ -211,6 +211,14 @@
       </div>
     </div>
   </footer>
+
+<!-- Script transfer email to sign-up.html -->
+<script>
+function redirectToForm() {
+    window.location.href = "https://8000-f4447182-a851-46b0-8c4f-86dba08431a7.ws-eu01.gitpod.io/sign-up.html"; 
+} 
+
+</script>
 
 </body>
 </html>

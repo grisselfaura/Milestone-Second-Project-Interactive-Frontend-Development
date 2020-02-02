@@ -1,20 +1,20 @@
-/*$("#submitted-data").click(function (){ /*code to show loader 
+$("#submitted-data").click(function() { /*code to show loader */
     $(this).html(
         `<div id="loader">
         <img src="assets/css/loader.gif" alt="loading..." />
         </div>`
-        );
-    return false });*/
+    );
+});
 
-
+/*
 var myLoader = $("#loading");
-$("#user-data").submit(function sendEmail(signInForm) { /*code to show loader */
+$("#user-data").submit(function sendEmail(signInForm) { /*code to show loader 
     setTimeout(function(){
         let loading = document.getElementById("loading").value;
         console.log(loading);
         $("#loading").hide();
     })
-})
+})*/
 
 /*
 var myLoader;
