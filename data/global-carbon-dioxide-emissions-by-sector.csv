@@ -1,4 +1,4 @@
-Entity,Code,Year,Transport,Forestry (tonnes),Energy (tonnes),Other sources (tonnes),"Agriculture, Land Use & Forestry (tonnes)",Waste (tonnes),Residential & commercial (tonnes),Industry (tonnes),Agriculture (tonnes)
+Entity,Code,Year,Transport,Forestry,Energy,Other sources,"Agriculture, Land Use & Forestry ",Waste (tonnes),Residential & commercial (tonnes),Industry (tonnes),Agriculture (tonnes)
 Afghanistan,AFG,1990,607277,0,277412.2,0,0,0,918414.8,118810.1,0
 Afghanistan,AFG,1991,531458.8,0,270127.8,0,0,0,690875.1,129749.1,0
 Afghanistan,AFG,1992,376129.39999999997,0,154580.4,0,0,0,373454.60000000003,141625.6,0

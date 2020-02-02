@@ -8,7 +8,13 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
     emissionSectorData.forEach(function(d){
         d.year = parseInt(d.year);
         d.Transport = parseInt(d.Transport);
+        d.Forestry = parseInt(d.Forestry);
+        d.Other_sources = parseInt(d["Other sources"]);
+        d.yrs_since_phd = parseInt(d["yrs.since.phd"]); 
+        d.Industry = parseInt(d.Industry);
+        d.Agriculture = parseInt(d.Agriculture);
     });
+    console.log(d.year);
 
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
 
