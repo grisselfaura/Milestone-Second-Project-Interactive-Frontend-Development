@@ -6,12 +6,7 @@
         );
     return false });*/
 
-/*code to refresh after send to be updated
-function suscription() {
-  $("#exampleInputName").val("");
-  $("#exampleInputLastName").val("");
-}
-*/
+
 var myLoader = $("#loading");
 $("#user-data").submit(function sendEmail(signInForm) { /*code to show loader */
     setTimeout(function(){

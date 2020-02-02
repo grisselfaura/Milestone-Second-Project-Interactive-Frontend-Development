@@ -8,15 +8,6 @@ function sendEmail(signInForm) {
         "from_country": signInForm.exampleInputCountry.value,
         })
 
-       var myLoader = $("#loading");
-        $("#user-data").submit(function sendEmail(signInForm) { /*code to show loader */
-        setTimeout(function(){
-        let loading = document.getElementById("loading").value;
-        console.log(loading);
-        $("#loading").hide();
-    })
-        })   
-
         .then (
             function(response) {
             alert("Your mail is sent!", response);
@@ -36,3 +27,12 @@ function sendEmail(signInForm) {
         )
     return false;
 }  
+
+var myLoader = $("#loading");
+    $("#user-data").submit(function sendEmail(signInForm) { /*code to show loader */
+        setTimeout(function(){
+            let loading = document.getElementById("loading").value;
+            console.log(loading);
+            $("#loading").hide();
+        })
+    })   
