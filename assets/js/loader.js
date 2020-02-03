@@ -1,10 +1,18 @@
-$("#submitted-data").click(function() { /*code to show loader */
-    $(this).html(
-        `<div id="loader">
-        <img src="assets/css/loader.gif" alt="loading..." />
-        </div>`
-    );
-});
+// $("#submitted-data").click(function () { /*code to show loader */
+//     $(this).html(
+//         `<div id="loader">
+//         <img src="assets/css/loader.gif" alt="loading..." />
+//         </div>`
+//         );
+// return false });
+
+$("#submitted-data").click(function () { /*code to show loader */
+    setTimeout(function(){
+        let loading = document.getElementById("loading").value;
+        console.log(loading);
+        $("#loading").hide();
+    })
+})
 
 /*
 var myLoader = $("#loading");
