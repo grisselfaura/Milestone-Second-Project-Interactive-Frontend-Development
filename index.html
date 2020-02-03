@@ -147,10 +147,10 @@
             <form> <!--********PENDING TO BE LINK WITH NAV FORM********-->
                 <div class="form-row">
                     <div class="col-12 col-md-9 mb-2 mb-md-0">
-                        <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
+                        <input id="myemail" type="email" class="form-control form-control-lg" placeholder="Enter your email...">
                 </div>
                     <div class="col-12 col-md-3">
-                        <button onclick="redirectToForm()" class="btn btn-block btn-lg btn-primary value="Submit"">SIGN UP!</button>
+                        <button type="reset" onclick="redirectToForm()" class="btn btn-block btn-lg btn-primary" value="Submit" >SIGN UP!</button>
                     </div>
                 </div>
             </form>
@@ -213,10 +213,23 @@
   </footer>
 
 <!-- Script transfer email to sign-up.html -->
-<script>
+<script  type="text/javascript">
+var textOneValue;
+
 function redirectToForm() {
+
+    textOneValue = document.getElementById("myemail").value; 
+    localStorage.setItem("textOneValue",textOneValue)
+
+    //document.getElementById("exampleInputEmail").innerHTML = textOneValue;
     window.location.href = "https://8000-f4447182-a851-46b0-8c4f-86dba08431a7.ws-eu01.gitpod.io/sign-up.html"; 
 } 
+    //$("#exampleInputEmail").val( $("#myemail").val() )
+    //var textOneValue = myemail.value;
+    //var textTwoValue = exampleInputEmail.Value;
+    //Assign the value of textOne textbox to textTwo textbox
+    //textOne.value = textTwoValue;-->
+
 
 </script>
 

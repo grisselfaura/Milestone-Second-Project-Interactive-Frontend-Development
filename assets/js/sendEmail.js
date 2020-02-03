@@ -1,5 +1,7 @@
 /*Script send email code from code course adapted for this*/
 
+document.getElementById("exampleInputEmail").value = localStorage.getItem("textOneValue");
+
 function sendEmail(signInForm) {
     emailjs.send("gmail", "template_vuxmZcCD", {
         "from_name": signInForm.exampleInputName.value,
@@ -12,6 +14,8 @@ function sendEmail(signInForm) {
             function(response) {
             alert("Your mail is sent!", response);
             console.log("SUCCESS!", response);
+            $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+            $(':checkbox, :radio').prop('checked', false);
             },
             function(error) {
             alert("Oops...", error);    
@@ -19,12 +23,7 @@ function sendEmail(signInForm) {
             },
         )
            
-        .then ( 
-            function(resetForm) {
-            $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
-            $(':checkbox, :radio').prop('checked', false);
-            }            
-        )
+        
     return false;
 }  
 
