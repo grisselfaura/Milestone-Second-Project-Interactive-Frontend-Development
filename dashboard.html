@@ -36,7 +36,7 @@
     <script type="text/javascript" src="assets/js/dc.min.js"></script>
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
     <script type="text/javascript" src="assets/js/graph.js" ></script>
-    <script type="text/javascript" src="assets/js/graph-sector-pie.js" ></script>
+    <script type="text/javascript" src="assets/js/graph-CO2.js" ></script>
 
 </head>
 <body>
@@ -74,15 +74,28 @@
   <section class="showcase">
     <div class="container-fluid p-0">
       <div class="row no-gutters">
-
-        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" id="emissions-per-sector-animated"></div>
-         
+        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness">
+            <div id="chart-global-CO2-year"></div> <!-- Dashboard panel --> 
+            <div id="chart-country-CO2-year"></div> <!-- Dashboard panel --> 
+            <div id="map-top-countries"></div> <!-- Dashboard panel --> 
+        </div>
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-          <h2 class="mb-2">Emisions per sector animatted chart</h2>
-          <p class="lead mb-0">dfgdfgd</p>
-          
+          <h2 class="mb-2">Global and Country and Map CO2 emisions</h2>
+          <p class="lead mb-0">xxx</p>
         </div>
       </div>
+      
+      <div class="row no-gutters">
+        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness">
+            <div id="chart-global-CO2-year"></div> <!-- Dashboard panel --> 
+            <div id="chart-country-CO2-year"></div> <!-- Dashboard panel --> 
+        </div>
+        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+          <h2 class="mb-2">Global CO2 emisions</h2>
+          <p class="lead mb-0">xxx</p>
+        </div>
+      </div>
+
       <div class="row no-gutters">        
         <div class="col-lg-6 my-auto showcase-text">
           <h2 class="mb-2">Graph2</h2>
@@ -90,6 +103,7 @@
         </div>
         <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="pie-salaries-test"></div> 
       </div>
+
       <div class="row no-gutters">
         <div class="col-lg-6 order-lg-1 my-auto showcase-text" id="country-selector">
         <!--  ADD fa fa-exchange-alt fa-w-16 -->
