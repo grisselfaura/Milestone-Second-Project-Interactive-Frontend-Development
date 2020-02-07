@@ -47,26 +47,36 @@ function show_country_selector(ndx) {
 
 function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
-    var yearGlobalEmissionsChart = year_dim.group().reduceSum(function(d) {return d.cnt;});   /*REPLACE FOR sum co2 for all sectors*/ 
+    var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('Transport'));
      
+    //d.total= d.http_404+d.http_200+d.http_302; 
+    var allSectorSum = mycrossfilter.dimension(function(data) { 
+    return ~~((Date.now() - new Date(data.DOB)) / (31557600000)) 
+    });
+
 
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
-    console.log(minYear);
-    console.log(maxYear);
+    // console.log(minYear);
+    // console.log(maxYear);
 
     dc.lineChart("#chart-global-CO2-year")
             .width(1000)
             .height(300)
-            .margins({top: 10, right: 50, bottom: 30, left:50})
+            .margins({top: 10, right: 50, bottom: 30, left:100})
             .dimension(year_dim)
             .group(yearGlobalEmissionsChart)
             .transitionDuration(500)
-            .x(d3.time.domain([minYear, maxYear]))//check scale and x axus
+            .x(d3.scale.ordinal())
+            .xUnits(dc.units.ordinal)
+            .y(d3.scale.linear())//check scale and x axus
+            //.y(d3.scale.linear().domain([0, d3.max(emissionSectorData)]).range([0, h]))//check scale and x axus
+            //.elasticX(true) 
+            .elasticY(true)
             .xAxisLabel("Years")
             .yAxisLabel("Total CO2 emissions")
-            .yAxis().ticks(10);
+            .yAxis().ticks(20);
             // .title(function(d) {  // REMAIN UNCHANGED
             //     return d.key[2] + " earned " + d.key[1]; 
             // }) 
@@ -78,6 +88,8 @@ function show_global_emissions_per_year(ndx) {
 function show_country_emissions_top_sectors(ndx) {
     var Entity_dim = ndx.dimension(dc.pluck('Entity'));/*replace by */ 
     var total_emissions_per_sector = Entity_dim.group().reduceSum(dc.pluck('Transport'));/*replace by country and sector*/ 
+
+
 
     dc.pieChart("#emissions-per-sector") /*replace by name of div this needs TO BE CHANGED TO SHOW TOP5 INDUSTIRES PER COUNTRY*/ 
         .height(330)
