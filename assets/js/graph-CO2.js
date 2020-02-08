@@ -1,7 +1,8 @@
 // var yearGlobalChart   = new dc.pieChart("chart-global-CO2-year"),
 //     countryChart  = new dc.barChart("#chart-country-CO2-year"),
 //     topCountryMap = new dc.rowChart("#map-top-countries");
-
+var emissionsData = new Array;
+var emissionYears = new Object;
 queue() 
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector.csv")
     .await(makeGraphs);
@@ -10,6 +11,8 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
     var ndx = crossfilter(emissionSectorData); /*replace*/ 
 
     emissionSectorData.forEach(function(d){
+        var emissionRow = new Object;
+
         //console.log(d.Entity);
         d.year = parseInt(d.Year);
         //console.log(d.Year);
@@ -25,12 +28,74 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         //console.log(d["Residential and commercial"]);
         d.Industry = parseInt(d.Industry);
         d.Agriculture = parseInt(d.Agriculture);
+
+
+
+
+        emissionRow.Entity = d.Entity;
+        emissionRow.Year =  parseFloat(d.Year);
+        emissionRow.Transport = parseFloat(d.Transport);
+        emissionRow.Forestry = parseFloat(d.Forestry);
+        emissionRow.Energy = parseFloat(d.Energy);
+        emissionRow.Other_sources = parseFloat(d["Other sources"]);
+        emissionRow.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
+        emissionRow.Waste = parseFloat(d.Waste);
+        emissionRow.Residential_commercial = parseFloat(d["Residential and commercial"]);
+        emissionRow.Industry = parseFloat(d.Industry);
+        emissionRow.Agriculture = parseFloat(d.Agriculture);
+
+        for (key in emissionRow) {
+            if (isNaN(emissionRow[key])) {
+                 emissionRow[key] = 0
+            }
+
+        }
+
+        emissionsData.push(emissionRow);
     });
+
+    function createYearValues() {
+        for (i = 0; i < emissionsData.length; i++)
+        {
+            var totalCO = 0.0;
+            totalCO += parseFloat(emissionsData[i].Transport);
+            totalCO += parseFloat(emissionsData[i].Forestry);
+            totalCO += parseFloat(emissionsData[i].Energy);
+            totalCO += parseFloat(emissionsData[i].Other_sources);
+            totalCO += parseFloat(emissionsData[i].Agriculture_Land_Use_Forestry);
+            totalCO += parseFloat(emissionsData[i].Waste);
+            totalCO += parseFloat(emissionsData[i].Industry);
+            totalCO += parseFloat(emissionsData[i].Agriculture);
+
+            var year = emissionsData[i].Year;
+
+            if (totalCO == NaN) {
+                console.log((emissionsData[i]));
+            }
+            else {
+                if (totalCO != null) {
+
+                    if (year in emissionYears){
+                        var addingTotalYear = parseFloat(emissionYears[year]) + parseFloat(totalCO)
+
+                        if (totalCO != NaN) {
+                            emissionYears[year] = parseFloat(emissionYears[year]) + parseFloat(totalCO)
+                        }
+                        else {
+                        }
+                    } 
+                    else {
+                        emissionYears[year] = parseFloat(totalCO);
+                    }
+                }        
+            }
+        }
+    }
     
     show_global_emissions_per_year(ndx);
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
     show_country_emissions_top_sectors(ndx);
-    
+    createYearValues();
     dc.renderAll();
 }
 
@@ -51,10 +116,10 @@ function show_global_emissions_per_year(ndx) {
     //var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('totalSectorSum'));
     
     /*Sum of data using columnwise*/
-    var totalSectorSum = [d3.sum(emissionSectorData.map(function(d){ return d.Transport})),
-       d3.sum(emissionSectorData.map(function(d){ return d.Forestry})),
-       d3.sum(emissionSectorData.map(function(d){ return d.Energy}))];
-    console.log(totalSectorsSum);
+    // var totalSectorSum = [d3.sum(emissionSectorData.map(function(d){ return d.Transport})),
+    //    d3.sum(emissionSectorData.map(function(d){ return d.Forestry})),
+    //    d3.sum(emissionSectorData.map(function(d){ return d.Energy}))];
+    // console.log(totalSectorsSum);
    
     //var allSectorSum = mycrossfilter.dimension(function(data) { 
    // return ~~((Date.now() - new Date(data.DOB)) / (31557600000)) 
@@ -105,10 +170,7 @@ function show_country_emissions_top_sectors(ndx) {
         .group(total_emissions_per_sector); /*replace by:  total_emissions_per_sector */ 
 }
 
-// get top five groups
-// mychart.data(function (group) { 
-//    return group.top(5); 
-// });
+
 
 // REMOVE EMPTY VALUES
 // chart.filterHandler(function (dimension, filters) {
