@@ -10,7 +10,6 @@ queue()
     
 function makeGraphs(error, emissionSectorData){ /*replace*/ 
     var ndx = crossfilter(emissionSectorData); /*replace*/ 
-    var emissionRow = new Object;
 
     emissionSectorData.forEach(function(d){
         // d.year = parseInt(d.Year);
@@ -23,11 +22,11 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         // d.Residential_commercial = parseInt(d["Residential and commercial"]);
         // d.Industry = parseInt(d.Industry);
         // d.Agriculture = parseInt(d.Agriculture);
-                     
-        emissionRow.Entity = String(d.Entity);
-        //console.log(emissionRow.Entity)
+        
+        var emissionRow = new Object;
+      
+        emissionRow.Entity = d.Entity;
         emissionRow.Year =  parseFloat(d.Year);
-        //console.log(emissionRow.Year)
         emissionRow.Transport = parseFloat(d.Transport);
         emissionRow.Forestry = parseFloat(d.Forestry);
         emissionRow.Energy = parseFloat(d.Energy);
@@ -38,27 +37,18 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         emissionRow.Industry = parseFloat(d.Industry);
         emissionRow.Agriculture = parseFloat(d.Agriculture);
 
-        for (key in emissionRow) { // REMOVE NAN VALUES from numbers
-            if (Number.isNaN(emissionRow[key])) { // added Number.isNan
-                  emissionRow[key] = 0
+        for (key in emissionRow) { // REMOVE NAN VALUES
+            if (isNaN(emissionRow[key])) {
+                 emissionRow[key] = 0
             }
         }
 
         emissionsData.push(emissionRow);
-        //console.log(emissionsData)
     });
 
-    
-    
-    show_global_emissions_per_year(ndx);
-    show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
-    show_country_emissions_top_sectors(ndx);
-    show_total_year_emissions(ndx);//griss changed text
-    dc.renderAll();
-}
-function show_total_year_emissions(ndx) {//griss changed name function and added ndx
-    var totalYearValues_dim = ndx.dimension(function (d) { //griss converted to ndx function
-        for (i = 0; i < emissionsData.length; i++) {
+    function totalYearValues() {
+        for (i = 0; i < emissionsData.length; i++)
+        {
             var totalCO = 0.0;
             totalCO += parseFloat(emissionsData[i].Transport);
             totalCO += parseFloat(emissionsData[i].Forestry);
@@ -92,29 +82,16 @@ function show_total_year_emissions(ndx) {//griss changed name function and added
                 }        
             }
         }
-    });
-
-    var totalYearValues_group = totalYearValues_dim.group();
-
-    dc.lineChart("#veamos")
-            .width(1000)
-            .height(300)
-            .margins({top: 10, right: 50, bottom: 30, left:100})
-            .dimension(totalYearValues_dim)
-            .group(totalYearValues_group)
-            .transitionDuration(500)
-            .x(d3.scale.ordinal())
-            .xUnits(dc.units.ordinal)
-            .y(d3.scale.linear())//check scale and x axus
-            //.y(d3.scale.linear().domain([0, d3.max(emissionSectorData)]).range([0, h]))//check scale and x axus
-            //.elasticX(true) 
-            .elasticY(true)
-            .xAxisLabel("Years")
-            .yAxisLabel("Total CO2 emissions")
-            .yAxis().ticks(20);             
+    }
+    
+    show_global_emissions_per_year(ndx);
+    show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
+    show_country_emissions_top_sectors(ndx);
+    totalYearValues();
+    dc.renderAll();
 }
 
- 
+    
 function show_country_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('Entity'));
     var group = dim.group();
