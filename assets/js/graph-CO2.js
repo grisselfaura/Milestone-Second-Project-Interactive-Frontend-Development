@@ -48,11 +48,17 @@ function show_country_selector(ndx) {
 function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('Transport'));
-     
-    //d.total= d.http_404+d.http_200+d.http_302; 
-    var allSectorSum = mycrossfilter.dimension(function(data) { 
-    return ~~((Date.now() - new Date(data.DOB)) / (31557600000)) 
-    });
+    //var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('totalSectorSum'));
+    
+    /*Sum of data using columnwise*/
+    var totalSectorSum = [d3.sum(emissionSectorData.map(function(d){ return d.Transport})),
+       d3.sum(emissionSectorData.map(function(d){ return d.Forestry})),
+       d3.sum(emissionSectorData.map(function(d){ return d.Energy}))];
+    console.log(totalSectorsSum);
+   
+    //var allSectorSum = mycrossfilter.dimension(function(data) { 
+   // return ~~((Date.now() - new Date(data.DOB)) / (31557600000)) 
+    //});
 
 
     /*for chart scale*/
@@ -76,13 +82,13 @@ function show_global_emissions_per_year(ndx) {
             .elasticY(true)
             .xAxisLabel("Years")
             .yAxisLabel("Total CO2 emissions")
-            .yAxis().ticks(20);
-            // .title(function(d) {  // REMAIN UNCHANGED
-            //     return d.key[2] + " earned " + d.key[1]; 
-            // }) 
-            // .colorAccessor(function(d) {  // REMAIN UNCHANGED
-            //     return d.key[3]; 
-            // })    
+            .yAxis().ticks(20);             
+}
+
+function show_global_emissions_per_sector(ndx) {
+    var year_dim = ndx.dimension(dc.pluck('Year'));
+    var sectorGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('Transport'));
+    
 }
 
 function show_country_emissions_top_sectors(ndx) {
@@ -98,3 +104,26 @@ function show_country_emissions_top_sectors(ndx) {
         .dimension(Entity_dim) /*replace */ 
         .group(total_emissions_per_sector); /*replace by:  total_emissions_per_sector */ 
 }
+
+// get top five groups
+// mychart.data(function (group) { 
+//    return group.top(5); 
+// });
+
+// REMOVE EMPTY VALUES
+// chart.filterHandler(function (dimension, filters) {
+//    if (filters.length === 0) {
+//        return filters;
+// });
+
+// Remove empty bins
+// function remove_empty_bins(source_group) {
+//     return {
+//         all:function () {
+//             return source_group.all().filter(function(d) {
+//                 //return Math.abs(d.value) > 0.00001; // if using floating-point numbers
+//                 return d.value !== 0; // if integers only
+//             });
+//         }
+//     };
+// }
