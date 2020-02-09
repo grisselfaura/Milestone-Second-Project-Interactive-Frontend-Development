@@ -13,17 +13,6 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
     var emissionRow = new Object;
 
     emissionSectorData.forEach(function(d){
-        // d.year = parseInt(d.Year);
-        // d.Transport = parseFloat(d.Transport);
-        // d.Forestry = parseInt(d.Forestry);
-        // d.Energy = parseInt(d.Energy);
-        // d.Other_sources = parseInt(d["Other sources"]);
-        // d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use and Forestry"]); 
-        // d.Waste = parseInt(d.Waste);
-        // d.Residential_commercial = parseInt(d["Residential and commercial"]);
-        // d.Industry = parseInt(d.Industry);
-        // d.Agriculture = parseInt(d.Agriculture);
-                     
         emissionRow.Entity = String(d.Entity);
         //console.log(emissionRow.Entity)
         emissionRow.Year =  parseFloat(d.Year);
@@ -47,9 +36,7 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         emissionsData.push(emissionRow);
         //console.log(emissionsData)
     });
-
-    
-    
+       
     show_global_emissions_per_year(ndx);
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
     show_country_emissions_top_sectors(ndx);
@@ -60,14 +47,14 @@ function show_total_year_emissions(ndx) {//griss changed name function and added
     var totalYearValues_dim = ndx.dimension(function (d) { //griss converted to ndx function
         for (i = 0; i < emissionsData.length; i++) {
             var totalCO = 0.0;
-            totalCO += parseFloat(emissionsData[i].Transport);
-            totalCO += parseFloat(emissionsData[i].Forestry);
-            totalCO += parseFloat(emissionsData[i].Energy);
-            totalCO += parseFloat(emissionsData[i].Other_sources);
-            totalCO += parseFloat(emissionsData[i].Agriculture_Land_Use_Forestry);
-            totalCO += parseFloat(emissionsData[i].Waste);
-            totalCO += parseFloat(emissionsData[i].Industry);
-            totalCO += parseFloat(emissionsData[i].Agriculture);
+            totalCO += emissionsData[i].Transport;
+            totalCO += emissionsData[i].Forestry;
+            totalCO += emissionsData[i].Energy;
+            totalCO += emissionsData[i].Other_sources;
+            totalCO += emissionsData[i].Agriculture_Land_Use_Forestry;
+            totalCO += emissionsData[i].Waste;
+            totalCO += emissionsData[i].Industry;
+            totalCO += emissionsData[i].Agriculture;
 
             var year = emissionsData[i].Year;
 
@@ -78,16 +65,16 @@ function show_total_year_emissions(ndx) {//griss changed name function and added
                 if (totalCO != null) {
 
                     if (year in emissionYears){
-                        var addingTotalYear = parseFloat(emissionYears[year]) + parseFloat(totalCO)
+                        var addingTotalYear = emissionYears[year] + totalCO
 
                         if (totalCO != NaN) {
-                            emissionYears[year] = parseFloat(emissionYears[year]) + parseFloat(totalCO)
+                            emissionYears[year] = emissionYears[year] + totalCO
                         }
                         else {
                         }
                     } 
                     else {
-                        emissionYears[year] = parseFloat(totalCO);
+                        emissionYears[year] = totalCO;
                     }
                 }        
             }
