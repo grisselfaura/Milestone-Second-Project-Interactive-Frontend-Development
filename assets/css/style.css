@@ -60,7 +60,9 @@ white-text {
 }
 
 /*Images*/
-.showcase .showcase-img .custom-responsiveness {
+.custom-responsiveness {
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -76,9 +78,10 @@ white-text {
     justify-content: center;
     position: relative;
     height: auto;
-    width: 100%;
-    
+    width: 100vw;
+ 
  }
+
 
 
 .icons-padding {
