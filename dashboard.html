@@ -81,8 +81,29 @@
         <div class="row no-gutters">
             <div class="col-lg-12 order-lg-1 my-auto">
                 <h2 class="mb-2">Global and Country and Map CO2 emisions</h2>
-                <p class="lead mb-0">lalalla</p>
-                <div id="tutorial"></div> <!-- Dashboard panel --> 
+                <p class="lead mb-0"></p>
+                <div id="yearGraph">
+                    <strong>CO2 datameasurements by year all of them 262 countries</strong>
+                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:yearChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div> <!-- Dashboard panel --> 
+                <div id="countryGraph">
+                    <strong>CO2 datameasurements by country all of them 21</strong>
+                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:countryChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+                </div> <!-- Dashboard panel --> 
+                
+                <div>
+                    <div class="dc-data-count">
+                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                            href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                    </div>
+                </div>
+                <table class="table table-hover dc-data-table">
+                </table>
+
             </div>
         
             <div class="col-lg-12 order-lg-1 my-auto">
