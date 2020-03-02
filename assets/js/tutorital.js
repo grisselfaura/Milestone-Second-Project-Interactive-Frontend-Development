@@ -1,7 +1,9 @@
 queue() 
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector.csv")
     .await(makeGraphs);
-    
+
+var yearChart = dc.rowChart("#tutorial")
+
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
 
@@ -10,6 +12,16 @@ function makeGraphs(error, emissionData){
 
    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
    var yearDim = ndx.dimension(function (d) { return d["Year"];});
+
+   var countryGroup = countryDim.group();
+   var yearGroup = yearDim.group();
+
+   yearChart
+    .dimension(yearDim)
+    .group(yearGroup);
+
+   dc.renderAll();
+
 
 //    var filteredEmissionData = []; /*var filteredEmissionData = new Array;*/
 //    emissionData.forEach((d) => {
@@ -27,4 +39,4 @@ function makeGraphs(error, emissionData){
 
 
    // console.log(filteredEmissionData);
-}
+};
