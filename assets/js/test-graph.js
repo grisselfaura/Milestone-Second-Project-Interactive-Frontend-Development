@@ -8,6 +8,7 @@ function makeGraphs(error, salaryData){/*salarrydatareplace*/
 
     salaryData.forEach(function(d){
         d.salary = parseInt(d.salary);
+         console.log(d.salary)
         d.yrs_since_phd = parseInt(d["yrs.since.phd"])  //also to parse my yrs_since_phd from string to int.REMOVE DOTS TO AVOID PROBLEMS
         d.yrs_service = parseInt(d["yrs.service"])
     });
