@@ -2,41 +2,42 @@ queue()
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector.csv")
     .await(makeGraphs);
 
-    var yearChart = dc.rowChart("#yearGraph"),
-    countryChart = dc.rowChart("#countryGraph"),
-    visCount = dc.dataCount(".dc-data-count");
+var yearChart = dc.rowChart("#yearGraph"),
+countryChart = dc.rowChart("#countryGraph"),
+visCount = dc.dataCount(".dc-data-count");
 
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
+    // console.log(emissionData);
 
    var ndx = crossfilter(emissionData);
    var all = ndx.groupAll();
 
-// var filteredEmissionData = []; /*var filteredEmissionData = new Array;*/  
-//    emissionData.forEach(function(d){
+   var filteredEmissionData = []; /*var filteredEmissionData = new Array;*/  
+   emissionData.forEach(function(d){
         
-//         filteredEmissionData.Code = String(d.Code);
-//         console.log(d.Code)
-//         filteredEmissionData.Entity = d.Entity;
-//         filteredEmissionData.Year =  parseFloat(d.Year);
-//         filteredEmissionData.Transport = parseFloat(d.Transport);
-//         filteredEmissionData.Forestry = parseFloat(d.Forestry);
-//         filteredEmissionData.Energy = parseFloat(d.Energy);
-//         filteredEmissionData.Other_sources = parseFloat(d["Other sources"]);
-//         filteredEmissionData.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
-//         filteredEmissionData.Waste = parseFloat(d.Waste);
-//         filteredEmissionData.Residential_commercial = parseFloat(d["Residential and commercial"]);
-//         filteredEmissionData.Industry = parseFloat(d.Industry);
-//         filteredEmissionData.Agriculture = parseFloat(d.Agriculture);
+        filteredEmissionData.Code = String(d.Code);
+        // console.log(d.Code)
+        filteredEmissionData.Entity = d.Entity;
+        filteredEmissionData.Year =  parseFloat(d.Year);
+        filteredEmissionData.Transport = parseFloat(d.Transport);
+        filteredEmissionData.Forestry = parseFloat(d.Forestry);
+        filteredEmissionData.Energy = parseFloat(d.Energy);
+        filteredEmissionData.Other_sources = parseFloat(d["Other sources"]);
+        filteredEmissionData.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
+        filteredEmissionData.Waste = parseFloat(d.Waste);
+        filteredEmissionData.Residential_commercial = parseFloat(d["Residential and commercial"]);
+        filteredEmissionData.Industry = parseFloat(d.Industry);
+        filteredEmissionData.Agriculture = parseFloat(d.Agriculture);
 
-        // for (key in filteredEmissionData) { // REMOVE NAN VALUES
-        //     if (isNaN(filteredEmissionData[key])) {
-        //          filteredEmissionData[key] = 0
-        //     }
-        // }
+        for (key in filteredEmissionData) { // REMOVE NAN VALUES
+            if (isNaN(filteredEmissionData[key])) {
+                 filteredEmissionData[key] = 0
+            }
+        }
 
-    //     filteredEmissionData.push(emissionData);
-    // });
+        filteredEmissionData.push(emissionData);
+    });
 
    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
    var yearDim = ndx.dimension(function (d) { return d["Year"];});
