@@ -1,5 +1,6 @@
 queue() 
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector.csv")
+    // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 
 var yearChart = dc.rowChart("#yearGraph"),
@@ -8,14 +9,24 @@ visCount = dc.dataCount(".dc-data-count");
 
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
-    // console.log(emissionData);
+    console.log(emissionData);
 
    var ndx = crossfilter(emissionData);
    var all = ndx.groupAll();
 
-   var filteredEmissionData = []; /*var filteredEmissionData = new Array;*/  
    emissionData.forEach(function(d){
-        
+        d.year = parseInt(d.Year);
+        // d.Transport = parseFloat(d.Transport);
+        // d.Forestry = parseInt(d.Forestry);
+        // d.Energy = parseInt(d.Energy);
+        // d.Other_sources = parseInt(d["Other sources"]);
+        // d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use and Forestry"]); 
+        // d.Waste = parseInt(d.Waste);
+        // d.Residential_commercial = parseInt(d["Residential and commercial"]);
+        // d.Industry = parseInt(d.Industry);
+        // d.Agriculture = parseInt(d.Agriculture);
+
+        var filteredEmissionData = []; /*var filteredEmissionData = new Array;*/      
         filteredEmissionData.Code = String(d.Code);
         // console.log(d.Code)
         filteredEmissionData.Entity = d.Entity;
@@ -37,6 +48,7 @@ function makeGraphs(error, emissionData){
         }
 
         filteredEmissionData.push(emissionData);
+        console.log(filteredEmissionData)
     });
 
    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
