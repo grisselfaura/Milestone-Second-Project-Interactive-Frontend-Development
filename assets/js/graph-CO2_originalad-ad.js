@@ -1,17 +1,17 @@
 // var yearGlobalChart   = new dc.pieChart("chart-global-CO2-year"),
 //     countryChart  = new dc.barChart("#chart-country-CO2-year"),
 //     topCountryMap = new dc.rowChart("#map-top-countries");
-var emissionsData = new Array;
+var emissionsFilterData = new Array; 
 var emissionYears = new Object;
 
 queue() 
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector.csv")
     .await(makeGraphs);
     
-function makeGraphs(error, emissionSectorData){ /*replace*/ 
-    var ndx = crossfilter(emissionSectorData); /*replace*/ 
+function makeGraphs(error, emissionData){ /*replace*/ 
+    var ndx = crossfilter(emissionData); /*replace*/ 
 
-    emissionSectorData.forEach(function(d){
+    emissionData.forEach(function(d){
         // d.year = parseInt(d.Year);
         // d.Transport = parseFloat(d.Transport);
         // d.Forestry = parseInt(d.Forestry);
@@ -23,27 +23,27 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
         // d.Industry = parseInt(d.Industry);
         // d.Agriculture = parseInt(d.Agriculture);
         
-        var emissionRow = new Object;
+        var emissionParsed = new Object;
       
-        emissionRow.Entity = d.Entity;
-        emissionRow.Year =  parseFloat(d.Year);
-        emissionRow.Transport = parseFloat(d.Transport);
-        emissionRow.Forestry = parseFloat(d.Forestry);
-        emissionRow.Energy = parseFloat(d.Energy);
-        emissionRow.Other_sources = parseFloat(d["Other sources"]);
-        emissionRow.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
-        emissionRow.Waste = parseFloat(d.Waste);
-        emissionRow.Residential_commercial = parseFloat(d["Residential and commercial"]);
-        emissionRow.Industry = parseFloat(d.Industry);
-        emissionRow.Agriculture = parseFloat(d.Agriculture);
+        emissionParsed.Entity = d.Entity;
+        emissionParsed.Year =  parseFloat(d.Year);
+        emissionParsed.Transport = parseFloat(d.Transport);
+        emissionParsed.Forestry = parseFloat(d.Forestry);
+        emissionParsed.Energy = parseFloat(d.Energy);
+        emissionParsed.Other_sources = parseFloat(d["Other sources"]);
+        emissionParsed.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
+        emissionParsed.Waste = parseFloat(d.Waste);
+        emissionParsed.Residential_commercial = parseFloat(d["Residential and commercial"]);
+        emissionParsed.Industry = parseFloat(d.Industry);
+        emissionParsed.Agriculture = parseFloat(d.Agriculture);
 
-        for (key in emissionRow) { // REMOVE NAN VALUES
-            if (isNaN(emissionRow[key])) {
-                 emissionRow[key] = 0
+        for (key in emissionParsed) { // REMOVE NAN VALUES
+            if (isNaN(emissionParsed[key])) {
+                 emissionParsed[key] = 0
             }
         }
 
-        emissionsData.push(emissionRow);
+        emissionsFilterData.push(emissionParsed);
     });
 
     function totalYearValues() {
