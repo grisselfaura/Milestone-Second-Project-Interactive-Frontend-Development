@@ -32,8 +32,6 @@ function makeGraphs(error, emissionSectorData){ /*replace*/
                   emissionRow[key] = 0
             }
         }
-        console.log(emissionRow)
-
         emissionsData.push(emissionRow);
         console.log(emissionsData)
     });

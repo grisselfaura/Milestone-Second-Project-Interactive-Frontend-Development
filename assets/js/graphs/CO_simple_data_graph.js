@@ -6,7 +6,7 @@ var yearChart = dc.rowChart("#yearGraph"),
 countryChart = dc.rowChart("#countryGraph"),
 visCount = dc.dataCount(".dc-data-count");
 
-var filteredEmissionData = []; /*var filteredEmissionData = new Object;*/  
+var filteredEmissionData = []; /*var filteredEmissionData = new Object;*/ 
 
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
@@ -17,18 +17,25 @@ function makeGraphs(error, emissionData){
    var all = ndx.groupAll();
 
     emissionData.forEach(function(d){
-       
-    d.Code = String(d.Code);
-    d.Entity = String(d.Entity),
-    d.Year = parseInt(d.Year),    
-    d.Transport = parseFloat(d.Transport);
-    d.Forestry = parseFloat(d.Forestry);
-    d.Energy = parseFloat(d.Energy);
-    d.Other_sources = parseInt(d["Other sources"]);
-    d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use and Forestry"]); 
-    d.Waste = parseFloat(d.Waste);
-    d.Residential_commercial = parseFloat(d["Residential and commercial"]);
-    d.Industry = parseFloat(d.Industry);
+        d.Code = String(d.Code);
+        d.Entity = String(d.Entity),
+        d.Year = parseInt(d.Year),    
+        d.Transport = parseFloat(d.Transport);
+        d.Forestry = parseFloat(d.Forestry);
+        d.Energy = parseFloat(d.Energy);
+        d.Other_sources = parseInt(d["Other sources"]);
+        d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use and Forestry"]); 
+        d.Waste = parseFloat(d.Waste);
+        d.Residential_commercial = parseFloat(d["Residential and commercial"]);
+        d.Industry = parseFloat(d.Industry);
+
+        for (key in d) { // REMOVE NAN VALUES from numbers
+            if (Number.isNaN(d[key])) { // added Number.isNan
+                  d[key] = 0
+            }
+        }
+        filteredEmissionData.push(d);
+        console.log(filteredEmissionData)
     });
                    
     
