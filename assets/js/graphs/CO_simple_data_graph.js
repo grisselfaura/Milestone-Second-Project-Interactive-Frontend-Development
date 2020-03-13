@@ -2,16 +2,14 @@ queue()
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 
-var yearChart = dc.rowChart("#yearGraph"),
-countryChart = dc.rowChart("#countryGraph"),
+// var yearChart = dc.rowChart("#yearGraph"),
+// countryChart = dc.rowChart("#countryGraph"),
 visCount = dc.dataCount(".dc-data-count");
-
-var filteredEmissionData = []; /*var filteredEmissionData = new Object;*/ 
 
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
-    console.log(emissionData);
-    console.log(typeof(emissionData));
+    // console.log(emissionData);
+    // console.log(typeof(emissionData));
 
    var ndx = crossfilter(emissionData);
    var all = ndx.groupAll();
@@ -27,48 +25,72 @@ function makeGraphs(error, emissionData){
         d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use and Forestry"]); 
         d.Waste = parseFloat(d.Waste);
         d.Residential_commercial = parseFloat(d["Residential and commercial"]);
-        d.Industry = parseFloat(d.Industry);
-
-        for (key in d) { // REMOVE NAN VALUES from numbers
-            if (Number.isNaN(d[key])) { // added Number.isNan
-                  d[key] = 0
-            }
-        }
-        filteredEmissionData.push(d);
-        console.log(filteredEmissionData)
+        d.Industry = parseFloat(d.Industry);      
     });
                    
     
-   var countryDim = ndx.dimension(function (d) { return d["Entity"];});
-   var yearDim = ndx.dimension(function (d) { return d["Year"];});
-   
+//    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
+//    var yearDim = ndx.dimension(function (d) { return d["Year"];});
+  
+//    var countryGroup = countryDim.group();
+//    var yearGroup = yearDim.group();
 
-   var countryGroup = countryDim.group();
-   var yearGroup = yearDim.group();
+//    yearChart
+//     .height(600)
+//     .dimension(yearDim)
+//     .group(yearGroup)
+//     .elasticX(true);/*allows scale to update with each other*/
 
-   
-
-   yearChart
-    .height(600)
-    .dimension(yearDim)
-    .group(yearGroup)
-    .elasticX(true);/*allows scale to update with each other*/
-
-   countryChart
-    .dimension(countryDim)
-    .group(countryGroup)
-    .elasticX(true)
-    .data(function (group){return group.top(10); }); /*top 10 countries function*/
+//    countryChart
+//     .dimension(countryDim)
+//     .group(countryGroup)
+//     .elasticX(true)
+//     .data(function (group){return group.top(10); }); /*top 10 countries function*/
 
     visCount 
     .dimension(ndx)
     .group(all);
 
-    // visTable 
-    //     .dimension(yearDim)
-    //     .group(countryGroup)
-    //     .columns(["Entity"],["Year"]);
-
-   dc.renderAll();
+    show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
+    // show_global_emissions_per_year(ndx);
+    // show_country_emissions_top_sectors(ndx);
+    dc.renderAll();
 
 };
+
+function show_country_selector(ndx) {
+    var dim = ndx.dimension(dc.pluck('Entity'));
+    var group = dim.group();
+    
+    dc.selectMenu("#country-selector")
+        .dimension(dim)
+        .group(group) 
+        .title(kv => kv.key);/*not showing the count numner*/
+}
+
+function show_global_emissions_per_year(ndx) {
+    var year_dim = ndx.dimension(dc.pluck('year'));
+    var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('totalCO'));
+    //var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('totalSectorSum'));
+    
+    /*for chart scale*/
+    var minYear = year_dim.bottom(1)[0].Year;
+    var maxYear = year_dim.top(1)[0].Year;
+
+    dc.lineChart("#chart-global-CO2-year")
+            .width(1000)
+            .height(300)
+            .margins({top: 10, right: 50, bottom: 30, left:100})
+            .dimension(year_dim)
+            .group(yearGlobalEmissionsChart)
+            .transitionDuration(500)
+            .x(d3.scale.ordinal())
+            .xUnits(dc.units.ordinal)
+            .y(d3.scale.linear())//check scale and x axus
+            //.y(d3.scale.linear().domain([0, d3.max(emissionSectorData)]).range([0, h]))//check scale and x axus
+            //.elasticX(true) 
+            .elasticY(true)
+            .xAxisLabel("Years")
+            .yAxisLabel("Total CO2 emissions")
+            .yAxis().ticks(20);             
+}
