@@ -16,18 +16,24 @@ function makeGraphs(error, emissionData){
 
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
-        console.log(d.Code);
         d.Entity = String(d.Entity),
         d.Year = parseInt(d.Year),    
         d.Transport = parseFloat(d.Transport);
-        console.log(d.Transport);
+        // console.log(d.Transport);
         d.Forestry = parseFloat(d.Forestry);
+        // console.log(d.Forestry);
         d.Energy = parseFloat(d.Energy);
+        // console.log(d.Energy);
         d.Other_sources = parseInt(d["Other sources"]);
-        d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use and Forestry"]); 
+        console.log(d["Other sources"]);
+        d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
+        console.log(d["Agriculture, Land Use & Forestry"]);
         d.Waste = parseFloat(d.Waste);
-        d.Residential_commercial = parseFloat(d["Residential and commercial"]);
+        // console.log(d.Waste);
+        d.Residential_commercial = parseFloat(d["Residential & commercial"]);
+        console.log(d["Residential & commercial"]);
         d.Industry = parseFloat(d.Industry); 
+        // console.log(d.Industry);
         d.total_CO = parseFloat(d["total CO"]);      
         console.log(d.total_CO);
     });
