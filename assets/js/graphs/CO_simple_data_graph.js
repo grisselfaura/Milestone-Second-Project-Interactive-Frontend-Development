@@ -2,7 +2,7 @@ queue()
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 
-// var yearChart = dc.rowChart("#yearGraph"),
+var yearChart = dc.rowChart("#yearGraph"),
 // countryChart = dc.rowChart("#countryGraph"),
 visCount = dc.dataCount(".dc-data-count");
 
@@ -39,17 +39,17 @@ function makeGraphs(error, emissionData){
     });
                    
     
-//    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
-//    var yearDim = ndx.dimension(function (d) { return d["Year"];});
+   var countryDim = ndx.dimension(function (d) { return d["Entity"];});
+   var yearDim = ndx.dimension(function (d) { return d["Year"];});
   
-//    var countryGroup = countryDim.group();
-//    var yearGroup = yearDim.group();
+   var countryGroup = countryDim.group();
+   var yearGroup = yearDim.group();
 
-//    yearChart
-//     .height(600)
-//     .dimension(yearDim)
-//     .group(yearGroup)
-//     .elasticX(true);/*allows scale to update with each other*/
+   yearChart
+    .height(600)
+    .dimension(yearDim)
+    .group(yearGroup)
+    .elasticX(true);/*allows scale to update with each other*/
 
 //    countryChart
 //     .dimension(countryDim)
@@ -93,13 +93,12 @@ function show_global_emissions_per_year(ndx) {
             .dimension(year_dim)
             .group(yearGlobalEmissionsChart)
             .transitionDuration(500)
-            .y(d3.scale.ordinal())
-            // .yUnits(dc.units.ordinal)
-            .x(d3.scale.linear())//check scale and x axus
-            // //.y(d3.scale.linear().domain([0, d3.max(emissionSectorData)]).range([0, h]))//check scale and x axus
-            // .elasticX(true); 
-            // // .elasticX(true);/*allows scale to update with each other*/
-            .xAxisLabel("Total CO2 emissions")
-            .yAxisLabel("Years")
-            .yAxis().ticks(20);             
-}
+            .elasticY(true)/*allows scale to update with each other*/
+            .yAxisPadding(100)
+            .x(d3.scale.linear().domain([minYear, maxYear]))
+            // .x(d3.scale.linear().domain([new Date(1990, 0, 1), new Date(2010, 11, 31)]))
+            // .y(d3.scale.linear().domain([0, d3.max(emissionData)]).range([0, h]))//check scale and x axus
+            .xAxisLabel("Years")
+            .yAxisLabel("Total CO2 emissions")
+            .renderHorizontalGridLines(true)
+}                
