@@ -13,11 +13,13 @@ function makeGraphs(error, emissionData){
 
    var ndx = crossfilter(emissionData);
    var all = ndx.groupAll();
+   var parseDate = d3.time.format("%Y").parse;
 
+   
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
         d.Entity = String(d.Entity),
-        d.Year = parseInt(d.Year),    
+        d.Year = parseDate(d.Year),    
         d.Transport = parseFloat(d.Transport);
         // console.log(d.Transport);
         d.Forestry = parseFloat(d.Forestry);
@@ -41,7 +43,7 @@ function makeGraphs(error, emissionData){
     
    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
    var yearDim = ndx.dimension(function (d) { return d["Year"];});
-  
+   
    var countryGroup = countryDim.group();
    var yearGroup = yearDim.group();
 
@@ -49,7 +51,8 @@ function makeGraphs(error, emissionData){
     .height(600)
     .dimension(yearDim)
     .group(yearGroup)
-    .elasticX(true);/*allows scale to update with each other*/
+    .elasticX(true)/*allows scale to update with each other*/
+    .x(d3.time.scale());
 
 //    countryChart
 //     .dimension(countryDim)
@@ -78,22 +81,17 @@ function show_country_selector(ndx) {
         .title(kv => kv.key);/*not showing the count numner*/ 
 
     dc.renderAll();   
+    
     //Select the first country from the list by default 
     select.replaceFilter([["Afghanistan"]]).redrawGroup();
+
+        //     dc.selectMenu("#country-selector")
+        //         .dimension(dim)
+        //         .group(group) 
+        //         .title(kv => kv.key);/*not showing the count numner*/ 
+        // }
 }
-// function show_country_selector(ndx) {
-//     var dim = ndx.dimension(dc.pluck('Entity'));
-//     var group = dim.group();
-    
-//     dc.selectMenu("#country-selector")
-//         .dimension(dim)
-//         .group(group) 
-//         .title(kv => kv.key);/*not showing the count numner*/ 
-// }
-
-//option 1 Select the first country from the list by default
-
-
+ 
 function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total CO'));
@@ -111,7 +109,8 @@ function show_global_emissions_per_year(ndx) {
             .transitionDuration(500)
             .elasticY(true)/*allows scale to update with each other*/
             .yAxisPadding(100)
-            .x(d3.scale.linear().domain([minYear, maxYear]))
+            .x(d3.time.scale().domain([minYear, maxYear]))
+            //go back to this in case of error.x(d3.scale.linear().domain([minYear, maxYear]))
             // .x(d3.scale.linear().domain([new Date(1990, 0, 1), new Date(2010, 11, 31)]))
             // .y(d3.scale.linear().domain([0, d3.max(emissionData)]).range([0, h]))//check scale and x axus
             .xAxisLabel("Years")
