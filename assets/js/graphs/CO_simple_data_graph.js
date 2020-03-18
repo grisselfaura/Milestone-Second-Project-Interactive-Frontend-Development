@@ -63,20 +63,36 @@ function makeGraphs(error, emissionData){
 
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
     show_global_emissions_per_year(ndx);
+    
     // show_country_emissions_top_sectors(ndx);
     dc.renderAll();
-
+    
 };
-
 function show_country_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('Entity'));
     var group = dim.group();
     
-    dc.selectMenu("#country-selector")
+    select = dc.selectMenu("#country-selector")
         .dimension(dim)
         .group(group) 
-        .title(kv => kv.key);/*not showing the count numner*/
+        .title(kv => kv.key);/*not showing the count numner*/ 
+
+    dc.renderAll();   
+    //Select the first country from the list by default 
+    select.replaceFilter([["Afghanistan"]]).redrawGroup();
 }
+// function show_country_selector(ndx) {
+//     var dim = ndx.dimension(dc.pluck('Entity'));
+//     var group = dim.group();
+    
+//     dc.selectMenu("#country-selector")
+//         .dimension(dim)
+//         .group(group) 
+//         .title(kv => kv.key);/*not showing the count numner*/ 
+// }
+
+//option 1 Select the first country from the list by default
+
 
 function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
