@@ -105,7 +105,7 @@ function show_global_emissions_per_year(ndx) {
     var maxYear = year_dim.top(1)[0].Year;
 
     dc.lineChart("#chart-global-CO2-year")
-            .width(1000)
+            .width(500)
             .height(300)
             .margins({top: 10, right: 50, bottom: 30, left:100})
             .dimension(year_dim)
@@ -142,7 +142,8 @@ function show_country_emissions_stacked(ndx) {
         
     dc.barChart("#stacked-chart")
                 .width(500)
-                .height(500)
+                .height(300)
+                .margins({top: 10, right: 100, bottom: 30, left:100})
                 .dimension(year_dim)
                 .group(coByYearTransport, "Transport") // first item goes as .group
                 .stack(coByYearForestry, "Forestry") // the rest go in as .stack (to stack on-top)
@@ -152,18 +153,22 @@ function show_country_emissions_stacked(ndx) {
                 .stack(coByYearWaste, "Waste") // .stack on previous
                 .stack(coByYearResidentialCommercial, "Residential and Commercial") // .stack on previous
                 .stack(coByYearIndustry, "Industry") // .stack on previous
-                .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
-                    if (d.value.total > 0) {
-                        return d.value.match;
-                    } else { // otherwise, don't add it to the stack
-                        return 0;
-                    }
-                })
+                .renderLabel(true)
+                // .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
+                //     if (d.value.total > 0) {
+                //         return d.value.match;
+                //     } else { // otherwise, don't add it to the stack
+                //         return 0;
+                //     }
+                // })
+                .transitionDuration(500)
                 .elasticY(true)/*allows scale to update with each other*/
+                .yAxisPadding(100)
                 .x(d3.time.scale().domain([minYear, maxYear]))
                 //             // .x(d3.scale.ordinal())
                 //             // .xUnits(dc.units.ordinal)
-                .legend(dc.legend().x(320).y(30).itemHeight(15).gap(5))
-                .margins().right = 100;
-
+                .legend(dc.legend().x(320).y(0).itemHeight(15).gap(10))
+                .xAxisLabel("Years")
+                .yAxisLabel("CO2 emissions by sectors")
+                .renderHorizontalGridLines(true);               
 }
