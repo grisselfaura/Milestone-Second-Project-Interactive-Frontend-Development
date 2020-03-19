@@ -71,22 +71,22 @@
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-lg-12 order-lg-1 my-auto">
-                <h2 class="mb-2">CO2 EMISSIONS</h2>
+                <h2 class="mb-2">Global CO2 Emissions</h2>
                 <p class="lead mb-0"></p>
-                <div id="yearGraph">
-                    <strong>CO2 datameasurements by year all of them 262 countries</strong>
+                <!--<div id="yearGraph">
+                    <strong>CO2 data measurements by year all of them 262 countries</strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                     <a class="reset" href="javascript:yearChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                     <div class="clearfix"></div>
-                </div> <!-- Dashboard panel --> 
-                <div id="countryGraph">
-                    <strong>CO2 datameasurements by country all of them 21</strong>
+                </div> --> 
+                <!--<div id="countryGraph">
+                    <strong>CO2 data measurements by country all of them 21</strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                     <a class="reset" href="javascript:countryChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                     <div class="clearfix"></div>
-                </div> <!-- Dashboard panel --> 
+                </div> --> 
                 <div class="dc-data-count">
-                        <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                    <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
                             href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
                 </div>
                 <table class="table table-hover dc-data-table">
@@ -95,10 +95,8 @@
             </div>
         
             <div class="col-lg-12 order-lg-1 my-auto">
-                
                 <div id="country-selector" class="chart"> <!--  ADD fa fa-exchange-alt fa-w-16 -->
                     <strong>DEFAULT COUNTRY</strong>
-                    <div id="chart-country-CO2-year"></div> <!-- Dashboard panel --> 
                 </div>    
                 <div id="chart-global-CO2-year" class="chart"></div> <!-- Dashboard panel --> 
                     <strong>CO2 measurements per year by country </strong>
@@ -108,6 +106,11 @@
                 <div id="" class="chart">
                     <svg id="map-top-countries" width="400" height="300"></svg>
                 </div> <!-- Dashboard panel --> 
+                <div id="#stacked-chart" class="chart"></div> <!-- Dashboard panel -->
+                <strong>stacked chart</strong>
+                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div> 
             </div>
         </div>
         

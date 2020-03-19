@@ -2,7 +2,7 @@ queue()
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 
-var yearChart = dc.rowChart("#yearGraph"),
+// var yearChart = dc.rowChart("#yearGraph"),
 // countryChart = dc.rowChart("#countryGraph"),
 visCount = dc.dataCount(".dc-data-count");
 
@@ -15,7 +15,7 @@ function makeGraphs(error, emissionData){
    var all = ndx.groupAll();
    var parseDate = d3.time.format("%Y").parse;
 
-   
+   // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
         d.Entity = String(d.Entity),
@@ -41,18 +41,18 @@ function makeGraphs(error, emissionData){
     });
                    
     
-   var countryDim = ndx.dimension(function (d) { return d["Entity"];});
-   var yearDim = ndx.dimension(function (d) { return d["Year"];});
+//    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
+//    var yearDim = ndx.dimension(function (d) { return d["Year"];});
    
-   var countryGroup = countryDim.group();
-   var yearGroup = yearDim.group();
+//    var countryGroup = countryDim.group();
+//    var yearGroup = yearDim.group();
 
-   yearChart
-    .height(600)
-    .dimension(yearDim)
-    .group(yearGroup)
-    .elasticX(true)/*allows scale to update with each other*/
-    .x(d3.time.scale());
+//    yearChart
+//     .height(600)
+//     .dimension(yearDim)
+//     .group(yearGroup)
+//     .elasticX(true)/*allows scale to update with each other*/
+//     .x(d3.time.scale());
 
 //    countryChart
 //     .dimension(countryDim)
@@ -66,11 +66,13 @@ function makeGraphs(error, emissionData){
 
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
     show_global_emissions_per_year(ndx);
-    
+    // show_global_emissions_map(ndx);
+    show_country_emissions_stacked(ndx);
     // show_country_emissions_top_sectors(ndx);
     dc.renderAll();
     
 };
+
 function show_country_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('Entity'));
     var group = dim.group();
@@ -117,3 +119,49 @@ function show_global_emissions_per_year(ndx) {
             .yAxisLabel("Total CO2 emissions")
             .renderHorizontalGridLines(true)
 }                
+
+function show_country_emissions_stacked(ndx) {
+    var year_dim = ndx.dimension(dc.pluck('Year'));
+    
+    /*for chart scale*/
+    var minYear = year_dim.bottom(1)[0].Year;
+    var maxYear = year_dim.top(1)[0].Year;
+
+    var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
+    var coByYearForestry = year_dim.group().reduceSum(dc.pluck('Forestry'));/*PLEASE ADAPT*/
+        // d.Energy = parseFloat(d.Energy);
+        // d.Other_sources = parseInt(d["Other sources"]);
+        // d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
+        // d.Waste = parseFloat(d.Waste);
+        // d.Residential_commercial = parseFloat(d["Residential & commercial"]);
+        // d.Industry = parseFloat(d.Industry); 
+
+    dc.barChart("#stacked-chart")
+                .width(500)
+                .height(500)
+                .dimension(year_dim)
+                .group(coByYearTransport) // first item goes as .group
+                .stack(coByYearForestry) // the rest go in as .stack (to stack on-top)
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                // .stack() // .stack on previous
+                .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
+                    if (d.value.total > 0) {
+                        return d.value.match;
+                    } else { // otherwise, don't add it to the stack
+                        return 0;
+                    }
+                })
+                .elasticY(true)/*allows scale to update with each other*/
+                .x(d3.time.scale().domain([minYear, maxYear]))
+                // .x(d3.scale.ordinal())
+                // .xUnits(dc.units.ordinal)
+                .legend(dc.legend().x(420).y(0).itemHeight(15).gap(5));
+                // .margins().right = 100;
+
+}
