@@ -129,27 +129,25 @@ function show_country_emissions_stacked(ndx) {
 
     var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
     var coByYearForestry = year_dim.group().reduceSum(dc.pluck('Forestry'));/*PLEASE ADAPT*/
-        // d.Energy = parseFloat(d.Energy);
-        // d.Other_sources = parseInt(d["Other sources"]);
-        // d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
-        // d.Waste = parseFloat(d.Waste);
-        // d.Residential_commercial = parseFloat(d["Residential & commercial"]);
-        // d.Industry = parseFloat(d.Industry); 
-
+    var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));/*PLEASE ADAPT*/
+    var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other sources'));/*PLEASE ADAPT*/
+    var coByYearAgricultureLandUseForestry = year_dim.group().reduceSum(dc.pluck('Agriculture, Land Use & Forestry'));/*PLEASE ADAPT*/
+    var coByYearWaste = year_dim.group().reduceSum(dc.pluck('Waste'));/*PLEASE ADAPT*/    
+    var coByYearResidentialCommercial = year_dim.group().reduceSum(dc.pluck('Residential & commercial'));/*PLEASE ADAPT*/   
+    var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));/*PLEASE ADAPT*/       
+        
     dc.barChart("#stacked-chart")
                 .width(500)
                 .height(500)
                 .dimension(year_dim)
                 .group(coByYearTransport) // first item goes as .group
                 .stack(coByYearForestry) // the rest go in as .stack (to stack on-top)
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
-                // .stack() // .stack on previous
+                .stack(coByYearEnergy) // .stack on previous
+                .stack(coByYearOtherSources) // .stack on previous
+                .stack(coByYearAgricultureLandUseForestry) // .stack on previous
+                .stack(coByYearWaste) // .stack on previous
+                .stack(coByYearResidentialCommercial) // .stack on previous
+                .stack(coByYearIndustry) // .stack on previous
                 .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
                     if (d.value.total > 0) {
                         return d.value.match;
