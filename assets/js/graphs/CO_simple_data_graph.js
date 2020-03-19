@@ -96,8 +96,10 @@ function show_country_selector(ndx) {
  
 function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
+   
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total CO'));
-        
+    console.log(yearGlobalEmissionsChart);
+
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
@@ -122,12 +124,14 @@ function show_global_emissions_per_year(ndx) {
 
 function show_country_emissions_stacked(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
-    
+    console.log(year_dim);
+
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
-
+    
     var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
+    console.log(coByYearTransport);
     var coByYearForestry = year_dim.group().reduceSum(dc.pluck('Forestry'));/*PLEASE ADAPT*/
     var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));/*PLEASE ADAPT*/
     var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other sources'));/*PLEASE ADAPT*/
