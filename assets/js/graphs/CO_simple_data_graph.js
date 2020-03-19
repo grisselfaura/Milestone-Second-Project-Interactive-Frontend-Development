@@ -144,14 +144,14 @@ function show_country_emissions_stacked(ndx) {
                 .width(500)
                 .height(500)
                 .dimension(year_dim)
-                .group(coByYearTransport) // first item goes as .group
-                .stack(coByYearForestry) // the rest go in as .stack (to stack on-top)
-                .stack(coByYearEnergy) // .stack on previous
-                .stack(coByYearOtherSources) // .stack on previous
-                .stack(coByYearAgricultureLandUseForestry) // .stack on previous
-                .stack(coByYearWaste) // .stack on previous
-                .stack(coByYearResidentialCommercial) // .stack on previous
-                .stack(coByYearIndustry) // .stack on previous
+                .group(coByYearTransport, "Transport") // first item goes as .group
+                .stack(coByYearForestry, "Forestry") // the rest go in as .stack (to stack on-top)
+                .stack(coByYearEnergy, "Energy") // .stack on previous
+                .stack(coByYearOtherSources, "Other Sources") // .stack on previous
+                .stack(coByYearAgricultureLandUseForestry, "Agriculture Land Use and Forestry") // .stack on previous
+                .stack(coByYearWaste, "Waste") // .stack on previous
+                .stack(coByYearResidentialCommercial, "Residential and Commercial") // .stack on previous
+                .stack(coByYearIndustry, "Industry") // .stack on previous
                 .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
                     if (d.value.total > 0) {
                         return d.value.match;
@@ -161,9 +161,9 @@ function show_country_emissions_stacked(ndx) {
                 })
                 .elasticY(true)/*allows scale to update with each other*/
                 .x(d3.time.scale().domain([minYear, maxYear]))
-                // .x(d3.scale.ordinal())
-                // .xUnits(dc.units.ordinal)
-                .legend(dc.legend().x(420).y(0).itemHeight(15).gap(5));
-                // .margins().right = 100;
+                //             // .x(d3.scale.ordinal())
+                //             // .xUnits(dc.units.ordinal)
+                .legend(dc.legend().x(320).y(30).itemHeight(15).gap(5))
+                .margins().right = 100;
 
 }
