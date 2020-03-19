@@ -167,7 +167,8 @@ function show_country_emissions_stacked(ndx) {
                 .x(d3.time.scale().domain([minYear, maxYear]))
                 //             // .x(d3.scale.ordinal())
                 //             // .xUnits(dc.units.ordinal)
-                .legend(dc.legend().x(320).y(0).itemHeight(15).gap(10))
+                .legend(dc.legend().x(130).y(0).itemHeight(10).gap(5).horizontal(true).autoItemWidth(true).itemWidth(0))
+                // .legend(dc.legend().x(320).y(0).itemHeight(15).gap(10))
                 .xAxisLabel("Years")
                 .yAxisLabel("CO2 emissions by sectors")
                 .renderHorizontalGridLines(true);               
