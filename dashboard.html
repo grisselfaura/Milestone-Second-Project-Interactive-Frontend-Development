@@ -70,8 +70,15 @@
   <section class="showcase">
     <div class="container-fluid p-0">
         <div class="row no-gutters">
-            <div class="col-lg-12 order-lg-1 my-auto">
+            <div class="col-lg-12 order-lg-1 my-auto offset-2"> <!-- y - for classes that set both *-top and *-bottom-->
                 <h2 class="mb-2">Global CO2 Emissions</h2>
+                <div class="dc-data-count mb-3">
+                    <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
+                            href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                </div>
+                <div id="country-selector" class="chart mb-3"> <!--  ADD fa fa-exchange-alt fa-w-16 -->
+                    <strong>DEFAULT COUNTRY</strong>
+                </div>    
                 <p class="lead mb-0"></p>
                 <!--<div id="yearGraph">
                     <strong>CO2 data measurements by year all of them 262 countries</strong>
@@ -85,43 +92,36 @@
                     <a class="reset" href="javascript:countryChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                     <div class="clearfix"></div>
                 </div> --> 
-                <div class="dc-data-count">
-                    <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
-                            href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-                </div>
-                <table class="table table-hover dc-data-table">
-                </table>
+                <!-- <table class="table table-hover dc-data-table">
+                </table> -->
 
             </div>
-        
-            <div class="col-lg-12 order-lg-1 my-auto">
-                <div id="country-selector" class="chart"> <!--  ADD fa fa-exchange-alt fa-w-16 -->
-                    <strong>DEFAULT COUNTRY</strong>
-                </div>    
-                <div id="chart-global-CO2-year" class="chart"></div> <!-- Dashboard panel --> 
-                    <strong>CO2 measurements per year by country </strong>
+        </div>    
+        <div class="row no-gutters">
+            <div class="col-lg-6 order-lg-1 my-auto offset-2">
+                <!--col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness--> 
+                <div id="chart-global-CO2-year" class="chart mb-3"> <!-- line chart -->
+                    <strong> CO2 measurements per year by country </strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                         <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                         <div class="clearfix"></div>
-                <div id="" class="chart">
-                    <svg id="map-top-countries" width="400" height="300"></svg>
-                </div> <!-- Dashboard panel --> 
-                <div id="stacked-chart" class="chart"></div> <!-- Dashboard panel -->
-                <strong>stacked chart</strong>
+                </div> 
+            </div>
+            <div class="col-lg-6 order-lg-1 my-auto offset-2">
+                <div id="stacked-chart" class="chart mb-3"> <!-- stacked chart -->
+                    <strong>Overview of CO2 measurements distribution by sector per country</strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div> 
+                        <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                        <div class="clearfix"></div>
+                </div> 
             </div>
         </div>
         
-           
       <div class="row no-gutters">
         <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness">
             <p>test tutorial</p>
             <div id="veamos"></div> <!-- Dashboard panel --> 
             <div id="xxxxxx"></div> <!-- Dashboard panel --> 
-            
-            
         </div>
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2 class="mb-2">Global CO2 emisions</h2>
@@ -146,6 +146,7 @@
         </div>
         <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="emissions-per-sector"></div> 
       </div>
+
     </div>
   </section>
 
