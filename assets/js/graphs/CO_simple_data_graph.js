@@ -129,9 +129,9 @@ function show_country_emissions_stacked(ndx) {
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
-    
+    // var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); /*same result*/
     var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
-    console.log(coByYearTransport);
+    console.log(coByYearTransport);/*testing in inspect*/
     var coByYearForestry = year_dim.group().reduceSum(dc.pluck('Forestry'));/*PLEASE ADAPT*/
     var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));/*PLEASE ADAPT*/
     var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other sources'));/*PLEASE ADAPT*/
@@ -153,7 +153,15 @@ function show_country_emissions_stacked(ndx) {
                 .stack(coByYearWaste, "Waste") // .stack on previous
                 .stack(coByYearResidentialCommercial, "Residential and Commercial") // .stack on previous
                 .stack(coByYearIndustry, "Industry") // .stack on previous
-                .renderLabel(true)
+                // .renderLabel(true) // number label on top but messy
+                // .on('renderlet', function(chart) {
+                //     chart.selectAll('rect').on("click", function(d) {
+                //         console.log("click!", d);
+                //     });
+                // })
+                .title(function (d) { // show only value and not date
+                    return d.value;
+                })
                 // .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
                 //     if (d.value.total > 0) {
                 //         return d.value.match;
@@ -166,11 +174,14 @@ function show_country_emissions_stacked(ndx) {
                 // .xUnits(function(minYear, maxYear){return Math.abs(maxYear - minYear);})
                 .elasticY(true)/*allows scale to update with each other*/
                 .yAxisPadding(50)
-                .centerBar(true)
+                // .centerBar(true)
                 .x(d3.time.scale().domain([minYear, maxYear]))
                 .legend(dc.legend().x(130).y(0).itemHeight(10).gap(5).horizontal(true).autoItemWidth(true).itemWidth(0))
-                // .legend(dc.legend().x(320).y(0).itemHeight(15).gap(10))
+                .brushOn(false)
                 .xAxisLabel("Years")
                 .yAxisLabel("CO2 emissions by sectors")
                 .renderHorizontalGridLines(true);               
 }
+
+
+
