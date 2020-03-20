@@ -141,7 +141,7 @@ function show_country_emissions_stacked(ndx) {
     var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));/*PLEASE ADAPT*/       
         
     dc.barChart("#stacked-chart")
-                .width(500)
+                .width(600)
                 .height(300)
                 .margins({top: 10, right: 100, bottom: 30, left:100})
                 .dimension(year_dim)
@@ -162,11 +162,12 @@ function show_country_emissions_stacked(ndx) {
                 //     }
                 // })
                 .transitionDuration(500)
+                .xUnits(function(){return 20;})
+                // .xUnits(function(minYear, maxYear){return Math.abs(maxYear - minYear);})
                 .elasticY(true)/*allows scale to update with each other*/
-                .yAxisPadding(100)
+                .yAxisPadding(50)
+                .centerBar(true)
                 .x(d3.time.scale().domain([minYear, maxYear]))
-                //             // .x(d3.scale.ordinal())
-                //             // .xUnits(dc.units.ordinal)
                 .legend(dc.legend().x(130).y(0).itemHeight(10).gap(5).horizontal(true).autoItemWidth(true).itemWidth(0))
                 // .legend(dc.legend().x(320).y(0).itemHeight(15).gap(10))
                 .xAxisLabel("Years")
