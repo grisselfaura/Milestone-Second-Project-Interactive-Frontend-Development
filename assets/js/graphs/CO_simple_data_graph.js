@@ -40,7 +40,6 @@ function makeGraphs(error, emissionData){
         // console.log(d.total_CO);
     });
                    
-    
 //    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
 //    var yearDim = ndx.dimension(function (d) { return d["Year"];});
    
@@ -65,6 +64,7 @@ function makeGraphs(error, emissionData){
     .group(all);
 
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
+    // show_CO_percentage_per_sector_2010(ndx);
     show_global_emissions_per_year(ndx);
     // show_global_emissions_map(ndx);
     show_country_emissions_stacked(ndx);
@@ -124,14 +124,15 @@ function show_global_emissions_per_year(ndx) {
 
 function show_country_emissions_stacked(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
-    console.log(year_dim);
+    // console.log(year_dim);
 
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
+    
     // var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); /*same result*/
     var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
-    console.log(coByYearTransport);/*testing in inspect*/
+    // console.log(coByYearTransport);/*testing in inspect*/
     var coByYearForestry = year_dim.group().reduceSum(dc.pluck('Forestry'));/*PLEASE ADAPT*/
     var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));/*PLEASE ADAPT*/
     var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other sources'));/*PLEASE ADAPT*/
@@ -182,6 +183,39 @@ function show_country_emissions_stacked(ndx) {
                 .yAxisLabel("CO2 emissions by sectors")
                 .renderHorizontalGridLines(true);               
 }
+
+// function show_CO_percentage_per_sector_2010(ndx) {
+//     var percentageofTransport = ndx.groupAll().reduce(/* modify this accordingly */
+//         function (p, v) {
+//             if (v.Year === 2010) {
+//                 p.count++;
+//             }
+//             return p;
+//         },
+//         function (p, v) {
+//             if (v.Year === 2010) {
+//                 p.count--;
+//             }
+//             return p;
+//         },
+//         function () {
+//             return {count: 0, 2010: 0};
+//         },
+//     );
+//     console.log(percentageofTransport);
+
+//     // dc.numberDisplay(element)
+//     dc.numberDisplay("#percent-transport")
+//         .formatNumber(d3.format(".2%"))
+//         .valueAccessor(function (d) {
+//             if (d.count == 0) {
+//                 return 0;
+//             } else {
+//                 return (d.are_prof / d.count); /* modify this accordingly */
+//             }
+//         })
+//         .group(percentageofTransport)    
+// }
 
 
 
