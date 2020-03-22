@@ -98,7 +98,7 @@ function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
    
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total CO'));
-    console.log(yearGlobalEmissionsChart);
+    // console.log(yearGlobalEmissionsChart);
 
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
@@ -184,25 +184,40 @@ function show_country_emissions_stacked(ndx) {
                 .renderHorizontalGridLines(true);               
 }
 
-// function show_CO_percentage_per_sector_2010(ndx) {
-//     var percentageofTransport = ndx.groupAll().reduce(/* modify this accordingly */
-//         function (p, v) {
-//             if (v.Year === 2010) {
-//                 p.count++;
-//             }
-//             return p;
-//         },
-//         function (p, v) {
-//             if (v.Year === 2010) {
-//                 p.count--;
-//             }
-//             return p;
-//         },
-//         function () {
-//             return {count: 0, 2010: 0};
-//         },
-//     );
-//     console.log(percentageofTransport);
+function show_CO_percentage_per_sector_2010(ndx) {
+    var year_dim = ndx.dimension(dc.pluck('Year'));       
+    // var coPercentageTransport = year_dim.filter("2010").reduceSum(function(d) {return d.Transport;});
+    // console.log(coPercentageTransport);
+
+    var yearlyCO = yearlyDimension.group().reduce(
+        function add_item(p, v) {
+            if (v.Year === 2010) {
+                ++p.count;
+                p.totalco += v["total CO"] ;
+                p.sumIndex += (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
+                p.avgIndex = p.sumIndex / p.count;
+            }
+            return p;
+        },
+        function remove_item(p, v) {
+            if (v.Year === 2010) {
+                p.count--;
+                p.totalco -= v["total CO"] ;
+                p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
+                p.avgIndex = p.sumIndex / p.count;
+            }
+            return p;
+        },
+        function initialise() {
+            return {
+                count: 0, 
+                totalco: 0,
+                sumIndex: 0,  
+                avgIndex: 0,
+            };
+        },
+    );
+
 
 //     // dc.numberDisplay(element)
 //     dc.numberDisplay("#percent-transport")
@@ -215,7 +230,7 @@ function show_country_emissions_stacked(ndx) {
 //             }
 //         })
 //         .group(percentageofTransport)    
-// }
+}
 
 
 
