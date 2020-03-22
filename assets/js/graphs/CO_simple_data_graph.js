@@ -68,6 +68,7 @@ function makeGraphs(error, emissionData){
     show_global_emissions_per_year(ndx);
     // show_global_emissions_map(ndx);
     show_country_emissions_stacked(ndx);
+    show_CO_average_per_country(ndx);
     // show_country_emissions_top_sectors(ndx);
     dc.renderAll();
     
@@ -184,53 +185,105 @@ function show_country_emissions_stacked(ndx) {
                 .renderHorizontalGridLines(true);               
 }
 
-function show_CO_percentage_per_sector_2010(ndx) {
-    var year_dim = ndx.dimension(dc.pluck('Year'));       
-    // var coPercentageTransport = year_dim.filter("2010").reduceSum(function(d) {return d.Transport;});
-    // console.log(coPercentageTransport);
+// function show_CO_percentage_per_sector_2010(ndx) {
+//     var year_dim = ndx.dimension(dc.pluck('Year'));       
+//     // var coPercentageTransport = year_dim.filter("2010").reduceSum(function(d) {return d.Transport;});
+//     // console.log(coPercentageTransport);
 
-    var yearlyCO = yearlyDimension.group().reduce(
-        function add_item(p, v) {
-            if (v.Year === 2010) {
-                ++p.count;
-                p.totalco += v["total CO"] ;
-                p.sumIndex += (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
-                p.avgIndex = p.sumIndex / p.count;
-            }
-            return p;
-        },
-        function remove_item(p, v) {
-            if (v.Year === 2010) {
-                p.count--;
-                p.totalco -= v["total CO"] ;
-                p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
-                p.avgIndex = p.sumIndex / p.count;
-            }
-            return p;
-        },
-        function initialise() {
-            return {
-                count: 0, 
-                totalco: 0,
-                sumIndex: 0,  
-                avgIndex: 0,
-            };
-        },
-    );
-
-
-//     // dc.numberDisplay(element)
-//     dc.numberDisplay("#percent-transport")
-//         .formatNumber(d3.format(".2%"))
-//         .valueAccessor(function (d) {
-//             if (d.count == 0) {
-//                 return 0;
-//             } else {
-//                 return (d.are_prof / d.count); /* modify this accordingly */
+//     var yearlyCO = yearlyDimension.group().reduce(
+//         function add_item(p, v) {
+//             if (v.Year === 2010) {
+//                 ++p.count;
+//                 p.totalco += v["total CO"] ;
+//                 p.sumIndex += (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
+//                 p.avgIndex = p.sumIndex / p.count;
 //             }
-//         })
-//         .group(percentageofTransport)    
+//             return p;
+//         },
+//         function remove_item(p, v) {
+//             if (v.Year === 2010) {
+//                 p.count--;
+//                 p.totalco -= v["total CO"] ;
+//                 p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
+//                 p.avgIndex = p.sumIndex / p.count;
+//             }
+//             return p;
+//         },
+//         function initialise() {
+//             return {
+//                 count: 0, 
+//                 totalco: 0,
+//                 sumIndex: 0,  
+//                 avgIndex: 0,
+//             };
+//         },
+//     );
+
+
+// //     // dc.numberDisplay(element)
+// //     dc.numberDisplay("#percent-transport")
+// //         .formatNumber(d3.format(".2%"))
+// //         .valueAccessor(function (d) {
+// //             if (d.count == 0) {
+// //                 return 0;
+// //             } else {
+// //                 return (d.are_prof / d.count); /* modify this accordingly */
+// //             }
+// //         })
+// //         .group(percentageofTransport)    
+// }
+
+
+function show_CO_average_per_country(ndx) {
+    var country_dim = ndx.dimension(dc.pluck('Entity'));// country
+    var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
+        
+    dc.pieChart("#pie-chart")
+        .width(768)
+        .height(480)
+        .transitionDuration(500)
+        .slicesCap(4)// number of slices the pie chart will generate
+        .innerRadius(100)
+        .dimension('Entity')
+        .group(averagePerCountry);
+        // .legend(dc.legend().highlightSelected(true))
+        // workaround for #703: not enough data is accessible through .label() to display percentages
+        // .on('pretransition', function(pieChart) {
+        //     pieChart.selectAll('text.pie-slice').text(function(d) {
+        //         return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
+        //     })
+        // });
+
+    // var averagePerCountry = dim.group().reduce(
+
+    //     function add_item(p, v) {
+    //         if (v.Year === 2010) {
+    //             ++p.count;
+    //             p.totalco += v["total CO"] ;
+    //             p.sumIndex += (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
+    //             p.avgIndex = p.sumIndex / p.count;
+    //         }
+    //         return p;
+    //     },
+    //     function remove_item(p, v) {
+    //         if (v.Year === 2010) {
+    //             p.count--;
+    //             p.totalco -= v["total CO"] ;
+    //             p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
+    //             p.avgIndex = p.sumIndex / p.count;
+    //         }
+    //         return p;
+    //     },
+    //     function initialise() {
+    //         return {
+    //             count: 0, 
+    //             total: 0,
+    //             average: 0,  
+    //         };
+    //     },
+    // );
+    // );
+    
+
 }
-
-
 
