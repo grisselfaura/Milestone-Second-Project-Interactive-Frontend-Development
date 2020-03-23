@@ -250,7 +250,7 @@ function show_CO_average_per_country(ndx) {
                 p.total = 0;
                 p.average = 0;
             } else {
-                p.total -= v.spend;
+                p.total -= v.total_CO;
                 p.average = p.total / p.count;
             }
             return p;
@@ -263,7 +263,15 @@ function show_CO_average_per_country(ndx) {
             };
         },
     );
-    // console.log(averagePerCountry.group.top(5));// tested variable works 
+    
+    
+    console.log(typeof(averagePerCountry));// object
+    console.log(averagePerCountry.all);// object
+    // keysSorted = Object.keys(averagePerCountry).sort(function(a,b){return averagePerCountry[a]-averagePerCountry[b]})
+    // console.log(keysSorted.group()); 
+
+    // console.log(averagePerCountry.all());
+    // console.log(averagePerCountry.top(10));// tested variable works 
 
     dc.pieChart("#pie-chart")
         .height(480)
