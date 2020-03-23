@@ -239,20 +239,25 @@ function show_CO_average_per_country(ndx) {
     var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
         
     dc.pieChart("#pie-chart")
-        .width(768)
         .height(480)
+        .width(480)
+        .radius(150)
+        .innerRadius(60)
         .transitionDuration(500)
-        .slicesCap(4)// number of slices the pie chart will generate
-        .innerRadius(100)
+        // .slicesCap(4)// number of slices the pie chart will generate
+        .cap(5)// return group.top(5)
         .dimension('Entity')
-        .group(averagePerCountry);
-        // .legend(dc.legend().highlightSelected(true))
+        .group(averagePerCountry) 
+        // .colors(d3.scale.ordinal().range(// colors if wanted?
+        // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
+        .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
         // workaround for #703: not enough data is accessible through .label() to display percentages
-        // .on('pretransition', function(pieChart) {
-        //     pieChart.selectAll('text.pie-slice').text(function(d) {
-        //         return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2*Math.PI) * 100) + '%';
-        //     })
-        // });
+        .on('pretransition', function(pieChart) {
+            pieChart.selectAll('text.pie-slice').text(function(d) {
+                return d.data.key ;
+            })
+        });
+// + ' ' + d.value 
 
     // var averagePerCountry = dim.group().reduce(
 
