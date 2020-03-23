@@ -99,7 +99,7 @@ function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
    
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total CO'));
-    // console.log(yearGlobalEmissionsChart);
+    // console.log(yearGlobalEmissionsChart.all());
 
     /*for chart scale*/
     var minYear = year_dim.bottom(1)[0].Year;
@@ -236,8 +236,35 @@ function show_country_emissions_stacked(ndx) {
 
 function show_CO_average_per_country(ndx) {
     var country_dim = ndx.dimension(dc.pluck('Entity'));// country
-    var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
-        
+    // var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
+    var averagePerCountry = country_dim.group().reduce(
+        function add_item(p, v) {
+            p.count++;
+            p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
+            p.average = p.total / p.count;
+            return p;
+        },
+        function remove_item(p, v) {
+            p.count--;
+            if (p.count == 0) {
+                p.total = 0;
+                p.average = 0;
+            } else {
+                p.total -= v.spend;
+                p.average = p.total / p.count;
+            }
+            return p;
+        },
+        function initialise() {
+            return {
+                count: 0, 
+                total: 0,
+                average: 0,  
+            };
+        },
+    );
+    // console.log(averagePerCountry.group.top(5));// tested variable works 
+
     dc.pieChart("#pie-chart")
         .height(480)
         .width(480)
@@ -248,6 +275,7 @@ function show_CO_average_per_country(ndx) {
         .cap(5)// return group.top(5)
         .dimension('Entity')
         .group(averagePerCountry) 
+        .valueAccessor(function (d) { return d.value.average})
         // .colors(d3.scale.ordinal().range(// colors if wanted?
         // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
         .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
@@ -257,38 +285,10 @@ function show_CO_average_per_country(ndx) {
                 return d.data.key ;
             })
         });
-// + ' ' + d.value 
 
-    // var averagePerCountry = dim.group().reduce(
-
-    //     function add_item(p, v) {
-    //         if (v.Year === 2010) {
-    //             ++p.count;
-    //             p.totalco += v["total CO"] ;
-    //             p.sumIndex += (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
-    //             p.avgIndex = p.sumIndex / p.count;
-    //         }
-    //         return p;
-    //     },
-    //     function remove_item(p, v) {
-    //         if (v.Year === 2010) {
-    //             p.count--;
-    //             p.totalco -= v["total CO"] ;
-    //             p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
-    //             p.avgIndex = p.sumIndex / p.count;
-    //         }
-    //         return p;
-    //     },
-    //     function initialise() {
-    //         return {
-    //             count: 0, 
-    //             total: 0,
-    //             average: 0,  
-    //         };
-    //     },
-    // );
-    // );
-    
-
+// get top five groups
+// mychart.data(function (group) { 
+//    return group.top(5); 
+// });
 }
 
