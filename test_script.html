@@ -44,53 +44,121 @@
 
 
     <div>
-        <h2 class="mb-2">test graph</h2>
-        <div id="">
-            <strong>CO2 datameasurements by year all of them 262 countries</strong>
-            <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-            <a class="reset" href="javascript:yearChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-            <div class="clearfix"></div>
-        </div> 
-        <div id="">
-            <strong>CO2 datameasurements by country all of them 21</strong>
-            <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-            <a class="reset" href="javascript:countryChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-            <div class="clearfix"></div>
-        </div> 
-        
-        <div>
-            <div class="">
-                <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
-                    href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-            </div>
-        </div>
-        <table class="table table-hover dc-data-table">
-        </table>
-
-    </div>
-        
-    <div>        
-        <div id="chart-global-CO2-year" class="chart"></div> 
-        <div id="country-selector" class="chart"> <!--  ADD fa fa-exchange-alt fa-w-16 -->
-            <div id="chart-country-CO2-year"></div> <!-- Dashboard panel --> 
-        </div>    
-        <div id="" class="chart">
-            <svg id="map-top-countries" width="400" height="300"></svg>
-        </div> <!-- Dashboard panel --> 
-    </div>
-              
-    <div>        
-        <div id="veamos"></div> <!-- Dashboard panel --> 
-        <div id="xxxxxx"></div> <!-- Dashboard panel --> 
-    </div>
-
-    <div> 
-        <div id="pie-salaries-test"></div> 
-        <div id="chart-test"></div> 
-        <div id="emissions-per-sector"></div> 
+        <div id="pie-chart"></div> 
     </div>
  
+<script>
+    queue() 
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
+        .await(makeGraphs);
 
+    function makeGraphs(error, emissionData){ 
+        if (error) throw error;
+        // console.log(emissionData);
+        // console.log(typeof(emissionData));
+
+    var ndx = crossfilter(emissionData);
+    var all = ndx.groupAll();
+    var parseDate = d3.time.format("%Y").parse;
+
+    // Loop through data and parse/convert appropriate formats
+        emissionData.forEach(function(d){
+            d.Code = String(d.Code);
+            d.Entity = String(d.Entity),
+            d.Year = parseDate(d.Year),    
+            d.Transport = parseFloat(d.Transport);
+            // console.log(d.Transport);
+            d.Forestry = parseFloat(d.Forestry);
+            // console.log(d.Forestry);
+            d.Energy = parseFloat(d.Energy);
+            // console.log(d.Energy);
+            d.Other_sources = parseInt(d["Other sources"]);
+            // console.log(d["Other sources"]);
+            d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
+            // console.log(d["Agriculture, Land Use & Forestry"]);
+            d.Waste = parseFloat(d.Waste);
+            // console.log(d.Waste);
+            d.Residential_commercial = parseFloat(d["Residential & commercial"]);
+            // console.log(d["Residential & commercial"]);
+            d.Industry = parseFloat(d.Industry); 
+            // console.log(d.Industry);
+            d.total_CO = parseFloat(d["total CO"]);      
+            // console.log(d.total_CO);
+        });
+                    
+        show_CO_average_per_country(ndx);
+        
+        dc.renderAll();
+        
+    };
+
+    function show_CO_average_per_country(ndx) {
+    var country_dim = ndx.dimension(dc.pluck('Entity'));// country
+    // var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
+    var averagePerCountry = country_dim.group().reduce(
+        function add_item(p, v) {
+            p.count++;
+            p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
+            p.average = p.total / p.count;
+            return p;
+        },
+        function remove_item(p, v) {
+            p.count--;
+            if (p.count == 0) {
+                p.total = 0;
+                p.average = 0;
+            } else {
+                p.total -= v.total_CO;
+                p.average = p.total / p.count;
+            }
+            return p;
+        },
+        function initialise() {
+            return {
+                count: 0, 
+                total: 0,
+                average: 0,  
+            };
+        },
+    );
+    
+    
+    console.log(typeof(averagePerCountry));// object
+    console.log(averagePerCountry.all());// object
+    // var averageSorted = Object.keys(averagePerCountry).sort(function(a,b){return averagePerCountry[a]-averagePerCountry[b]})
+    console.log(averagePerCountry.top(5)); 
+
+    // console.log(averagePerCountry.all());
+    // console.log(averagePerCountry.top(10));// tested variable works 
+
+    dc.pieChart("#pie-chart")
+        .height(480)
+        .width(480)
+        .radius(150)
+        .innerRadius(60)
+        .transitionDuration(500)
+        // .slicesCap(4)// number of slices the pie chart will generate
+        // .cap(5)// return group.top(5)
+        .dimension('Entity')
+        .group(averagePerCountry) 
+        .valueAccessor(function (d) { return d.value.average})
+        // .colors(d3.scale.ordinal().range(// colors if wanted?
+        // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
+        .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+        // workaround for #703: not enough data is accessible through .label() to display percentages
+        .on('pretransition', function(pieChart) {
+            pieChart.selectAll('text.pie-slice').text(function(d) {
+                return d.data.key ;
+            })
+        });
+
+        // get top five groups
+        // mychart.data(function (group) { 
+        //    return group.top(5); 
+        // });
+}
+
+</script>
 
 <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script>
   <!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2_originalad-ad.js" ></script>

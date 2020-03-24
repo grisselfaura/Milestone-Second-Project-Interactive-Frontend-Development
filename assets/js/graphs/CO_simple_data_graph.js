@@ -266,9 +266,12 @@ function show_CO_average_per_country(ndx) {
     
     
     console.log(typeof(averagePerCountry));// object
-    console.log(averagePerCountry.all);// object
-    // keysSorted = Object.keys(averagePerCountry).sort(function(a,b){return averagePerCountry[a]-averagePerCountry[b]})
-    // console.log(keysSorted.group()); 
+    console.log(averagePerCountry.all());// object
+    console.log(averagePerCountry.top(5)); 
+    // var averageSorted = Object.keys(averagePerCountry).sort(function(a,b){return averagePerCountry[a]-averagePerCountry[b]});
+    var averageSorted = Object.keys(averagePerCountry).sort(function(a,b){return [a]-[b]});
+    console.log(typeof(averageSorted));// object
+    console.log(averageSorted.all());// object
 
     // console.log(averagePerCountry.all());
     // console.log(averagePerCountry.top(10));// tested variable works 
