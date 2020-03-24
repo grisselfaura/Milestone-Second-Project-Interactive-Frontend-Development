@@ -69,18 +69,29 @@
 <!-- Dashboard panel --> 
   <section class="showcase">
     <div class="container-fluid p-0">
+
+        <div class="row no-gutters">
+            <div class="col-lg-6 order-lg-2 my-auto offset-2"">
+                <div id="percent-transport"></div> <!-- Percentage number show -->
+                <div id="pie-chart"> <!-- avg pie chart -->
+                    <strong>TOP 5 countries CO2 average measurements </strong>
+                        <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                </div> 
+            </div>
+        </div>
+
         <div class="row no-gutters">
             <div class="col-lg-12 order-lg-1 my-auto offset-2"> <!-- y - for classes that set both *-top and *-bottom-->
-                <h2 class="mb-2">Global CO2 Emissions</h2>
+                <h2 class="mb-2">Data count</h2>
                 <div class="dc-data-count mb-3">
                     <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
                             href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
                 </div>
-                <div id="country-selector" class="chart mb-3"> <!--  ADD fa fa-exchange-alt fa-w-16 -->
+                <div id="country-selector" class="chart mb-3">
                     <strong> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true"></i></strong> 
-                    
                 </div>    
-                <p class="lead mb-0"></p>
                 <!--<div id="yearGraph">
                     <strong>CO2 data measurements by year all of them 262 countries</strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
@@ -95,12 +106,14 @@
                 </div> --> 
                 <!-- <table class="table table-hover dc-data-table">
                 </table> -->
-
             </div>
-        </div>    
+        </div>
+
         <div class="row no-gutters">
-            <div class="col-lg-6 order-lg-1 my-auto offset-2">
-                <!--col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness--> 
+            <div>
+                <h2 class="mb-2">Fossil Fuels Emissions</h2>
+            </div>
+            <div class="col-lg-6 order-lg-2 my-auto offset-2">
                 <div id="chart-global-CO2-year" class="chart mb-3"> <!-- line chart -->
                     <strong> CO2 measurements per year by country </strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
@@ -108,7 +121,7 @@
                         <div class="clearfix"></div>
                 </div> 
             </div>
-            <div class="col-lg-6 order-lg-1 my-auto offset-2">
+            <div class="col-lg-6 order-lg-2 my-auto offset-2">
                 <div id="stacked-chart" class="dc-chart mb-3"> <!-- stacked chart -->
                     <strong>Overview of CO2 measurements distribution by sector per country</strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
@@ -117,41 +130,10 @@
                 </div> 
             </div>
         </div>
-        
-      <div class="row no-gutters">
-        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness">
-            <p>test tutorial</p>
-            <div id="percent-transport"></div> <!-- Dashboard panel --> 
-            <div id="pie-chart">
-                <strong>TOP 5 countries CO2 average measurements </strong>
-                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                        <div class="clearfix"></div>
-            </div> <!-- Dashboard panel --> 
-        </div>
-        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-          <h2 class="mb-2">Global CO2 emisions</h2>
-          <p class="lead mb-0">xxx</p>
-        </div>
-      </div>
 
-      <div class="row no-gutters">        
-        <div class="col-lg-6 my-auto showcase-text">
-          <h2 class="mb-2">Graph2</h2>
-          <p class="lead mb-0">chart-test</p>
+        <div class="row no-gutters">
+            <div id="global-CO2-map" class="chart mb-3"> <!-- global map -->
         </div>
-        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="pie-salaries-test"></div> 
-        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="chart-test"></div> 
-      </div>
-
-      <div class="row no-gutters">
-        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-        
-          <h2 class="mb-2">Country</h2>
-          <p class="lead mb-0">emissions-per-sector</p>
-        </div>
-        <div class="col-lg-6 text-white showcase-img custom-responsiveness" id="emissions-per-sector"></div> 
-      </div>
 
     </div>
   </section>
@@ -189,6 +171,6 @@
     </div>
   </footer>
 <script type="text/javascript" src="assets/js/graphs/CO_simple_data_graph.js" ></script> 
-<script type="text/javascript" src="assets/js/graphs/reduce-fucntions.js" ></script> 
+<script type="text/javascript" src="assets/js/graphs/reduce-functions.js" ></script> 
 </body>
 </html>
