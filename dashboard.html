@@ -122,7 +122,12 @@
         <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness">
             <p>test tutorial</p>
             <div id="percent-transport"></div> <!-- Dashboard panel --> 
-            <div id="pie-chart"></div> <!-- Dashboard panel --> 
+            <div id="pie-chart">
+                <strong>TOP 5 countries CO2 average measurements </strong>
+                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                        <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                        <div class="clearfix"></div>
+            </div> <!-- Dashboard panel --> 
         </div>
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2 class="mb-2">Global CO2 emisions</h2>
@@ -184,5 +189,6 @@
     </div>
   </footer>
 <script type="text/javascript" src="assets/js/graphs/CO_simple_data_graph.js" ></script> 
+<script type="text/javascript" src="assets/js/graphs/pie-animated-graph.js" ></script> 
 </body>
 </html>

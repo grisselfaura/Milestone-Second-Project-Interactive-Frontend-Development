@@ -68,7 +68,7 @@ function makeGraphs(error, emissionData){
     show_global_emissions_per_year(ndx);
     // show_global_emissions_map(ndx);
     show_country_emissions_stacked(ndx);
-    show_CO_average_per_country(ndx);
+    // show_CO_average_per_country(ndx);//(on a separate file)
     // show_country_emissions_top_sectors(ndx);
     dc.renderAll();
     
@@ -190,7 +190,7 @@ function show_country_emissions_stacked(ndx) {
                 .renderHorizontalGridLines(true);               
 }
 
-// function show_CO_percentage_per_sector_2010(ndx) {
+// function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
 //     var year_dim = ndx.dimension(dc.pluck('Year'));       
 //     // var coPercentageTransport = year_dim.filter("2010").reduceSum(function(d) {return d.Transport;});
 //     // console.log(coPercentageTransport);
@@ -239,67 +239,67 @@ function show_country_emissions_stacked(ndx) {
 // }
 
 
-function show_CO_average_per_country(ndx) {
-    var country_dim = ndx.dimension(dc.pluck('Entity'));// country
-    // var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
-    var averagePerCountry = country_dim.group().reduce(
-        function add_item(p, v) {
-            p.count++;
-            p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
-            p.average = p.total / p.count;
-            return p;
-        },
-        function remove_item(p, v) {
-            p.count--;
-            if (p.count == 0) {
-                p.total = 0;
-                p.average = 0;
-            } else {
-                p.total -= v.total_CO;
-                p.average = p.total / p.count;
-            }
-            return p;
-        },
-        function initialise() {
-            return {
-                count: 0, 
-                total: 0,
-                average: 0,  
-            };
-        },
-    );
-    averagePerCountry.order(v => v.average);// sort values from top to bottom
+// function show_CO_average_per_country(ndx) {
+//     var country_dim = ndx.dimension(dc.pluck('Entity'));// country
+//     // var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
+//     var averagePerCountry = country_dim.group().reduce(
+//         function add_item(p, v) {
+//             p.count++;
+//             p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
+//             p.average = p.total / p.count;
+//             return p;
+//         },
+//         function remove_item(p, v) {
+//             p.count--;
+//             if (p.count == 0) {
+//                 p.total = 0;
+//                 p.average = 0;
+//             } else {
+//                 p.total -= v.total_CO;
+//                 p.average = p.total / p.count;
+//             }
+//             return p;
+//         },
+//         function initialise() {
+//             return {
+//                 count: 0, 
+//                 total: 0,
+//                 average: 0,  
+//             };
+//         },
+//     );
+//     averagePerCountry.order(v => v.average);// sort values from top to bottom
     
-    console.log(typeof(averagePerCountry));// object
-    console.log(averagePerCountry.all());// shows object values
-    console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
+//     console.log(typeof(averagePerCountry));// object
+//     console.log(averagePerCountry.all());// shows object values
+//     console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
 
-    dc.pieChart("#pie-chart")
-        .height(480)
-        .width(480)
-        .radius(150)
-        .innerRadius(60)
-        .transitionDuration(500)
-        // .slicesCap(4)// number of slices the pie chart will generate
-        .cap(5)// return group.top(5)
-        .dimension('Entity')
-        .group(averagePerCountry) 
-        .valueAccessor(function (d) { return d.value.average})
-        // .colors(d3.scale.ordinal().range(// colors if wanted?
-        // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
-        .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
-        // workaround for #703: not enough data is accessible through .label() to display percentages
-        .data(function (group) { // get top five groups
-           return group.top(5);})
-        .on('pretransition', function(pieChart) {
-            pieChart.selectAll('text.pie-slice').text(function(d) {
-                return d.data.key ;
-            })
-        });
+//     dc.pieChart("#pie-chart")
+//         .height(480)
+//         .width(480)
+//         .radius(150)
+//         .innerRadius(60)
+//         .transitionDuration(500)
+//         // .slicesCap(4)// number of slices the pie chart will generate
+//         .cap(5)// return group.top(5)
+//         .dimension('Entity')
+//         .group(averagePerCountry) 
+//         .valueAccessor(function (d) { return d.value.average})
+//         // .colors(d3.scale.ordinal().range(// colors if wanted?
+//         // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
+//         .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+//         // workaround for #703: not enough data is accessible through .label() to display percentages
+//         .data(function (group) { // get top five groups
+//            return group.top(5);})
+//         .on('pretransition', function(pieChart) {
+//             pieChart.selectAll('text.pie-slice').text(function(d) {
+//                 return d.data.key ;
+//             })
+//         });
 
-        // get top five groups
-        // mychart.data(function (group) { 
-        //    return group.top(5); 
-        // });
-}
+//         // get top five groups
+//         // mychart.data(function (group) { 
+//         //    return group.top(5); 
+//         // });
+// }
 

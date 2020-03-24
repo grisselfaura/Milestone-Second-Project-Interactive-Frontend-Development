@@ -135,7 +135,7 @@
         .innerRadius(60)
         .transitionDuration(500)
         // .slicesCap(4)// number of slices the pie chart will generate
-        // .cap(5)// return group.top(5)
+        .cap(5)// return group.top(5)
         .dimension('Entity')
         .group(averagePerCountry) 
         .valueAccessor(function (d) { return d.value.average})
