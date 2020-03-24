@@ -93,8 +93,13 @@ function show_country_selector(ndx) {
         //         .group(group) 
         //         .title(kv => kv.key);/*not showing the count numner*/ 
         // }
+
+//  test this
+//   .controlsUseVisibility(true)
+//                 .promptText('Day');
 }
- 
+
+
 function show_global_emissions_per_year(ndx) {
     var year_dim = ndx.dimension(dc.pluck('Year'));
    
@@ -263,18 +268,11 @@ function show_CO_average_per_country(ndx) {
             };
         },
     );
-    
+    averagePerCountry.order(v => v.average);// sort values from top to bottom
     
     console.log(typeof(averagePerCountry));// object
-    console.log(averagePerCountry.all());// object
-    console.log(averagePerCountry.top(5)); 
-    // var averageSorted = Object.keys(averagePerCountry).sort(function(a,b){return averagePerCountry[a]-averagePerCountry[b]});
-    var averageSorted = Object.keys(averagePerCountry).sort(function(a,b){return [a]-[b]});
-    console.log(typeof(averageSorted));// object
-    console.log(averageSorted.all());// object
-
-    // console.log(averagePerCountry.all());
-    // console.log(averagePerCountry.top(10));// tested variable works 
+    console.log(averagePerCountry.all());// shows object values
+    console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
 
     dc.pieChart("#pie-chart")
         .height(480)
@@ -291,15 +289,17 @@ function show_CO_average_per_country(ndx) {
         // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
         .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
         // workaround for #703: not enough data is accessible through .label() to display percentages
+        .data(function (group) { // get top five groups
+           return group.top(5);})
         .on('pretransition', function(pieChart) {
             pieChart.selectAll('text.pie-slice').text(function(d) {
                 return d.data.key ;
             })
         });
 
-// get top five groups
-// mychart.data(function (group) { 
-//    return group.top(5); 
-// });
+        // get top five groups
+        // mychart.data(function (group) { 
+        //    return group.top(5); 
+        // });
 }
 

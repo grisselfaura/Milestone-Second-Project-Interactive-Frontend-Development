@@ -121,15 +121,12 @@
             };
         },
     );
-    
+    averagePerCountry.order(v => v.average);// sort values from top to bottom
     
     console.log(typeof(averagePerCountry));// object
-    console.log(averagePerCountry.all());// object
-    // var averageSorted = Object.keys(averagePerCountry).sort(function(a,b){return averagePerCountry[a]-averagePerCountry[b]})
-    console.log(averagePerCountry.top(5)); 
+    console.log(averagePerCountry.all());// shows object values
+    console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
 
-    // console.log(averagePerCountry.all());
-    // console.log(averagePerCountry.top(10));// tested variable works 
 
     dc.pieChart("#pie-chart")
         .height(480)
@@ -146,6 +143,8 @@
         // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
         .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
         // workaround for #703: not enough data is accessible through .label() to display percentages
+        .data(function (group) { // get top five groups
+           return group.top(5);})
         .on('pretransition', function(pieChart) {
             pieChart.selectAll('text.pie-slice').text(function(d) {
                 return d.data.key ;
@@ -160,7 +159,7 @@
 
 </script>
 
-<script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script>
+<!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script> -->
   <!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2_originalad-ad.js" ></script>
     <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script>
     <script type="text/javascript" src="assets/js/graphs/map-top-countries.js" ></script>
