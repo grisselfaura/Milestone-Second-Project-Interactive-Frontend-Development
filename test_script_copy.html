@@ -61,88 +61,87 @@
         .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
         .await(makeGraphs);
 
-    function makeGraphs(error, emissionData){ /*replace*/ 
-    var ndx = crossfilter(emissionData); /*replace*/ 
+    function makeGraphs(error, emissionData){ 
+        if (error) throw error;
+        
+    var ndx = crossfilter(emissionData);
+    var all = ndx.groupAll();
+    
     console.log(emissionData);
     console.log(typeof(emissionData));
-    
-    var emissionsFilterData = new Object;
-    var emissionParsed = new Object;
 
-    emissionData.forEach(function(d){
-        emissionParsed.Entity = d.Entity;
-        emissionParsed.Year =  parseFloat(d.Year);
-        emissionParsed.Transport = parseFloat(d.Transport);
-        emissionParsed.Forestry = parseFloat(d.Forestry);
-        emissionParsed.Energy = parseFloat(d.Energy);
-        emissionParsed.Other_sources = parseFloat(d["Other sources"]);
-        emissionParsed.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
-        emissionParsed.Waste = parseFloat(d.Waste);
-        emissionParsed.Residential_commercial = parseFloat(d["Residential and commercial"]);
-        emissionParsed.Industry = parseFloat(d.Industry);
-        emissionParsed.Agriculture = parseFloat(d.Agriculture);
-
-        for (var index=0; index<emissionParsed.length; index++ ) {
-            if (emissionParsed[index].values == "Nan" ){
-                value = 0;
-            }
-        emissionsFilterData.push(emissionParsed);
-    console.log(emissionsFilterData);
-
-    })
-
-    // function makeGraphs(error, emissionData){ 
-    //     if (error) throw error;
-    //     console.log(emissionData);
-    //     // console.log(typeof(emissionData));
-
-    // var ndx = crossfilter(emissionData);
-    // var all = ndx.groupAll();
-    
-    // var parseDate = d3.time.format("%Y").parse;
-    // // var dateFormatParser = d3.timeParse(parseDate);
-
-    // // Loop through data and parse/convert appropriate formats
-    //     emissionData.forEach(function(d) {
-    //         d.Code = String(d.Code);
-    //         d.Entity = String(d.Entity);
-    //         d.Year = parseDate(d.Year); 
-    //         // console.log(d.Year); 
-    //         // d.dd = dateFormatParser(d.Year);  
-    //         // console.log(d.dd);
-    //         d.Transport = parseFloat(d.Transport);
-    //         // console.log(d.Transport);
-    //         d.Forestry = parseFloat(d.Forestry);
-    //         // console.log(d.Forestry);
-    //         d.Energy = parseFloat(d.Energy);
-    //         // console.log(d.Energy);
-    //         d.Other_sources = parseInt(d["Other sources"]);
-    //         // console.log(d["Other sources"]);
-    //         d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
-    //         // console.log(d["Agriculture, Land Use & Forestry"]);
-    //         d.Waste = parseFloat(d.Waste);
-    //         // console.log(d.Waste);
-    //         d.Residential_commercial = parseFloat(d["Residential & commercial"]);
-    //         // console.log(d["Residential & commercial"]);
-    //         d.Industry = parseFloat(d.Industry); 
-    //         // console.log(d.Industry);
-    //         d.total_CO = parseFloat(d["total CO"]);      
-    //         // console.log(d.total_CO);
+    var parseDate = d3.time.format("%Y").parse;
+    // var dateFormatParser = d3.timeParse(parseDate);
+    emissionsFilterData = [];
+    // Loop through data and parse/convert appropriate formats
+        emissionData.forEach(function(d) {
+            d.Code = String(d.Code);
+            d.Entity = String(d.Entity);
+            d.Year = parseDate(d.Year); 
+            // console.log(d.Year); 
+            // d.dd = dateFormatParser(d.Year);  
+            // console.log(d.dd);
+            d.Transport = parseFloat(d.Transport);
+            // console.log(d.Transport);
+            d.Forestry = parseFloat(d.Forestry);
+            // console.log(d.Forestry);
+            d.Energy = parseFloat(d.Energy);
+            // console.log(d.Energy);
+            d.Other_sources = parseInt(d["Other sources"]);
+            // console.log(d["Other sources"]);
+            d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
+            // console.log(d["Agriculture, Land Use & Forestry"]);
+            d.Waste = parseFloat(d.Waste);
+            // console.log(d.Waste);
+            d.Residential_commercial = parseFloat(d["Residential & commercial"]);
+            // console.log(d["Residential & commercial"]);
+            d.Industry = parseFloat(d.Industry); 
+            // console.log(d.Industry);
+            d.total_CO = parseFloat(d["total CO"]);      
+            // console.log(d.total_CO);
             
-    //     for (key in emissionData) { // REMOVE NAN VALUES
-    //         if (isNaN(emissionData[key])) {
-    //              emissionData[key] = 0
-    //         }
-    //     }
-
+            for (key in emissionData) { // REMOVE NAN VALUES
+                if (isNaN(emissionData[key])) {
+                    emissionData[key] = 0
+                }
+        }
+        emissionsFilterData.push(emissionData);
+        console.log(emissionsFilterData);
+        console.log(typeof(emissionsFilterData));
         
-    //     });
+        });
                     
         
         dc.renderAll();
         
     };
 
+    // ALTERATIVE BUT TO BE IMPROVE
+    
+    // var emissionsFilterData = new Object;
+    // var emissionParsed = new Object;
+
+    // emissionData.forEach(function(d){
+    //     emissionParsed.Entity = d.Entity;
+    //     emissionParsed.Year =  parseFloat(d.Year);
+    //     emissionParsed.Transport = parseFloat(d.Transport);
+    //     emissionParsed.Forestry = parseFloat(d.Forestry);
+    //     emissionParsed.Energy = parseFloat(d.Energy);
+    //     emissionParsed.Other_sources = parseFloat(d["Other sources"]);
+    //     emissionParsed.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
+    //     emissionParsed.Waste = parseFloat(d.Waste);
+    //     emissionParsed.Residential_commercial = parseFloat(d["Residential and commercial"]);
+    //     emissionParsed.Industry = parseFloat(d.Industry);
+    //     emissionParsed.Agriculture = parseFloat(d.Agriculture);
+
+    //     for (var index=0; index<emissionParsed.length; index++ ) {
+    //         if (emissionParsed[index].values == "Nan" ){
+    //             value = 0;
+    //         }
+    //     emissionsFilterData.push(emissionParsed);
+    // console.log(emissionsFilterData);
+
+    // })
 
 
 </script>
