@@ -141,11 +141,13 @@ function show_country_emissions_stacked(ndx) {
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
     
-    // var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); /*same result*/
-    var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
-    // console.log(coByYearTransport);/*testing in inspect*/
-    var coByYearForestry = year_dim.group().reduceSum(dc.pluck('Forestry'));/*PLEASE ADAPT*/
+    var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); /*same result*/
+    // var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
+    // console.log(coByYearTransport.all());/*testing in inspect*/
+    var coByYearForestry = year_dim.group().reduceSum(function(d) {return d.Forestry;});/*negative values are not plotted in the graph as the for the purpose of the data they can not be treated as positive. Future works needs to be done to display this in the x negative */
+    // console.log(coByYearForestry.all());/*testing in inspect*/
     var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));/*PLEASE ADAPT*/
+    // console.log(coByYearEnergy.all());/*testing in inspect*/
     var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other sources'));/*PLEASE ADAPT*/
     var coByYearAgricultureLandUseForestry = year_dim.group().reduceSum(dc.pluck('Agriculture, Land Use & Forestry'));/*PLEASE ADAPT*/
     var coByYearWaste = year_dim.group().reduceSum(dc.pluck('Waste'));/*PLEASE ADAPT*/    

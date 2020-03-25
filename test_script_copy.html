@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Second Milestone Project</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  <!--Bootstrap v4.3.1-->
+   
+    <!-- CHECK IF WE NEED THIS LINK -->
+    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    <!-- Custom styles for this template -->
+    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+    <link href="assets/css/landing-page.css" rel="stylesheet">
+    
+    <!-- Personal Styles for this website -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <link href="assets/css/dc.css" rel="stylesheet"> <!-- for the charts -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
+
+   <!-- Load D3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script><!-- how to combine to different libraries versions-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> for map-->
+    <!-- <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>for map --> 
+    <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
+    <script type="text/javascript" src="assets/js/dc.min.js"></script>
+    <script type="text/javascript" src="assets/js/queue.min.js"></script>
+     
+</head>
+<body>
+
+    <!-- <div id="global-carbon-dioxide-emision-by-sector">
+        <h2>Global Carbon Dioxide Emission by Sectors</h2>
+        <select id="select-country"></select>
+    </div> -->
+
+    <div>
+        <div id="pie-chart"></div> 
+        <div id="percent-CO-transport"></div> <!-- Percentage number show -->
+        <div id="percent-CO-forestry"></div> <!-- Percentage number show -->
+        <div id="percent-CO-energy"></div> <!-- Percentage number show -->p
+        <p>test zone</p>
+    </div>
+
+ 
+<script>
+    queue() 
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
+        .await(makeGraphs);
+
+    function makeGraphs(error, emissionData){ /*replace*/ 
+    var ndx = crossfilter(emissionData); /*replace*/ 
+    console.log(emissionData);
+    console.log(typeof(emissionData));
+    
+    var emissionsFilterData = new Object;
+    var emissionParsed = new Object;
+
+    emissionData.forEach(function(d){
+        emissionParsed.Entity = d.Entity;
+        emissionParsed.Year =  parseFloat(d.Year);
+        emissionParsed.Transport = parseFloat(d.Transport);
+        emissionParsed.Forestry = parseFloat(d.Forestry);
+        emissionParsed.Energy = parseFloat(d.Energy);
+        emissionParsed.Other_sources = parseFloat(d["Other sources"]);
+        emissionParsed.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
+        emissionParsed.Waste = parseFloat(d.Waste);
+        emissionParsed.Residential_commercial = parseFloat(d["Residential and commercial"]);
+        emissionParsed.Industry = parseFloat(d.Industry);
+        emissionParsed.Agriculture = parseFloat(d.Agriculture);
+
+        for (var index=0; index<emissionParsed.length; index++ ) {
+            if (emissionParsed[index].values == "Nan" ){
+                value = 0;
+            }
+        emissionsFilterData.push(emissionParsed);
+    console.log(emissionsFilterData);
+
+    })
+
+    // function makeGraphs(error, emissionData){ 
+    //     if (error) throw error;
+    //     console.log(emissionData);
+    //     // console.log(typeof(emissionData));
+
+    // var ndx = crossfilter(emissionData);
+    // var all = ndx.groupAll();
+    
+    // var parseDate = d3.time.format("%Y").parse;
+    // // var dateFormatParser = d3.timeParse(parseDate);
+
+    // // Loop through data and parse/convert appropriate formats
+    //     emissionData.forEach(function(d) {
+    //         d.Code = String(d.Code);
+    //         d.Entity = String(d.Entity);
+    //         d.Year = parseDate(d.Year); 
+    //         // console.log(d.Year); 
+    //         // d.dd = dateFormatParser(d.Year);  
+    //         // console.log(d.dd);
+    //         d.Transport = parseFloat(d.Transport);
+    //         // console.log(d.Transport);
+    //         d.Forestry = parseFloat(d.Forestry);
+    //         // console.log(d.Forestry);
+    //         d.Energy = parseFloat(d.Energy);
+    //         // console.log(d.Energy);
+    //         d.Other_sources = parseInt(d["Other sources"]);
+    //         // console.log(d["Other sources"]);
+    //         d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
+    //         // console.log(d["Agriculture, Land Use & Forestry"]);
+    //         d.Waste = parseFloat(d.Waste);
+    //         // console.log(d.Waste);
+    //         d.Residential_commercial = parseFloat(d["Residential & commercial"]);
+    //         // console.log(d["Residential & commercial"]);
+    //         d.Industry = parseFloat(d.Industry); 
+    //         // console.log(d.Industry);
+    //         d.total_CO = parseFloat(d["total CO"]);      
+    //         // console.log(d.total_CO);
+            
+    //     for (key in emissionData) { // REMOVE NAN VALUES
+    //         if (isNaN(emissionData[key])) {
+    //              emissionData[key] = 0
+    //         }
+    //     }
+
+        
+    //     });
+                    
+        
+        dc.renderAll();
+        
+    };
+
+
+
+</script>
+
+</body>
+</html>

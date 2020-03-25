@@ -67,17 +67,20 @@
 
     var ndx = crossfilter(emissionData);
     var all = ndx.groupAll();
+    
     var parseDate = d3.time.format("%Y").parse;
-    var dateFormatParser = d3.timeParse(dateFormatSpecifier);
+    // var dateFormatParser = d3.timeParse(parseDate);
 
     // Loop through data and parse/convert appropriate formats
         emissionData.forEach(function(d) {
             d.Code = String(d.Code);
             d.Entity = String(d.Entity);
-            d.Year = parseDate(d.Year);  
-            d.dd = dateFormatParser(d.Year);  
+            d.Year = parseDate(d.Year); 
+            // console.log(d.Year); 
+            // d.dd = dateFormatParser(d.Year);  
+            // console.log(d.dd);
             d.Transport = parseFloat(d.Transport);
-            console.log( d.Transport);
+            console.log(d.Transport);
             d.Forestry = parseFloat(d.Forestry);
             // console.log(d.Forestry);
             d.Energy = parseFloat(d.Energy);
@@ -107,7 +110,7 @@
 
 function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
     var yearDim = ndx.dimension(d => d3.timeYear(d.dd).getFullYear());
-    // console.log(yearDim.all());
+    console.log(yearDim);
     // // var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
     // var coTransport2010 = yearDim.group().reduceSum(function(d){if (d.Year===2010){return d.Transport;}else{return 0;}}); 
     // console.log(coTransport2010.all());
