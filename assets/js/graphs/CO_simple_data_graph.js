@@ -63,7 +63,7 @@ function makeGraphs(error, emissionData){
     .dimension(ndx)
     .group(all);
 
-    // show_CO_percentage_per_sector_2010(ndx);//(MOVE TO a separate file)
+    show_CO_percentage_per_sector_2010(ndx);//(MOVE TO a separate file)
     // show_CO_average_per_country(ndx);//(on a separate file)
     
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
@@ -193,53 +193,69 @@ function show_country_emissions_stacked(ndx) {
                 .renderHorizontalGridLines(true);               
 }
 
-// function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
-//     var year_dim = ndx.dimension(dc.pluck('Year'));       
-//     // var coPercentageTransport = year_dim.filter("2010").reduceSum(function(d) {return d.Transport;});
-//     // console.log(coPercentageTransport);
+function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
+    var year_dim = ndx.dimension(dc.pluck('Year'));       
+    var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
+    console.log(coPercentageTransport);
 
-//     var yearlyCO = yearlyDimension.group().reduce(
-//         function add_item(p, v) {
-//             if (v.Year === 2010) {
-//                 ++p.count;
-//                 p.totalco += v["total CO"] ;
-//                 p.sumIndex += (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
-//                 p.avgIndex = p.sumIndex / p.count;
+    var coPercentageTransport2010 = ndx.group().reduce(
+        function add_item(p, v) {
+            if (v.Year === 2010) {
+                p.Transport++;
+                p.total_CO++;
+                p.percentage = (p.Transport/p.total_CO) * 100;
+                // p.totalTransport += v.Transport; 
+                // p.totalEmissions += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                // p.sumIndex += (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
+                // p.avgIndex = p.sumIndex / p.count;
+                // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
+            }
+            return p;
+        },
+        function remove_item(p, v) {
+            if (v.Year === 2010) {
+                p.Transport--;
+                p.total_CO--;
+                p.percentage = (p.Transport/p.total_CO) * 100;
+                // p.count--;
+                // p.totalTransport -= v.Transport; 
+                // p.totalEmissions -= v.total_CO; // p.total += v["total CO"]; this doesnt work
+                // p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
+                // p.avgIndex = p.sumIndex / p.count;
+                // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
+                
+            }
+            return p;
+        },
+        function initialise() {
+            return {
+                Transport: 0,
+                total_CO: 0,
+                percentage: 0, 
+                // count: 0, 
+                // totalTransport: 0,
+                // totalEmissions: 0,
+                // sumIndex: 0,  
+                // avgIndex: 0,
+                // percentage: 0,
+            };
+        },
+    );
+            console.log(typeof(coPercentageTransport2010));// object
+            console.log(coPercentageTransport2010.all());// shows object values
+
+//     // dc.numberDisplay(element)
+//     dc.numberDisplay("#percent-transport")
+//         .formatNumber(d3.format(".2%"))
+//         .valueAccessor(function (d) {
+//             if (d.count == 0) {
+//                 return 0;
+//             } else {
+//                 return (d.are_prof / d.count); /* modify this accordingly */
 //             }
-//             return p;
-//         },
-//         function remove_item(p, v) {
-//             if (v.Year === 2010) {
-//                 p.count--;
-//                 p.totalco -= v["total CO"] ;
-//                 p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v["Other sources"] + v["Agriculture, Land Use & Forestry"] + v.Waste + v["Residential & commercial"]  + v.Industry) 
-//                 p.avgIndex = p.sumIndex / p.count;
-//             }
-//             return p;
-//         },
-//         function initialise() {
-//             return {
-//                 count: 0, 
-//                 totalco: 0,
-//                 sumIndex: 0,  
-//                 avgIndex: 0,
-//             };
-//         },
-//     );
-
-
-// //     // dc.numberDisplay(element)
-// //     dc.numberDisplay("#percent-transport")
-// //         .formatNumber(d3.format(".2%"))
-// //         .valueAccessor(function (d) {
-// //             if (d.count == 0) {
-// //                 return 0;
-// //             } else {
-// //                 return (d.are_prof / d.count); /* modify this accordingly */
-// //             }
-// //         })
-// //         .group(percentageofTransport)    
-// }
+//         })
+//         .group(percentageofTransport)    
+}
 
 
 // function show_CO_average_per_country(ndx) {
