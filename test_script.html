@@ -42,14 +42,18 @@
 </head>
 <body>
 
-    <div id="global-carbon-dioxide-emision-by-sector">
+    <!-- <div id="global-carbon-dioxide-emision-by-sector">
         <h2>Global Carbon Dioxide Emission by Sectors</h2>
         <select id="select-country"></select>
-    </div>
+    </div> -->
 
     <div>
         <div id="pie-chart"></div> 
+        <div id="percent-CO-transport"></div> <!-- Percentage number show -->
+        <div id="percent-CO-forestry"></div> <!-- Percentage number show -->
+        <div id="percent-CO-energy"></div> <!-- Percentage number show -->
     </div>
+
  
 <script>
     queue() 
@@ -90,45 +94,113 @@
             // console.log(d.total_CO);
         });
                     
-        show_CO_average_per_country(ndx);
+        show_CO_percentage_per_sector_2010(ndx);//(MOVE TO a separate file)
+        // show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");//(MOVE TO a separate file)
+        // show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");//(MOVE TO a separate file)
+        // show_CO_average_per_country(ndx);
         
         dc.renderAll();
         
     };
 
+function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
+    // var yearDim = ndx.dimension(function (d) { return d["Year"];});
+    // console.log(yearDim.all());
+    // // var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
+    // var coTransport2010 = yearDim.group().reduceSum(function(d){if (d.Year===2010){return d.Transport;}else{return 0;}}); 
+    // console.log(coTransport2010.all());
+    // console.log(coPercentageTransport);
+
+    var coPercentageTransport2010 = ndx.groupAll().reduce(
+        function add_item(p, v) {
+            if (v.Year === 2010) {
+                p.countTransport++;
+                p.countTotal_CO++;
+                p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
+                // p.totalTransport += v.Transport; 
+                // p.totalEmissions += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                // p.sumIndex += (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
+                // p.avgIndex = p.sumIndex / p.count;
+                // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
+            }
+            return p;
+        },
+        function remove_item(p, v) {
+            if (v.Year === 2010) {
+                p.countTransport--;
+                p.countTotal_CO--;
+                p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
+                // p.count--;
+                // p.totalTransport -= v.Transport; 
+                // p.totalEmissions -= v.total_CO; // p.total += v["total CO"]; this doesnt work
+                // p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
+                // p.avgIndex = p.sumIndex / p.count;
+                // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
+                
+            }
+            return p;
+        },
+        function initialise() {
+            return {
+                countTransport: 0,
+                countTotal_CO: 0,
+                percentage: 0, 
+                // count: 0, 
+                // totalTransport: 0,
+                // totalEmissions: 0,
+                // sumIndex: 0,  
+                // avgIndex: 0,
+                // percentage: 0,
+            };
+        },
+    );
+            console.log(typeof(coPercentageTransport2010));// object
+            console.log(coPercentageTransport2010.all);// shows object values
+
+    dc.numberDisplay("#percent-CO-transport")
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function (d) {
+            if (d.Transport == 0) {
+                return 0;
+            } else {
+                return (d.countTransport / d.countTotal_CO); /* modify this accordingly */
+            }
+        })
+        .group(coPercentageTransport2010)    
+}
 
 
    
 
-    // The svg FOR THE MAP
-    var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
+    // // The svg FOR THE MAP
+    // var svg = d3.select("svg"),
+    //     width = +svg.attr("width"),
+    //     height = +svg.attr("height");
 
-    // Map and projection
-    var projection = d3.geoNaturalEarth()
-        .scale(width / 1.3 / Math.PI)
-        .translate([width / 2, height / 2])
+    // // Map and projection
+    // var projection = d3.geoNaturalEarth()
+    //     .scale(width / 1.3 / Math.PI)
+    //     .translate([width / 2, height / 2])
 
-    // Load external data and boot
-    d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data){
+    // // Load external data and boot
+    // d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data){
 
-        // Draw the map
-        svg.append("g")
-            .selectAll("path")
-            .data(data.features)
-            .enter().append("path")
-                .attr("fill", "#69b3a2")
-                .attr("d", d3.geoPath()
-                    .projection(projection)
-                )
-                .style("stroke", "#fff")
-    })
+    //     // Draw the map
+    //     svg.append("g")
+    //         .selectAll("path")
+    //         .data(data.features)
+    //         .enter().append("path")
+    //             .attr("fill", "#69b3a2")
+    //             .attr("d", d3.geoPath()
+    //                 .projection(projection)
+    //             )
+    //             .style("stroke", "#fff")
+    //})
 
 
 
 </script>
-<script type="text/javascript" src="assets/js/graphs/tutorital_guido.js" ></script>
+<!-- <script type="text/javascript" src="assets/js/graphs/tutorital_guido.js" ></script> -->
 <!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script> -->
   <!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2_originalad-ad.js" ></script>
     <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script>

@@ -63,9 +63,11 @@ function makeGraphs(error, emissionData){
     .dimension(ndx)
     .group(all);
 
-    show_CO_percentage_per_sector_2010(ndx);//(MOVE TO a separate file)
+    // show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport");//(MOVE TO a separate file)
+    // show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");//(MOVE TO a separate file)
+    // show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");//(MOVE TO a separate file)
     // show_CO_average_per_country(ndx);//(on a separate file)
-    
+
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
     
     show_global_emissions_per_year(ndx);
@@ -193,17 +195,17 @@ function show_country_emissions_stacked(ndx) {
                 .renderHorizontalGridLines(true);               
 }
 
-function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
-    var year_dim = ndx.dimension(dc.pluck('Year'));       
-    var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
-    console.log(coPercentageTransport);
+function show_CO_percentage_per_sector_2010(ndx, elementId) {//(on a separate file)
+    // var year_dim = ndx.dimension(dc.pluck('Year'));       
+    // var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
+    // console.log(coPercentageTransport);
 
-    var coPercentageTransport2010 = ndx.group().reduce(
+    var coPercentageTransport2010 = ndx.groupAll().reduce(
         function add_item(p, v) {
             if (v.Year === 2010) {
-                p.Transport++;
-                p.total_CO++;
-                p.percentage = (p.Transport/p.total_CO) * 100;
+                p.countTransport++;
+                p.countTotal_CO++;
+                p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
                 // p.totalTransport += v.Transport; 
                 // p.totalEmissions += v.total_CO; // p.total += v["total CO"]; this doesnt work
                 // p.sumIndex += (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
@@ -214,9 +216,9 @@ function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
         },
         function remove_item(p, v) {
             if (v.Year === 2010) {
-                p.Transport--;
-                p.total_CO--;
-                p.percentage = (p.Transport/p.total_CO) * 100;
+                p.countTransport--;
+                p.countTotal_CO--;
+                p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
                 // p.count--;
                 // p.totalTransport -= v.Transport; 
                 // p.totalEmissions -= v.total_CO; // p.total += v["total CO"]; this doesnt work
@@ -229,8 +231,8 @@ function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
         },
         function initialise() {
             return {
-                Transport: 0,
-                total_CO: 0,
+                countTransport: 0,
+                countTotal_CO: 0,
                 percentage: 0, 
                 // count: 0, 
                 // totalTransport: 0,
@@ -242,19 +244,18 @@ function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
         },
     );
             console.log(typeof(coPercentageTransport2010));// object
-            console.log(coPercentageTransport2010.all());// shows object values
+            console.log(coPercentageTransport2010.All());// shows object values
 
-//     // dc.numberDisplay(element)
-//     dc.numberDisplay("#percent-transport")
-//         .formatNumber(d3.format(".2%"))
-//         .valueAccessor(function (d) {
-//             if (d.count == 0) {
-//                 return 0;
-//             } else {
-//                 return (d.are_prof / d.count); /* modify this accordingly */
-//             }
-//         })
-//         .group(percentageofTransport)    
+    dc.numberDisplay(elementId)
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function (d) {
+            if (d.Transport == 0) {
+                return 0;
+            } else {
+                return (d.countTransport / d.countTotal_CO); /* modify this accordingly */
+            }
+        })
+        .group(coPercentageTransport2010)    
 }
 
 
