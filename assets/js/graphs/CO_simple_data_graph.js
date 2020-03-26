@@ -8,7 +8,7 @@ visCount = dc.dataCount(".dc-data-count");
 
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
-    // console.log(emissionData);
+    console.log(emissionData);
     // console.log(typeof(emissionData));
 
    var ndx = crossfilter(emissionData);
