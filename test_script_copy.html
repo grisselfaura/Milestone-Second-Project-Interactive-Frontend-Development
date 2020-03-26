@@ -73,8 +73,6 @@
     var parseDate = d3.time.format("%Y").parse;
     // var dateFormatParser = d3.timeParse(parseDate);
     
-    emissionsFilterData = [];
-
     // Loop through data and parse/convert appropriate formats
         emissionData.forEach(function(d) {
             d.Code = String(d.Code);
@@ -89,19 +87,18 @@
             // console.log(d.Forestry);
             d.Energy = Number(d.Energy);
             // console.log(d.Energy);
-            d.Other_sources = parseInt(d["Other sources"]);
-            // console.log(d["Other sources"]);
-            d.Agriculture_Land_Use_Forestry = Number(d["Agriculture, Land Use & Forestry"]); 
-            // console.log(d["Agriculture, Land Use & Forestry"]);
+            d.Other_sources = Number(d.Other_sources);
+            // console.log(d.Other_sources);
+            d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
+            // console.log(d.Agriculture_Land_Use_&_Forestry);
             d.Waste = Number(d.Waste);
             // console.log(d.Waste);
-            d.Residential_commercial = Number(d["Residential & commercial"]);
+            d.Residential_commercial = Number(d.Residential_commercial);
             // console.log(d["Residential & commercial"]);
             d.Industry = Number(d.Industry); 
             // console.log(d.Industry);
-            d.total_CO = parseFloat(d.[total CO]);      
-            // console.log(d.total_CO);
-    
+            d.total_CO = Number(d.total_CO);      
+            // console.log(d.total_CO);   
         })
 
         
@@ -111,33 +108,6 @@
         dc.renderAll();
         
     };
-
-    // ALTERATIVE BUT TO BE IMPROVE
-    
-    // var emissionsFilterData = new Object;
-    // var emissionParsed = new Object;
-
-    // emissionData.forEach(function(d){
-    //     emissionParsed.Entity = d.Entity;
-    //     emissionParsed.Year =  parseFloat(d.Year);
-    //     emissionParsed.Transport = parseFloat(d.Transport);
-    //     emissionParsed.Forestry = parseFloat(d.Forestry);
-    //     emissionParsed.Energy = parseFloat(d.Energy);
-    //     emissionParsed.Other_sources = parseFloat(d["Other sources"]);
-    //     emissionParsed.Agriculture_Land_Use_Forestry = parseFloat(d["Agriculture, Land Use and Forestry"]); 
-    //     emissionParsed.Waste = parseFloat(d.Waste);
-    //     emissionParsed.Residential_commercial = parseFloat(d["Residential and commercial"]);
-    //     emissionParsed.Industry = parseFloat(d.Industry);
-    //     emissionParsed.Agriculture = parseFloat(d.Agriculture);
-
-    //     for (var index=0; index<emissionParsed.length; index++ ) {
-    //         if (emissionParsed[index].values == "Nan" ){
-    //             value = 0;
-    //         }
-    //     emissionsFilterData.push(emissionParsed);
-    // console.log(emissionsFilterData);
-
-    // })
 
 
 </script>

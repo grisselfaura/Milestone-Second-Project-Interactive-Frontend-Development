@@ -15,24 +15,26 @@ var parseDate = d3.time.format("%Y").parse;
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
         d.Entity = String(d.Entity),
-        d.Year = parseDate(d.Year),    
-        d.Transport = parseFloat(d.Transport);
+        d.Year = parseDate(d.Year);
+        // d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
+        // console.log(d.Year);     
+        d.Transport = Number(d.Transport); //Number(" ")returns 0
         // console.log(d.Transport);
-        d.Forestry = parseFloat(d.Forestry);
+        d.Forestry = Number(d.Forestry); // other alternative to get rid of empty values d.Transport = d.Transport ? parseFloat(d.Transport) : 0
         // console.log(d.Forestry);
-        d.Energy = parseFloat(d.Energy);
+        d.Energy = Number(d.Energy);
         // console.log(d.Energy);
-        d.Other_sources = parseInt(d["Other sources"]);
-        // console.log(d["Other sources"]);
-        d.Agriculture_Land_Use_Forestry = parseInt(d["Agriculture, Land Use & Forestry"]); 
-        // console.log(d["Agriculture, Land Use & Forestry"]);
-        d.Waste = parseFloat(d.Waste);
+        d.Other_sources = Number(d.Other_sources);
+        // console.log(d.Other_sources);
+        d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
+        // console.log(d.Agriculture_Land_Use_&_Forestry);
+        d.Waste = Number(d.Waste);
         // console.log(d.Waste);
-        d.Residential_commercial = parseFloat(d["Residential & commercial"]);
+        d.Residential_commercial = Number(d.Residential_commercial);
         // console.log(d["Residential & commercial"]);
-        d.Industry = parseFloat(d.Industry); 
+        d.Industry = Number(d.Industry); 
         // console.log(d.Industry);
-        d.total_CO = parseFloat(d["total CO"]);      
+        d.total_CO = Number(d.total_CO);      
         // console.log(d.total_CO);
     });
                 
