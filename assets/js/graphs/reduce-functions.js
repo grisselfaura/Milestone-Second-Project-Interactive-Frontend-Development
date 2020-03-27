@@ -75,8 +75,8 @@ var averagePerCountry = country_dim.group().reduce(
 );
 averagePerCountry.order(v => v.average);// sort values from top to bottom
 
-// console.log(typeof(averagePerCountry));// object
-// console.log(averagePerCountry.all());// shows object values
+console.log(typeof(averagePerCountry));// object
+console.log(averagePerCountry.all());// shows object values
 // console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
 
 

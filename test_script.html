@@ -48,7 +48,7 @@
     </div> -->
 
     <div>
-        <div id="pie-chart"></div> 
+        <div id="pie-chart">fgfdgfd</div> 
         <div id="percent-CO-transport"></div> <!-- Percentage number show -->
         <div id="percent-CO-forestry"></div> <!-- Percentage number show -->
         <div id="percent-CO-energy"></div> <!-- Percentage number show -->
@@ -75,9 +75,9 @@
         emissionData.forEach(function(d) {
             d.Code = String(d.Code);
             d.Entity = String(d.Entity);
-            d.Year = parseDate(d.Year); 
+            // d.Year = parseDate(d.Year); 
             d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
-            // console.log(d.Year); 
+            //console.log(d.Year); 
             // d.dd = dateFormatParser(d.Year);  
             // console.log(d.dd);
             d.Transport = Number(d.Transport); //Number(" ")returns 0
@@ -110,75 +110,96 @@
     };
 
 function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
-    var yearDim = ndx.dimension(d => d3.timeYear(d.dd).getFullYear());
-    console.log(yearDim);
-    // // var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
+    // var year_dim = ndx.dimension(dc.pluck('Year'));
+    var year_dim = ndx.dimension(function(d) {return d.Year;});
+    // console.log(year_dim);
+    // var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
     // var coTransport2010 = yearDim.group().reduceSum(function(d){if (d.Year===2010){return d.Transport;}else{return 0;}}); 
-    // console.log(coTransport2010.all());
-    // console.log(coPercentageTransport);
-
-    var COper2010Year = yearDim.filterExact(2010);
-    console.log(COper2010Year);
+    // var COper2010Year = year_dim.filterExact(2010);
+    // console.log(COper2010Year);
     
-    var coPercentageTransport2010 = ndx.groupAll().reduce(
-        function add_item(p, v) {
-            if (v.Year === 2010) {
-                p.countTransport++;
-                p.countTotal_CO++;
-                p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
-                // p.totalTransport += v.Transport; 
-                // p.totalEmissions += v.total_CO; // p.total += v["total CO"]; this doesnt work
-                // p.sumIndex += (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
-                // p.avgIndex = p.sumIndex / p.count;
-                // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
-            }
-            return p;
-        },
-        function remove_item(p, v) {
-            if (v.Year === 2010) {
-                p.countTransport--;
-                p.countTotal_CO--;
-                p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
-                // p.count--;
-                // p.totalTransport -= v.Transport; 
-                // p.totalEmissions -= v.total_CO; // p.total += v["total CO"]; this doesnt work
-                // p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
-                // p.avgIndex = p.sumIndex / p.count;
-                // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
-                
-            }
-            return p;
-        },
-        function initialise() {
-            return {
-                countTransport: 0,
-                countTotal_CO: 0,
-                percentage: 0, 
-                // count: 0, 
-                // totalTransport: 0,
-                // totalEmissions: 0,
-                // sumIndex: 0,  
-                // avgIndex: 0,
-                // percentage: 0,
+    // var group = dimension.group().reduce(reduceFieldsAdd(fields), reduceFieldsRemove(fields), reduceFieldsInitial(fields));
+    
+    var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
+        function reduceAddAvg(attr) {
+            return function(p,v) {
+                p.sum += v[attr];
+                p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                p.percentage = (p.sum/p.total) * 100;
+                // p.total += v.value_field;
+                return p;
             };
-        },
-    );
-            console.log(typeof(coPercentageTransport2010));// object
-            console.log(coPercentageTransport2010.all);// shows object values
-
-    dc.numberDisplay("#percent-CO-transport")
-        .formatNumber(d3.format(".2%"))
-        .valueAccessor(function (d) {
-            if (d.Transport == 0) {
-                return 0;
-            } else {
-                return (d.countTransport / d.countTotal_CO); /* modify this accordingly */
-            }
-        })
-        .group(coPercentageTransport2010)    
-}
-
-
+        }
+        function reduceRemoveAvg(attr) {
+            return function(p,v) {
+                p.sum -= v[attr];
+                if (p.sum == 0) {
+                    p.total -= v.total_CO; // p.total += v["total CO"]; this doesnt work
+                    p.percentage = 0;
+                } else {
+                    p.total -= v.total_CO;
+                    p.percentage = (p.sum/p.total) * 100;
+                }
+               return p;
+            };
+        }
+        function reduceInitAvg() {
+            return {sum:0, total:0, percentage:0};
+        }    
+        console.log(coPercentage.all());
+};
+        // dc.numberDisplay("#percent-CO-transport")
+        //     .formatNumber(d3.format(".2%"))
+        //     .valueAccessor(percentage)
+        //     .group(coPercentage)    
+        
+// --------------------------------
+    // var coPercentage = ndx.groupAll().reduce(
+    //     function add_item(p, v) {
+    //         if (v.Year === 2010) {
+    //             p.countTransport++;
+    //             p.countTotal_CO++;
+    //             p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
+    //             // p.totalTransport += v.Transport; 
+    //             // p.totalEmissions += v.total_CO; // p.total += v["total CO"]; this doesnt work
+    //             // p.sumIndex += (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
+    //             // p.avgIndex = p.sumIndex / p.count;
+    //             // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
+    //         }
+    //         return p;
+    //     },
+    //     function remove_item(p, v) {
+    //         if (v.Year === 2010) {
+    //             p.countTransport--;
+    //             p.countTotal_CO--;
+    //             p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
+    //             // p.count--;
+    //             // p.totalTransport -= v.Transport; 
+    //             // p.totalEmissions -= v.total_CO; // p.total += v["total CO"]; this doesnt work
+    //             // p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
+    //             // p.avgIndex = p.sumIndex / p.count;
+    //             // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
+                
+    //         }
+    //         return p;
+    //     },
+    //     function initialise() {
+    //         return {
+    //             countTransport: 0,
+    //             countTotal_CO: 0,
+    //             percentage: 0, 
+    //             // count: 0, 
+    //             // totalTransport: 0,
+    //             // totalEmissions: 0,
+    //             // sumIndex: 0,  
+    //             // avgIndex: 0,
+    //             // percentage: 0,
+    //         };
+    //     },
+    // );
+    //         console.log(typeof(coPercentageTransport2010));// object
+    //         console.log(coPercentageTransport2010.all);// shows object values
+    // --------------------------------
    
 
     // // The svg FOR THE MAP

@@ -67,8 +67,8 @@
     var ndx = crossfilter(emissionData);
     var all = ndx.groupAll();
     
-    console.log(emissionData);
-    console.log(typeof(emissionData));
+    // console.log(emissionData);
+    // console.log(typeof(emissionData));
 
     var parseDate = d3.time.format("%Y").parse;
     // var dateFormatParser = d3.timeParse(parseDate);
@@ -100,14 +100,72 @@
             d.total_CO = Number(d.total_CO);      
             // console.log(d.total_CO);   
         })
-
+       
+        show_CO_average_per_country(ndx);         
         
-    
-                    
-        
-        dc.renderAll();
-        
+        dc.renderAll();    
     };
+
+    function show_CO_average_per_country(ndx) {
+    
+    var country_dim = ndx.dimension(dc.pluck('Entity'));// country
+    // var averagePerCountry = country_dim.group().reduceSum(dc.pluck('total CO'));
+    var averagePerCountry = country_dim.group().reduce(
+        function add_item(p, v) {
+            p.count++;
+            p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
+            p.average = p.total / p.count;
+            return p;
+        },
+        function remove_item(p, v) {
+            p.count--;
+            if (p.count == 0) {
+                p.total = 0;
+                p.average = 0;
+            } else {
+                p.total -= v.total_CO;
+                p.average = p.total / p.count;
+            }
+            return p;
+        },
+        function initialise() {
+            return {
+                count: 0, 
+                total: 0,
+                average: 0,  
+            };
+        },
+    );
+    averagePerCountry.order(v => v.average);// sort values from top to bottom
+
+    console.log(typeof(averagePerCountry));// object
+    console.log(averagePerCountry.all());// shows object values
+    // console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
+
+
+    dc.pieChart("#pie-chart")
+        .height(480)
+        .width(480)
+        .radius(150)
+        .innerRadius(60)
+        .transitionDuration(500)
+        // .slicesCap(4)// number of slices the pie chart will generate
+        .cap(5)// return group.top(5)
+        .dimension('Entity')
+        .group(averagePerCountry) 
+        .valueAccessor(function (d) { return d.value.average})
+        // .colors(d3.scale.ordinal().range(// colors if wanted?
+        // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
+        .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+        // workaround for #703: not enough data is accessible through .label() to display percentages
+        .data(function (group) { // get top five groups
+            return group.top(5);})
+        .on('pretransition', function(pieChart) {
+            pieChart.selectAll('text.pie-slice').text(function(d) {
+                return d.data.key ;
+            })
+        });
+    }
 
 
 </script>
