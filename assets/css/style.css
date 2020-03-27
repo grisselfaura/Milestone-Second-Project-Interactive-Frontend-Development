@@ -162,9 +162,15 @@ if it's not present, don't show loader */
   text-indent: 15px;
 }
 
-/*Dashboard.html  -  Pie-graph css*/
+/*Dashboard.html  */
+.number-box {
+    font-size: 32px;
+    text-align: center;
+    line-height: normal;
+}
 
-.chart{
+/*-  Pie-graph css*/
+/* .chart{
     clear:left
 }
 
@@ -184,4 +190,4 @@ if it's not present, don't show loader */
 
 .arc2 path {
   stroke: #fff;
-}
+} */

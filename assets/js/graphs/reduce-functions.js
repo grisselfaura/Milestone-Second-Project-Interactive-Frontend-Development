@@ -15,8 +15,8 @@ var parseDate = d3.time.format("%Y").parse;
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
         d.Entity = String(d.Entity),
-        d.Year = parseDate(d.Year);
-        // d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
+        // d.Year = parseDate(d.Year);
+        d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
         // console.log(d.Year);     
         d.Transport = Number(d.Transport); //Number(" ")returns 0
         // console.log(d.Transport);
