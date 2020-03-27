@@ -119,40 +119,45 @@ function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
     // console.log(COper2010Year);
     
     // var group = dimension.group().reduce(reduceFieldsAdd(fields), reduceFieldsRemove(fields), reduceFieldsInitial(fields));
-    
+    // var coPercentage = ndx.groupAll().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
     var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
         function reduceAddAvg(attr) {
             return function(p,v) {
-                p.sum += v[attr];
-                p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
-                p.percentage = (p.sum/p.total) * 100;
-                // p.total += v.value_field;
+                if (v.Year === 2010) {
+                    p.sum_attr += v[attr];
+                    p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                    p.percentage_attr = (p.sum_attr/p.sum_total_CO);
+                    // p.total += v.value_field;
+                }
                 return p;
             };
         }
-        function reduceRemoveAvg(attr) {
+       function reduceRemoveAvg(attr) {
             return function(p,v) {
-                p.sum -= v[attr];
-                if (p.sum == 0) {
-                    p.total -= v.total_CO; // p.total += v["total CO"]; this doesnt work
-                    p.percentage = 0;
-                } else {
-                    p.total -= v.total_CO;
-                    p.percentage = (p.sum/p.total) * 100;
+                if (v.Year === 2010) {    
+                    p.sum_attr -= v[attr];
+                    if (p.sum_attr == 0) {
+                        p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
+                        p.percentage_attr = 0;
+                    } else {
+                        p.sum_total_CO -= v.total_CO;
+                        p.percentage_attr = (p.sum_attr/p.sum_total_CO);
+                    }
                 }
-               return p;
+                return p;
             };
         }
         function reduceInitAvg() {
-            return {sum:0, total:0, percentage:0};
+            return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
         }    
         console.log(coPercentage.all());
+
+        dc.numberDisplay("#percent-CO-transport")
+            .formatNumber(d3.format(".2%"))
+            .valueAccessor(function (d) { return d.value.percentage_attr})
+            .group(coPercentage)    
+
 };
-        // dc.numberDisplay("#percent-CO-transport")
-        //     .formatNumber(d3.format(".2%"))
-        //     .valueAccessor(percentage)
-        //     .group(coPercentage)    
-        
 // --------------------------------
     // var coPercentage = ndx.groupAll().reduce(
     //     function add_item(p, v) {
@@ -241,3 +246,34 @@ function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
     <script type="text/javascript" src="assets/js/graphs/tutorital_guido.js" ></script> -->
 </body>
 </html>
+
+<!--funciona 
+    var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
+        function reduceAddAvg(attr) {
+            return function(p,v) {
+                p.sum_attr += v[attr];
+                p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                p.percentage_attr = (p.sum_attr/p.sum_total_CO) * 100;
+                // p.total += v.value_field;
+                return p;
+            };
+        }
+        
+        function reduceRemoveAvg(attr) {
+            return function(p,v) {
+                p.sum_attr -= v[attr];
+                if (p.sum_attr == 0) {
+                    p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
+                    p.percentage_attr = 0;
+                } else {
+                    p.sum_total_CO -= v.total_CO;
+                    p.percentage_attr = (p.sum_attr/p.sum_total_CO) * 100;
+                }
+               return p;
+            };
+        }
+        function reduceInitAvg() {
+            return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
+        }    
+        console.log(coPercentage.all());
+}; -->
