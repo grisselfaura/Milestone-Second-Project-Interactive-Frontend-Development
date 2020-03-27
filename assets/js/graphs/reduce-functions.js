@@ -38,10 +38,62 @@ var parseDate = d3.time.format("%Y").parse;
         // console.log(d.total_CO);
     });
                 
+    show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport" );
+    show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");
+    show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");
+    show_CO_percentage_per_sector_2010(ndx, "Other_sources", "#percent-CO-other_sources");
+    show_CO_percentage_per_sector_2010(ndx, "Agriculture_Land_Use_Forestry", "#percent-CO-agriculture_land_use_forestry");
+    show_CO_percentage_per_sector_2010(ndx, "Waste", "#percent-CO-waste");
+    show_CO_percentage_per_sector_2010(ndx, "Residential_commercial", "#percent-CO-residential_commercial");
+    show_CO_percentage_per_sector_2010(ndx, "Industry", "#percent-CO-industry");
+
     show_CO_average_per_country(ndx);
     
     dc.renderAll();
     
+};
+
+function show_CO_percentage_per_sector_2010(ndx, attr, element) {
+    // var year_dim = ndx.dimension(dc.pluck('Year'));
+    var year_dim = ndx.dimension(function(d) {return d.Year;});
+    // console.log(year_dim);
+        // create functions to compute a value for any attribute  
+        function reduceAddAvg(attr) {
+            return function(p,v) {
+                if (v.Year === 2010) {
+                    p.sum_attr += v[attr];
+                    p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                    p.percentage_attr = (p.sum_attr/p.sum_total_CO);
+                    // p.total += v.value_field; 
+                }
+                return p;
+            };
+        }
+       function reduceRemoveAvg(attr) {
+            return function(p,v) {
+                if (v.Year === 2010) {    
+                    p.sum_attr -= v[attr];
+                    if (p.sum_attr == 0) {
+                        p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
+                        p.percentage_attr = 0;
+                    } else {
+                        p.sum_total_CO -= v.total_CO;
+                        p.percentage_attr = (p.sum_attr/p.sum_total_CO);
+                    }
+                }
+                return p;
+            };
+        }
+        function reduceInitAvg() {
+            return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
+        }    
+        var coPercentage = year_dim.group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
+        console.log(coPercentage.all());
+
+        dc.numberDisplay(element)
+            .formatNumber(d3.format(".2%"))
+            .valueAccessor(function (d) { return d.value.percentage_attr})
+            .group(coPercentage)    
 };
 
 function show_CO_average_per_country(ndx) {
