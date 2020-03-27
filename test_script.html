@@ -52,6 +52,11 @@
         <div id="percent-CO-transport"></div> <!-- Percentage number show -->
         <div id="percent-CO-forestry"></div> <!-- Percentage number show -->
         <div id="percent-CO-energy"></div> <!-- Percentage number show -->
+        <div id="percent-CO-other_sources"></div> <!-- Percentage number show -->
+        <div id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show -->
+        <div id="percent-CO-waste"></div> <!-- Percentage number show -->
+        <div id="percent-CO-residential_commercial"></div> <!-- Percentage number show -->
+        <div id="percent-CO-industry"></div> <!-- Percentage number show -->
     </div>
 
  
@@ -100,34 +105,31 @@
             // console.log(d.total_CO);
         });
                     
-        show_CO_percentage_per_sector_2010(ndx);//(MOVE TO a separate file)
-        // show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");//(MOVE TO a separate file)
-        // show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");//(MOVE TO a separate file)
-        // show_CO_average_per_country(ndx);
-        
+        show_CO_percentage_per_sector_2010(ndx, attr : "Transport", "#percent-CO-transport" );//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Other_sources", "#percent-CO-other_sources");//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Agriculture_Land_Use_Forestry", "#percent-CO-agriculture_land_use_forestry");//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Waste", "#percent-CO-waste");//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Residential_commercial", "#percent-CO-residential_commercial");//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Industry", "#percent-CO-industry");//(MOVE TO a separate file)
+
         dc.renderAll();
         
     };
 
-function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
+function show_CO_percentage_per_sector_2010(ndx, attr, element) {//(on a separate file)
     // var year_dim = ndx.dimension(dc.pluck('Year'));
     var year_dim = ndx.dimension(function(d) {return d.Year;});
     // console.log(year_dim);
-    // var coPercentageTransport = year_dim.group("2010").reduceSum(function(d) {return ((d.Transport / d.total_CO) * 100 );}); 
-    // var coTransport2010 = yearDim.group().reduceSum(function(d){if (d.Year===2010){return d.Transport;}else{return 0;}}); 
-    // var COper2010Year = year_dim.filterExact(2010);
-    // console.log(COper2010Year);
-    
-    // var group = dimension.group().reduce(reduceFieldsAdd(fields), reduceFieldsRemove(fields), reduceFieldsInitial(fields));
-    // var coPercentage = ndx.groupAll().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
-    var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
+        // create functions to compute a value for any attribute  
         function reduceAddAvg(attr) {
             return function(p,v) {
                 if (v.Year === 2010) {
                     p.sum_attr += v[attr];
                     p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
                     p.percentage_attr = (p.sum_attr/p.sum_total_CO);
-                    // p.total += v.value_field;
+                    // p.total += v.value_field; 
                 }
                 return p;
             };
@@ -150,61 +152,59 @@ function show_CO_percentage_per_sector_2010(ndx) {//(on a separate file)
         function reduceInitAvg() {
             return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
         }    
+        
+        var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('Transport'), reduceInitAvg);
+        var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('Transport'), reduceInitAvg);
+        var coPercentage = year_dim.group().reduce(reduceAddAvg('Forestry'), reduceRemoveAvg('Forestry'), reduceInitAvg);
+        var coPercentage = year_dim.group().reduce(reduceAddAvg('Energy'), reduceRemoveAvg('Energy'), reduceInitAvg);
+        //groups[attr+calc] = dimensions[attr+calc].group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
         console.log(coPercentage.all());
 
-        dc.numberDisplay("#percent-CO-transport")
+        dc.numberDisplay(element)
             .formatNumber(d3.format(".2%"))
             .valueAccessor(function (d) { return d.value.percentage_attr})
             .group(coPercentage)    
 
 };
-// --------------------------------
-    // var coPercentage = ndx.groupAll().reduce(
-    //     function add_item(p, v) {
-    //         if (v.Year === 2010) {
-    //             p.countTransport++;
-    //             p.countTotal_CO++;
-    //             p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
-    //             // p.totalTransport += v.Transport; 
-    //             // p.totalEmissions += v.total_CO; // p.total += v["total CO"]; this doesnt work
-    //             // p.sumIndex += (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
-    //             // p.avgIndex = p.sumIndex / p.count;
-    //             // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
-    //         }
-    //         return p;
-    //     },
-    //     function remove_item(p, v) {
-    //         if (v.Year === 2010) {
-    //             p.countTransport--;
-    //             p.countTotal_CO--;
-    //             p.percentage = ((p.countTransport/p.countTotal_CO) * 100);
-    //             // p.count--;
-    //             // p.totalTransport -= v.Transport; 
-    //             // p.totalEmissions -= v.total_CO; // p.total += v["total CO"]; this doesnt work
-    //             // p.sumIndex -= (v.Transport + v.Forestry + v.Energy + v.Other_sources + v.Agriculture_Land_Use_Forestry + v.Waste + v.Residential_commercial + v.Industry) 
-    //             // p.avgIndex = p.sumIndex / p.count;
-    //             // p.percentage = (p.totalTransport/p.totalEmissions) * 100;
-                
-    //         }
-    //         return p;
-    //     },
-    //     function initialise() {
-    //         return {
-    //             countTransport: 0,
-    //             countTotal_CO: 0,
-    //             percentage: 0, 
-    //             // count: 0, 
-    //             // totalTransport: 0,
-    //             // totalEmissions: 0,
-    //             // sumIndex: 0,  
-    //             // avgIndex: 0,
-    //             // percentage: 0,
+// // --------------------------------     working before generalizing
+// <!--funciona 
+//     var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
+//         function reduceAddAvg(attr) {
+    //         return function(p,v) {
+    //             if (v.Year === 2010) {
+    //                 p.sum_attr += v[attr];
+    //                 p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
+    //                 p.percentage_attr = (p.sum_attr/p.sum_total_CO);
+    //                 // p.total += v.value_field;
+    //             }
+    //             return p;
     //         };
-    //     },
-    // );
-    //         console.log(typeof(coPercentageTransport2010));// object
-    //         console.log(coPercentageTransport2010.all);// shows object values
-    // --------------------------------
+    //     }
+    //    function reduceRemoveAvg(attr) {
+    //         return function(p,v) {
+    //             if (v.Year === 2010) {    
+    //                 p.sum_attr -= v[attr];
+    //                 if (p.sum_attr == 0) {
+    //                     p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
+    //                     p.percentage_attr = 0;
+    //                 } else {
+    //                     p.sum_total_CO -= v.total_CO;
+    //                     p.percentage_attr = (p.sum_attr/p.sum_total_CO);
+    //                 }
+    //             }
+    //             return p;
+    //         };
+    //     }
+//         function reduceInitAvg() {
+//             return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
+//         }    
+//         console.log(coPercentage.all());
+
+            // dc.numberDisplay("#percent-CO-transport")
+            //     .formatNumber(d3.format(".2%"))
+            //     .valueAccessor(function (d) { return d.value.percentage_attr})
+            //     .group(coPercentage) 
+// }; -->
    
 
     // // The svg FOR THE MAP
