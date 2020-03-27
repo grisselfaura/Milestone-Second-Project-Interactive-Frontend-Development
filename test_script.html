@@ -105,7 +105,7 @@
             // console.log(d.total_CO);
         });
                     
-        show_CO_percentage_per_sector_2010(ndx, attr : "Transport", "#percent-CO-transport" );//(MOVE TO a separate file)
+        show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport" );//(MOVE TO a separate file)
         show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");//(MOVE TO a separate file)
         show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");//(MOVE TO a separate file)
         show_CO_percentage_per_sector_2010(ndx, "Other_sources", "#percent-CO-other_sources");//(MOVE TO a separate file)
@@ -152,11 +152,10 @@ function show_CO_percentage_per_sector_2010(ndx, attr, element) {//(on a separat
         function reduceInitAvg() {
             return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
         }    
-        
-        var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('Transport'), reduceInitAvg);
-        var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('Transport'), reduceInitAvg);
-        var coPercentage = year_dim.group().reduce(reduceAddAvg('Forestry'), reduceRemoveAvg('Forestry'), reduceInitAvg);
-        var coPercentage = year_dim.group().reduce(reduceAddAvg('Energy'), reduceRemoveAvg('Energy'), reduceInitAvg);
+        var coPercentage = year_dim.group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
+        // var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('Transport'), reduceInitAvg);
+        // var coPercentage = year_dim.group().reduce(reduceAddAvg('Forestry'), reduceRemoveAvg('Forestry'), reduceInitAvg);
+        // var coPercentage = year_dim.group().reduce(reduceAddAvg('Energy'), reduceRemoveAvg('Energy'), reduceInitAvg);
         //groups[attr+calc] = dimensions[attr+calc].group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
         console.log(coPercentage.all());
 
