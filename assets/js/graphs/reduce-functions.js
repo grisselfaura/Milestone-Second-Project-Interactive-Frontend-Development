@@ -53,6 +53,7 @@ var parseDate = d3.time.format("%Y").parse;
     
 };
 
+// help from API https://github.com/square/crossfilter/wiki/API-Reference#dimension_group reduction function
 function show_CO_percentage_per_sector_2010(ndx, attr, element) {
     // var year_dim = ndx.dimension(dc.pluck('Year'));
     var year_dim = ndx.dimension(function(d) {return d.Year;});
@@ -94,7 +95,7 @@ function show_CO_percentage_per_sector_2010(ndx, attr, element) {
             .formatNumber(d3.format(".2%"))
             .valueAccessor(function (d) { return d.value.percentage_attr})
             .group(coPercentage)    
-};
+}; 
 
 function show_CO_average_per_country(ndx) {
 var country_dim = ndx.dimension(dc.pluck('Entity'));// country

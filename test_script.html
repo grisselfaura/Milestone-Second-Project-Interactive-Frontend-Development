@@ -30,9 +30,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
 
-   <!-- Load D3 -->
+    <!-- Load D3 -->
     <script src="https://d3js.org/d3.v4.min.js"></script><!-- how to combine to different libraries versions-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    
+    <!-- Load D3 for world-map-->
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.8/datamaps.all.js"></script>
+
     <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> for map-->
     <!-- <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>for map --> 
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
@@ -42,164 +50,63 @@
 </head>
 <body>
 
-    <!-- <div id="global-carbon-dioxide-emision-by-sector">
-        <h2>Global Carbon Dioxide Emission by Sectors</h2>
-        <select id="select-country"></select>
-    </div> -->
-
     <div>
-        <div id="pie-chart">fgfdgfd</div> 
-        <div id="percent-CO-transport"></div> <!-- Percentage number show -->
-        <div id="percent-CO-forestry"></div> <!-- Percentage number show -->
-        <div id="percent-CO-energy"></div> <!-- Percentage number show -->
-        <div id="percent-CO-other_sources"></div> <!-- Percentage number show -->
-        <div id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show -->
-        <div id="percent-CO-waste"></div> <!-- Percentage number show -->
-        <div id="percent-CO-residential_commercial"></div> <!-- Percentage number show -->
-        <div id="percent-CO-industry"></div> <!-- Percentage number show -->
+        <div id="world-map">fgfdgfd</div>     
     </div>
 
  
 <script>
-    queue() 
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
-        .await(makeGraphs);
+    // queue() 
+    //     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
+    //     .await(makeGraphs);
 
-    function makeGraphs(error, emissionData){ 
-        if (error) throw error;
-        // console.log(emissionData);
-        // console.log(typeof(emissionData));
+    // function makeGraphs(error, emissionData){ 
+    //     if (error) throw error;
+    //     // console.log(emissionData);
+    //     // console.log(typeof(emissionData));
 
-    var ndx = crossfilter(emissionData);
-    var all = ndx.groupAll();
+    // var ndx = crossfilter(emissionData);
+    // var all = ndx.groupAll();
     
-    var parseDate = d3.time.format("%Y").parse;
-    // var dateFormatParser = d3.timeParse(parseDate);
+    // var parseDate = d3.time.format("%Y").parse;
+    // // var dateFormatParser = d3.timeParse(parseDate);
 
-    // Loop through data and parse/convert appropriate formats
-        emissionData.forEach(function(d) {
-            d.Code = String(d.Code);
-            d.Entity = String(d.Entity);
-            // d.Year = parseDate(d.Year); 
-            d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
-            //console.log(d.Year); 
-            // d.dd = dateFormatParser(d.Year);  
-            // console.log(d.dd);
-            d.Transport = Number(d.Transport); //Number(" ")returns 0
-            // console.log(d.Transport);
-            d.Forestry = Number(d.Forestry); // other alternative to get rid of empty values d.Transport = d.Transport ? parseFloat(d.Transport) : 0
-            // console.log(d.Forestry);
-            d.Energy = Number(d.Energy);
-            // console.log(d.Energy);
-            d.Other_sources = Number(d.Other_sources);
-            // console.log(d.Other_sources);
-            d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
-            // console.log(d.Agriculture_Land_Use_&_Forestry);
-            d.Waste = Number(d.Waste);
-            // console.log(d.Waste);
-            d.Residential_commercial = Number(d.Residential_commercial);
-            // console.log(d["Residential & commercial"]);
-            d.Industry = Number(d.Industry); 
-            // console.log(d.Industry);
-            d.total_CO = Number(d.total_CO);      
-            // console.log(d.total_CO);
-        });
+    // // Loop through data and parse/convert appropriate formats
+    //     emissionData.forEach(function(d) {
+    //         d.Code = String(d.Code);
+    //         d.Entity = String(d.Entity);
+    //         // d.Year = parseDate(d.Year); 
+    //         d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
+    //         //console.log(d.Year); 
+    //         // d.dd = dateFormatParser(d.Year);  
+    //         // console.log(d.dd);
+    //         d.Transport = Number(d.Transport); //Number(" ")returns 0
+    //         // console.log(d.Transport);
+    //         d.Forestry = Number(d.Forestry); // other alternative to get rid of empty values d.Transport = d.Transport ? parseFloat(d.Transport) : 0
+    //         // console.log(d.Forestry);
+    //         d.Energy = Number(d.Energy);
+    //         // console.log(d.Energy);
+    //         d.Other_sources = Number(d.Other_sources);
+    //         // console.log(d.Other_sources);
+    //         d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
+    //         // console.log(d.Agriculture_Land_Use_&_Forestry);
+    //         d.Waste = Number(d.Waste);
+    //         // console.log(d.Waste);
+    //         d.Residential_commercial = Number(d.Residential_commercial);
+    //         // console.log(d["Residential & commercial"]);
+    //         d.Industry = Number(d.Industry); 
+    //         // console.log(d.Industry);
+    //         d.total_CO = Number(d.total_CO);      
+    //         // console.log(d.total_CO);
+    //     });
                     
-        show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport" );//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Other_sources", "#percent-CO-other_sources");//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Agriculture_Land_Use_Forestry", "#percent-CO-agriculture_land_use_forestry");//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Waste", "#percent-CO-waste");//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Residential_commercial", "#percent-CO-residential_commercial");//(MOVE TO a separate file)
-        show_CO_percentage_per_sector_2010(ndx, "Industry", "#percent-CO-industry");//(MOVE TO a separate file)
-
-        dc.renderAll();
         
-    };
 
-function show_CO_percentage_per_sector_2010(ndx, attr, element) {//(on a separate file)
-    // var year_dim = ndx.dimension(dc.pluck('Year'));
-    var year_dim = ndx.dimension(function(d) {return d.Year;});
-    // console.log(year_dim);
-        // create functions to compute a value for any attribute  
-        function reduceAddAvg(attr) {
-            return function(p,v) {
-                if (v.Year === 2010) {
-                    p.sum_attr += v[attr];
-                    p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
-                    p.percentage_attr = (p.sum_attr/p.sum_total_CO);
-                    // p.total += v.value_field; 
-                }
-                return p;
-            };
-        }
-       function reduceRemoveAvg(attr) {
-            return function(p,v) {
-                if (v.Year === 2010) {    
-                    p.sum_attr -= v[attr];
-                    if (p.sum_attr == 0) {
-                        p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
-                        p.percentage_attr = 0;
-                    } else {
-                        p.sum_total_CO -= v.total_CO;
-                        p.percentage_attr = (p.sum_attr/p.sum_total_CO);
-                    }
-                }
-                return p;
-            };
-        }
-        function reduceInitAvg() {
-            return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
-        }    
-        var coPercentage = year_dim.group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
-        console.log(coPercentage.all());
+    //     dc.renderAll();
+        
+    // };
 
-        dc.numberDisplay(element)
-            .formatNumber(d3.format(".2%"))
-            .valueAccessor(function (d) { return d.value.percentage_attr})
-            .group(coPercentage)    
-};
 
-// // --------------------------------     working before generalizing
-// <!--funciona 
-//     var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
-//         function reduceAddAvg(attr) {
-    //         return function(p,v) {
-    //             if (v.Year === 2010) {
-    //                 p.sum_attr += v[attr];
-    //                 p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
-    //                 p.percentage_attr = (p.sum_attr/p.sum_total_CO);
-    //                 // p.total += v.value_field;
-    //             }
-    //             return p;
-    //         };
-    //     }
-    //    function reduceRemoveAvg(attr) {
-    //         return function(p,v) {
-    //             if (v.Year === 2010) {    
-    //                 p.sum_attr -= v[attr];
-    //                 if (p.sum_attr == 0) {
-    //                     p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
-    //                     p.percentage_attr = 0;
-    //                 } else {
-    //                     p.sum_total_CO -= v.total_CO;
-    //                     p.percentage_attr = (p.sum_attr/p.sum_total_CO);
-    //                 }
-    //             }
-    //             return p;
-    //         };
-    //     }
-//         function reduceInitAvg() {
-//             return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
-//         }    
-//         console.log(coPercentage.all());
-
-            // dc.numberDisplay("#percent-CO-transport")
-            //     .formatNumber(d3.format(".2%"))
-            //     .valueAccessor(function (d) { return d.value.percentage_attr})
-            //     .group(coPercentage) 
-// }; -->
    
 
     // // The svg FOR THE MAP
