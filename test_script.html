@@ -62,15 +62,29 @@
     
  
 <script>
-    
-    var map = L.map('world-map').setView([-41.2858, 174.78682], 14);
+    // var map = L.map('world-map').setView([-41.2858, 174.78682], 14);
+    var map = L.map('world-map').setView([0, 0], 1);
             mapLink = 
                 '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-            L.tileLayer(
-                'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; ' + mapLink + ' Contributors',
-                maxZoom: 18,
-                }).addTo(map);
+    L.tileLayer(
+            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; ' + mapLink + ' Contributors',
+            maxZoom: 18,
+            }).addTo(map);
+
+    var marker = L.marker([52.3722558, 4.8949746]).addTo(map);  
+    var circle = L.circle([-11.953, -76.882], { //example
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(map);
+
+    marker.bindPopup("<b>testing</b>").openPopup();
+    circle.bindPopup("<b>circleexaple</b>").openPopup();
+
+
+              
 
 </script>
 <!-- <script type="text/javascript" src="assets/js/graphs/tutorital_guido.js" ></script> -->
