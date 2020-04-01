@@ -170,7 +170,7 @@ if it's not present, don't show loader */
 }
 
 /*Dashboard.html world-map */
-    path {
+    /* path {
     stroke: red;          
     stroke-width: 0.5px;  
     fill: orange;        
@@ -185,7 +185,7 @@ if it's not present, don't show loader */
     opacity: 0;
     color: black;
     position: absolute;
-    }
+    } */
     
 /*-  Pie-graph css*/
 /* .chart{
