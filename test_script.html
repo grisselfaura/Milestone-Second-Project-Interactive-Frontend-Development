@@ -51,89 +51,15 @@
 <body>
 
     <div>
-        <div id="world-map">fgfdgfd</div>     
+        <div id="world-map">world map</div>     
+        <div id="container1"></div>
     </div>
 
+    <!-- Visualize Data | Map Data Across the Globe - D3.js - FreeCodeCamp  -->
+    
  
 <script>
-    // queue() 
-    //     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
-    //     .await(makeGraphs);
-
-    // function makeGraphs(error, emissionData){ 
-    //     if (error) throw error;
-    //     // console.log(emissionData);
-    //     // console.log(typeof(emissionData));
-
-    // var ndx = crossfilter(emissionData);
-    // var all = ndx.groupAll();
     
-    // var parseDate = d3.time.format("%Y").parse;
-    // // var dateFormatParser = d3.timeParse(parseDate);
-
-    // // Loop through data and parse/convert appropriate formats
-    //     emissionData.forEach(function(d) {
-    //         d.Code = String(d.Code);
-    //         d.Entity = String(d.Entity);
-    //         // d.Year = parseDate(d.Year); 
-    //         d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
-    //         //console.log(d.Year); 
-    //         // d.dd = dateFormatParser(d.Year);  
-    //         // console.log(d.dd);
-    //         d.Transport = Number(d.Transport); //Number(" ")returns 0
-    //         // console.log(d.Transport);
-    //         d.Forestry = Number(d.Forestry); // other alternative to get rid of empty values d.Transport = d.Transport ? parseFloat(d.Transport) : 0
-    //         // console.log(d.Forestry);
-    //         d.Energy = Number(d.Energy);
-    //         // console.log(d.Energy);
-    //         d.Other_sources = Number(d.Other_sources);
-    //         // console.log(d.Other_sources);
-    //         d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
-    //         // console.log(d.Agriculture_Land_Use_&_Forestry);
-    //         d.Waste = Number(d.Waste);
-    //         // console.log(d.Waste);
-    //         d.Residential_commercial = Number(d.Residential_commercial);
-    //         // console.log(d["Residential & commercial"]);
-    //         d.Industry = Number(d.Industry); 
-    //         // console.log(d.Industry);
-    //         d.total_CO = Number(d.total_CO);      
-    //         // console.log(d.total_CO);
-    //     });
-                    
-        
-
-    //     dc.renderAll();
-        
-    // };
-
-
-   
-
-    // // The svg FOR THE MAP
-    // var svg = d3.select("svg"),
-    //     width = +svg.attr("width"),
-    //     height = +svg.attr("height");
-
-    // // Map and projection
-    // var projection = d3.geoNaturalEarth()
-    //     .scale(width / 1.3 / Math.PI)
-    //     .translate([width / 2, height / 2])
-
-    // // Load external data and boot
-    // d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data){
-
-    //     // Draw the map
-    //     svg.append("g")
-    //         .selectAll("path")
-    //         .data(data.features)
-    //         .enter().append("path")
-    //             .attr("fill", "#69b3a2")
-    //             .attr("d", d3.geoPath()
-    //                 .projection(projection)
-    //             )
-    //             .style("stroke", "#fff")
-    //})
-
 
 
 </script>
@@ -149,33 +75,3 @@
 </body>
 </html>
 
-<!--funciona 
-    var coPercentage = year_dim.group().reduce(reduceAddAvg('Transport'), reduceRemoveAvg('d.Transport'), reduceInitAvg);
-        function reduceAddAvg(attr) {
-            return function(p,v) {
-                p.sum_attr += v[attr];
-                p.sum_total_CO += v.total_CO; // p.total += v["total CO"]; this doesnt work
-                p.percentage_attr = (p.sum_attr/p.sum_total_CO) * 100;
-                // p.total += v.value_field;
-                return p;
-            };
-        }
-        
-        function reduceRemoveAvg(attr) {
-            return function(p,v) {
-                p.sum_attr -= v[attr];
-                if (p.sum_attr == 0) {
-                    p.sum_total_CO -= v.total_CO; // p.sum_total_COl += v["total CO"]; this doesnt work
-                    p.percentage_attr = 0;
-                } else {
-                    p.sum_total_CO -= v.total_CO;
-                    p.percentage_attr = (p.sum_attr/p.sum_total_CO) * 100;
-                }
-               return p;
-            };
-        }
-        function reduceInitAvg() {
-            return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
-        }    
-        console.log(coPercentage.all());
-}; -->

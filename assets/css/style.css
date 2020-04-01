@@ -169,6 +169,24 @@ if it's not present, don't show loader */
     line-height: normal;
 }
 
+/*Dashboard.html world-map */
+    path {
+    stroke: red;          
+    stroke-width: 0.5px;  
+    fill: orange;        
+    }
+
+    #tooltip {
+    text-align: left;
+    padding: 16px;
+    background-color: lightsalmon;
+    border: 1px solid black;
+    width: auto;
+    opacity: 0;
+    color: black;
+    position: absolute;
+    }
+    
 /*-  Pie-graph css*/
 /* .chart{
     clear:left
