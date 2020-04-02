@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Second Milestone Project</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  <!--Bootstrap v4.3.1-->
+   
+    <!-- CHECK IF WE NEED THIS LINK -->
+    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    <!-- Custom styles for this template -->
+    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+    <link href="assets/css/landing-page.css" rel="stylesheet">
+    
+    <!-- Personal Styles for this website -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <link href="assets/css/dc.css" rel="stylesheet"> <!-- for the charts -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
+
+    <!-- Load D3 -->
+     <!--<script src="https://d3js.org/d3.v5.min.js"></script> latest release-->
+
+    <script src="https://d3js.org/d3.v4.min.js"></script> <!-- how to combine to different libraries versions-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> <!--check version-->
+    <script src="https://d3js.org/topojson.v2.min.js"></script> <!--check version-->
+    <script src="https://unpkg.com/topojson-client@3"></script>
+
+    <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
+    <script type="text/javascript" src="assets/js/dc.min.js"></script>
+    <script type="text/javascript" src="assets/js/queue.min.js"></script>
+     
+</head>
+<body>
+
+    <div class="container" style="width: 1000px; margin: 30px auto">
+        <div id="world-map" style="width: 100%; height: 400px">world map</div>     
+        <div id="container1"></div>
+        <h1 id="name"></h1>
+    </div>
+    
+ 
+<script>
+    // tutorial https://www.youtube.com/watch?v=suNs5p0IxWk&feature=youtu.be adapted to this
+    // totalCOData 
+    var totalCOData  = d3.map();
+
+    // asynchronous tasks, load topojson maps and data
+    d3.queue()
+        .defer(d3.json, "data/countries-50m.json") // changed this,
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv") // changed this,
+        .await(makeWorldMap); // see what happen when changing name to makeGraphs now use as example ready
+    
+    // callback function  
+    function makeWorldMap(error, emissionData){ 
+        if (error) throw error;
+    }
+----------------------------------------------
+        // Define Margin, Width & Height
+    var margin = {top: 5, right: 5, bottom: 5, left: 5},
+        width = 1060 - margin.left - margin.right,
+        height = 620 - margin.top - margin.bottom;
+
+    // Define Map Projections - D3 API Reference on Geo > Geo Projections
+    var projection = d3.geo.albersUsa()
+        .scale(1280)
+        .translate([width / 2, height / 2]);
+                                    
+    // Define Path
+    var path = d3.geo.path().projection(projection);
+
+    // Define color scale. A range of color to represent different shade of the color
+    // In this example, we will represent the color Blue in different shades. 
+    var color = d3.scale.quantize()
+        .range(["rgb(161,217,155)","rgb(116,196,118)",
+                "rgb(65,171,93)","rgb(35,139,69)",
+                "rgb(0,90,50)"]);
+
+    // Define Tooltip
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+                                    
+    // Define SVG
+    var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.right + ")");   
+
+    // Load Data
+    d3.csv("us-pop.csv", function(data) {
+        color.domain([
+            d3.min(data, function(d) { return d.value; }), 
+            d3.max(data, function(d) { return d.value; })
+        ]);
+        
+        // Load GeoJSON Data
+        d3.json("us-states.json", function(json) {
+            for (var i = 0; i < data.length; i++) {
+                var dataState = data[i].state;
+                var dataValue = parseFloat(data[i].value);
+                for (var j = 0; j < json.features.length; j++) {
+                    var jsonState = json.features[j].properties.name;
+                    if (dataState == jsonState) {
+                        json.features[j].properties.value = dataValue;
+                        break;				
+                    }
+                }		
+            }
+
+        // Bind Data 
+        svg.selectAll("path")
+            .data(json.features)
+            .enter()    
+            .append("path")
+            .attr("class", "state-boundary")
+            .attr("d", path)
+            .style("fill", function(d) { return color(d.properties.value); })
+            .on("mouseover", function(d) {   
+                tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+                tooltip.html("<strong>" + d.properties.name + "</strong>" + "<br/>" + "Population: " +
+                            (d.properties.value).toLocaleString() + " Million")			
+                .style("left", (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");		       
+            })
+            .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+            
+        
+        });
+    });
+
+    // var svg = d3.select("body").append("svg");
+    // var path = d3.geoPath().projection(d3.geoMercator());
+    // d3.json("https://unpkg.com/world-atlas@1/world/110m.json", function(error, world) {
+    // if (error) throw error;
+    // svg.selectAll("path")
+    //     .data(topojson.feature(world,world.objects.countries).features)
+    //     .enter().append("path")
+    //     .attr("d", path);
+    // });
+
+//     // d3 World Choropleth https://observablehq.com/@d3/world-choropleth
+//     chart = {
+//         const svg = d3.create("svg")
+//             .style("display", "block")
+//             .attr("viewBox", [0, 0, width, height]);
+
+//     const defs = svg.append("defs");
+
+//     defs.append("path")
+//         .attr("id", "outline")
+//         .attr("d", path(outline));
+
+//     defs.append("clipPath")
+//         .attr("id", "clip")
+//         .append("use")
+//         .attr("xlink:href", new URL("#outline", location));
+
+//     const g = svg.append("g")
+//         .attr("clip-path", `url(${new URL("#clip", location)})`);
+
+//     g.append("use")
+//         .attr("xlink:href", new URL("#outline", location))
+//         .attr("fill", "white");
+
+//     g.append("g")
+//         .selectAll("path")
+//         .data(countries.features)
+//         .join("path")
+//         .attr("fill", d => color(data.get(d.properties.name)))
+//         .attr("d", path)
+//         .append("title")
+//         .text(d => `${d.properties.name}
+// ${data.has(d.properties.name) ? data.get(d.properties.name) : "N/A"}`);
+
+//     g.append("path")
+//         .datum(topojson.mesh(world, world.objects.countries, (a, b) => a !== b))
+//         .attr("fill", "none")
+//         .attr("stroke", "white")
+//         .attr("stroke-linejoin", "round")
+//         .attr("d", path);
+
+//     svg.append("use")
+//         .attr("xlink:href", new URL("#outline", location))
+//         .attr("fill", "none")
+//         .attr("stroke", "black");
+
+//     return svg.node();
+// }
+
+</script>
+<!-- <script type="text/javascript" src="assets/js/graphs/tutorital_guido.js" ></script> -->
+<!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script> -->
+  <!-- <script type="text/javascript" src="assets/js/graphs/graph-CO2_originalad-ad.js" ></script>
+    <script type="text/javascript" src="assets/js/graphs/graph-CO2.js" ></script>
+    <script type="text/javascript" src="assets/js/graphs/map-top-countries.js" ></script>
+    <script type="text/javascript" src="assets/js/graphs/pie-animated-graph.js" ></script> 
+    <script type="text/javascript" src="assets/js/graphs/salary-graph.js"></script>   to be deleted-
+    <script type="text/javascript" src="assets/js/graphs/tutorial_combi.js"></script>   
+    <script type="text/javascript" src="assets/js/graphs/tutorital_guido.js" ></script> -->
+</body>
+</html>
+

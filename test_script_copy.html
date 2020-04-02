@@ -65,12 +65,19 @@
         borderOpacity: 0.25,
         borderWidth: 1,
         color: '#f4f3f0',
+        hoverOpacity: 0.7,
+        selectedColor: '#666666',
         enableZoom: true,
-        scaleColors: ['#b6d6ff', '#005ace'],
+        scaleColors: ['#C8EEFF', '#006491'],
         showTooltip: true,
         onRegionClick: function(event, code, region) {
              $("#name").html(region+" ("+code+") ");
         }
+        //https://stackoverflow.com/questions/14895048/jqvmap-how-to-show-data-values-onregionclick
+        // onLabelShow: function (event, label, code) {
+        // if(sample_data[code] > 0)
+        // label.append(': '+sample_data[code]+' Views'); 
+}
     })
 
 </script>
