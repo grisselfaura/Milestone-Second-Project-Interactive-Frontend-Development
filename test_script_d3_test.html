@@ -51,11 +51,15 @@
 </head>
 <body>
     <svg class="coMap">test</svg>
+    <button type="button" id="change">Change</button>
  
 <script>
     var width = 960,
         height = 500;
 
+    var states;
+
+    //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
     var projection = d3.geo.mercator()
         .center([-97,37])
         .scale(4000 / 2 / Math.PI)
@@ -75,6 +79,15 @@
             .attr("d", path);
             
     });
+
+    d3.select("#change").on("click", function() {
+        projection = d3.geo.albers();
+    path.projection(projection);
+    states.transition()
+        .duration(10000)
+        .attr("d", path);
+    });
+
 
 </script>
 
