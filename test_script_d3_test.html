@@ -13,6 +13,12 @@
         stroke: #fff;
     }
 
+    .symbol {
+        fill: steelblue;
+        fill-opacity: .8;
+        stroke: #fff;
+    }
+
 
     </style>
 
@@ -45,7 +51,6 @@
     <script src="https://d3js.org/topojson.v2.min.js"></script> -->
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/topojson.v0.min.js"></script>
-
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
      
 </head>
@@ -57,7 +62,11 @@
     var width = 960,
         height = 500;
 
-    var states;
+    var states, points;
+
+    var radius = d3.scale.sqrt()
+        .domain([0, 1e6])
+        .range([0, 10]);
 
     //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
     var projection = d3.geo.mercator()
@@ -72,21 +81,33 @@
         .attr("width", width)
         .attr("height", height);
 
-    d3.json("data/us.json", function(error, us) {
+    queue()
+        .defer(d3.json, "data/us.json")
+        .defer(d3.json, "data/us-state-centroids.json")
+        .await(ready);
+
+    function ready(error, us, centroid) {
+        if (error) throw error;
+
         svg.append("path")
             .attr("class", "states")
             .datum(topojson.object(us, us.objects.states))
             .attr("d", path);
-            
-    });
 
-    d3.select("#change").on("click", function() {
-        projection = d3.geo.albers();
-    path.projection(projection);
-    states.transition()
-        .duration(10000)
-        .attr("d", path);
-    });
+        svg.selectAll(".symbol")
+            .data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+            .enter().append("path")
+            .attr("class", "symbol")
+            .attr("d", path.pointRadius(function(d) { return radius(d.properties.population); }));        
+    }
+
+    // d3.select("#change").on("click", function() {
+    //     projection = d3.geo.albers();
+    // path.projection(projection);
+    // states.transition()
+    //     .duration(10000)
+    //     .attr("d", path);
+    // });
 
 
 </script>
