@@ -19,6 +19,17 @@
         stroke: #fff;
     }
 
+    .tooltip{ background-color:rgba(68,136,187,0.5);;
+          margin: 10px;
+          height: 50px;
+          width: 150px;
+          padding-left: 10px; 
+          padding-top: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+        }
+
 
     </style>
 
@@ -89,25 +100,34 @@
     function ready(error, us, centroid) {
         if (error) throw error;
 
-        svg.append("path")
+    states = svg.append("path")
             .attr("class", "states")
             .datum(topojson.object(us, us.objects.states))
             .attr("d", path);
 
-        svg.selectAll(".symbol")
+    points = svg.selectAll(".symbol")
             .data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
             .enter().append("path")
             .attr("class", "symbol")
-            .attr("d", path.pointRadius(function(d) { return radius(d.properties.population); }));        
+            // .attr("d", path.pointRadius(function(d) { return radius(d.properties.population); }));  
+            .attr("d", path.pointRadius(function(d) { if(d.properties) { return radius(d.properties.population);} else {return;} }))
+            .call(d3.helper.tooltip(
+                function(d, i){
+                    return "<b>"+d.properties.name + "</b><br/>pop: "+d.properties.population;
+                }
+                ));      
     }
 
-    // d3.select("#change").on("click", function() {
-    //     projection = d3.geo.albers();
-    // path.projection(projection);
-    // states.transition()
-    //     .duration(10000)
-    //     .attr("d", path);
-    // });
+    d3.select("#change").on("click", function() {
+        projection = d3.geo.albers();
+        path.projection(projection);
+        states.transition()
+            .duration(10000)
+            .attr("d", path);
+        points.transition()
+        .duration(3000)
+        .attr("d", path);
+    });
 
 
 </script>
