@@ -7,29 +7,26 @@
     <title>Second Milestone Project</title>
 
     <style>
-
-    /* .states {
-        fill: #ccc;
-        stroke: #fff;
+    /* #choropleth {
+    display: block;
+    margin: auto;
     }
-
-    .symbol {
-        fill: green;
-        fill-opacity: .8;
-        stroke: #fff;
-    }
-
-    .tooltip{ background-color:rgba(68,136,187,0.5);
-          margin: 10px;
-          height: 50px;
-          width: 150px;
-          padding-left: 10px; 
-          padding-top: 10px;
-    -webkit-border-radius:10px;
-    -moz-border-radius:10px;
-    border-radius:10px;
-    pointer-events: none; 
-    } */
+    
+    .tooltip{
+        background-color:rgba(68,136,187,0.5);
+        margin: 10px;
+        height: 50px;
+        width: 150px;
+        padding-left: 10px; 
+        padding-top: 10px;
+        -webkit-border-radius:10px;
+        -moz-border-radius:10px;
+        border-radius:10px;
+        pointer-events: none;
+        opacity: 0; 
+        position: absolute;
+        text-align: center;
+    }  */
 
     /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
     .countries {
@@ -50,22 +47,23 @@
     </style>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  <!--Bootstrap v4.3.1-->
+    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">   -->
+    <!--Bootstrap v4.3.1-->
    
     <!-- CHECK IF WE NEED THIS LINK -->
-    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
+    <!-- <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css"> -->
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    
+     -->
     <!-- Custom styles for this template -->
-    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+    <!-- <link href="assets/css/scrolling-nav.css" rel="stylesheet">
     <link href="assets/css/landing-page.css" rel="stylesheet">
-    
+     -->
     <!-- Personal Styles for this website -->
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css" type="text/css"> -->
     <link href="assets/css/dc.css" rel="stylesheet"> <!-- for the charts -->
 
     <!-- Bootstrap core JavaScript -->
@@ -75,13 +73,13 @@
 
     <!-- Load D3 -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <!-- <script src="https://d3js.org/topojson.v3.min.js"></script>  -->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script> 
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
     <!-- <script src="https://d3js.org/topojson.v0.min.js"></script> -->
     <!-- <script src="https://d3js.org/queue.v1.min.js"></script> -->
-    <script type="text/javascript" src="assets/js/queue.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/queue.min.js"></script> -->
     <!-- <script type="text/javascript" src="assets/js/graphs/tooltip.js" ></script>  -->
      
 </head>
@@ -90,10 +88,6 @@
     <!-- <button type="button" id="change">Change</button> -->
  
 <script>
-
-    // var svg = d3.select("body").append("svg")
-        //     .attr("width", width)
-        //     .attr("height", height);
 
     // The svg
     var svg = d3.select("svg"),
@@ -113,13 +107,14 @@
     // Data and color scale
     // CO emission Data 
     var data = d3.map();
+    // console.log(data)
     var colorScheme = d3.schemeReds[6];
     colorScheme.unshift("#eee")
     var colorScale = d3.scaleThreshold()
         .domain([1, 6, 11, 26, 101, 1001])
         .range(colorScheme);
-    
-    // Legend
+
+        // Legend
     var g = svg.append("g")
         .attr("class", "legendThreshold")
         .attr("transform", "translate(20,20)");
@@ -127,8 +122,8 @@
         .attr("class", "caption")
         .attr("x", 0)
         .attr("y", -6)
-        .text("Students");
-    var labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
+        .text("CO-2 levels");
+    var labels = ['0', '1000', '10 000', '100 000', '1000 000', '10 000 000', '> 100 000 000'];
     var legend = d3.legendColor()
         .labels(function (d) { return labels[d.i]; })
         .shapePadding(4)
@@ -138,12 +133,14 @@
 
     // Load external data and boot, asynchronous tasks
     d3.queue()
-        .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+        .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+        .await(ready);
+        // console.log(topo.features);
         // .defer(d3.json, "data/countries-50m.json")
-        // console.log(data)
+        // console.log(d);
         //.defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) { data.set(d.Entity, +d.total_CO); })
-        .await(ready);  
+       
 
     function ready(error, topo) {
         if (error) throw error;
@@ -160,9 +157,9 @@
                     // Set the color
                     return colorScale(d.total);
                 })
-                .attr("d", path);
-    }    
+                .attr("d", d3.geoPath());
 
+    }    
 
 </script>
 
