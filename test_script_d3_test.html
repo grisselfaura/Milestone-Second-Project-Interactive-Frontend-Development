@@ -8,18 +8,18 @@
 
     <style>
 
-    .states {
+    /* .states {
         fill: #ccc;
         stroke: #fff;
     }
 
     .symbol {
-        fill: steelblue;
+        fill: green;
         fill-opacity: .8;
         stroke: #fff;
     }
 
-    .tooltip{ background-color:rgba(68,136,187,0.5);;
+    .tooltip{ background-color:rgba(68,136,187,0.5);
           margin: 10px;
           height: 50px;
           width: 150px;
@@ -28,8 +28,23 @@
     -webkit-border-radius:10px;
     -moz-border-radius:10px;
     border-radius:10px;
-        }
-
+    pointer-events: none; 
+    } */
+        
+    .countries {
+        fill: none;
+        stroke: #fff;
+        stroke-linejoin: round;
+    }
+    .legendThreshold {
+        font-size: 12px;
+        font-family: sans-serif;
+    }
+    .caption {
+        fill: #000;
+        text-anchor: start;
+        font-weight: bold;
+    }
 
     </style>
 
@@ -58,26 +73,31 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
 
     <!-- Load D3 -->
-    <!-- <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script> -->
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="https://d3js.org/topojson.v0.min.js"></script>
-    <script type="text/javascript" src="assets/js/queue.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <!-- <script src="https://d3js.org/topojson.v0.min.js"></script> -->
+    <script src="https://d3js.org/queue.v1.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/queue.min.js"></script> -->
+    <script type="text/javascript" src="assets/js/graphs/tooltip.js" ></script> 
      
 </head>
 <body>
-    <svg class="coMap">test</svg>
+    <svg class="coMap" width="960" height="600">test</svg>
     <button type="button" id="change">Change</button>
  
 <script>
-    var width = 960,
-        height = 500;
 
-    var states, points;
+// http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 TUTORIAL
+    // var width = 960,
+    //     height = 500;
 
-    var radius = d3.scale.sqrt()
-        .domain([0, 1e6])
-        .range([0, 10]);
+    // The svg
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
 
     //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
     var projection = d3.geo.mercator()
@@ -98,24 +118,24 @@
         .await(ready);
 
     function ready(error, us, centroid) {
-        if (error) throw error;
+        // if (error) throw error;
 
-    states = svg.append("path")
-            .attr("class", "states")
-            .datum(topojson.object(us, us.objects.states))
-            .attr("d", path);
+        states = svg.append("path")
+                .attr("class", "states")
+                .datum(topojson.object(us, us.objects.states))
+                .attr("d", path);
 
-    points = svg.selectAll(".symbol")
-            .data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
-            .enter().append("path")
-            .attr("class", "symbol")
-            // .attr("d", path.pointRadius(function(d) { return radius(d.properties.population); }));  
-            .attr("d", path.pointRadius(function(d) { if(d.properties) { return radius(d.properties.population);} else {return;} }))
-            .call(d3.helper.tooltip(
-                function(d, i){
-                    return "<b>"+d.properties.name + "</b><br/>pop: "+d.properties.population;
-                }
-                ));      
+        points = svg.selectAll(".symbol")
+                .data(centroid.features.sort(function(a, b) { return b.properties.population - a.properties.population; }))
+                .enter().append("path")
+                .attr("class", "symbol")
+                // .attr("d", path.pointRadius(function(d) { return radius(d.properties.population); }));  
+                .attr("d", path.pointRadius(function(d) { if(d.properties) { return radius(d.properties.population);} else {return;} }))
+                .call(d3.helper.tooltip(
+                    function(d, i){
+                        return "<b>"+d.properties.name + "</b><br/>pop: "+d.properties.population;
+                    }
+                    ));      
     }
 
     d3.select("#change").on("click", function() {
