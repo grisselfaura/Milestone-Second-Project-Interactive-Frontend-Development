@@ -102,6 +102,8 @@
         .translate([width / 2, height / 2])
     var path = d3.geoPath()
         .projection(projection);
+
+    const tooltip = d3.select('body').append('div').attr('id', 'tooltip');
     
     // Data and color scale
     // CO emission Data 
@@ -110,7 +112,7 @@
     var colorScheme = d3.schemeBlues[6];
     colorScheme.unshift("#eee")
     var colorScale = d3.scaleThreshold()
-        .domain([1, 6, 11, 26, 101, 1001])
+        .domain([0,5000000,10000000,50000000,100000000,500000000,1500000000])
         .range(colorScheme);
         // .domain([0,5000000,10000000,50000000,100000000,500000000,1500000000])
         // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
@@ -135,12 +137,9 @@
     d3.queue()
         // .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         .defer(d3.json, "data/world_countries.json")
-        .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
-        // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
+        // .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) { data.set(d.Entity, +d.total_CO); })
         .await(ready);
-
-        
-    // const selectedState = returnGroup().all().filter(item => item.key === d.properties.name)[0]
 
     function ready(error, topo) {
         if (error) throw error;
@@ -159,18 +158,10 @@
             .enter().append("path")
                 .attr("fill", function (d){
                     // Pull data for this country
-                    d.total = data.get(d.id) || 0;
+                    d.total_CO = data.get(d.Entity) || 0;
                     // Set the color
-                    return colorScale(d.total);
+                    return colorScale(d.total_CO);
                 })
-            // .data(topo.objects)
-            // .enter().append("path")
-            //     .attr("fill", function (d){
-            //         // Pull data for this country
-            //         d.total = data.get(d.Entity) || 0;
-            //         // Set the color
-            //         return colorScale(d.total_CO);
-            //     })
                 .attr("d", path);
 
     }    

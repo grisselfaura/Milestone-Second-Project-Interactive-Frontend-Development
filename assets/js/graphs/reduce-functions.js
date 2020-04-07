@@ -129,9 +129,10 @@ var averagePerCountry = country_dim.group().reduce(
 averagePerCountry.order(v => v.average);// sort values from top to bottom
 
 console.log(typeof(averagePerCountry));// object
-console.log(averagePerCountry.all());// shows object values
-// console.log(averagePerCountry.top(5)); // shows object first 5 chronological values
-
+console.log(averagePerCountry.top(1));// object
+let largest = Object.keys(averagePerCountry).reduce(function(a, b){ return averagePerCountry[a] < averagePerCountry[b] ? a : b });
+let smallest = Object.keys(averagePerCountry).reduce(function(a, b){ return averagePerCountry[a] < averagePerCountry[b] ? a : b });
+console.log(averagePerCountry.bottom(0));
 
 dc.pieChart("#pie-chart")
     .height(480)
