@@ -77,7 +77,6 @@
     <script src="https://d3js.org/topojson.v1.min.js"></script> 
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-    <!-- <script src="https://d3js.org/topojson.v0.min.js"></script> -->
     <!-- <script src="https://d3js.org/queue.v1.min.js"></script> -->
     <!-- <script type="text/javascript" src="assets/js/queue.min.js"></script> -->
     <!-- <script type="text/javascript" src="assets/js/graphs/tooltip.js" ></script>  -->
@@ -108,12 +107,13 @@
     // CO emission Data 
     var data = d3.map();
     // console.log(data)
-    var colorScheme = d3.schemeReds[6];
+    var colorScheme = d3.schemeBlues[6];
     colorScheme.unshift("#eee")
     var colorScale = d3.scaleThreshold()
         .domain([1, 6, 11, 26, 101, 1001])
         .range(colorScheme);
-
+        // .domain([0,5000000,10000000,50000000,100000000,500000000,1500000000])
+        // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
         // Legend
     var g = svg.append("g")
         .attr("class", "legendThreshold")
@@ -133,14 +133,14 @@
 
     // Load external data and boot, asynchronous tasks
     d3.queue()
-        .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-        .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+        // .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+        .defer(d3.json, "data/countries-50m.json")
+        // .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) { data.set(d.Entity, +d.total_CO); })
         .await(ready);
-        // console.log(topo.features);
-        // .defer(d3.json, "data/countries-50m.json")
-        // console.log(d);
-        //.defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) { data.set(d.Entity, +d.total_CO); })
-       
+
+        
+    // const selectedState = returnGroup().all().filter(item => item.key === d.properties.name)[0]
 
     function ready(error, topo) {
         if (error) throw error;
@@ -153,11 +153,11 @@
             .enter().append("path")
                 .attr("fill", function (d){
                     // Pull data for this country
-                    d.total = data.get(d.id) || 0;
+                    d.total = data.get(d.Entity) || 0;
                     // Set the color
-                    return colorScale(d.total);
+                    return colorScale(d.total_CO);
                 })
-                .attr("d", d3.geoPath());
+                .attr("d", path);
 
     }    
 
