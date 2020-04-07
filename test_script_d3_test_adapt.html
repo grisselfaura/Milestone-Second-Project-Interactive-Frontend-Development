@@ -133,8 +133,8 @@
 
     // Load external data and boot, asynchronous tasks
     d3.queue()
-        .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-        // .defer(d3.json, "data/countries-50m.json")
+        // .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+        .defer(d3.json, "data/world_countries.json")
         .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
         // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
         .await(ready);
