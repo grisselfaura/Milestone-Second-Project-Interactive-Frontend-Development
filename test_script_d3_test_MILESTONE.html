@@ -138,13 +138,34 @@
     // Load external data and boot, asynchronous tasks
     d3.queue()
         .defer(d3.json, "data/world_countries.json")
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set(d.Entity, +d.total_CO);})
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set( d.Code +d.total_CO);})
+        // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", filterData ) // process
+        // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(data) {
+        //     let countryAverage = d3.nest()
+        //         .key(function(d) {return d.Entity})
+        //         .rollup(function(byCO) {
+        //             let count = byCO.length;
+        //             let total = d3.sum(byCO, function(d) {return d.total_CO})
+        //             return total/count;
+        //         })
+        //         .entries(data)
+        // })
+
         .await(ready);
   
+ 
             //data = {};
         // povrate.forEach(function(d) {
         //   data[d.GEO] = d['2013'];
         // });
+
+        // function filterData(d) {
+        // if (d.Year === 2010) {
+        //     d.total_CO = +d.total_CO;
+        //     data.set(d.Entity, d);
+        //     return d;
+        // }}
+        // console.log(d)
 
     function ready(error, topo) {
         if (error) throw error;
@@ -166,7 +187,8 @@
         let mousemove = function(d) {
             d3.selectAll(".Country")
                 tooltip.style("opacity", 1)
-                    .html( d.properties.name + "<br>"+  d.total_CO )
+                    .html( d.properties.name + "<br>"+  d.total_CO )   
+                    // .text(d => d.properties.average_price_per_poundtotal_CO);                
                     .style("left", (d3.mouse(this)[0]+70) + "px")
                     .style("top", (d3.mouse(this)[1]) + "px")
         }
@@ -203,7 +225,7 @@
                 // set the color of each country
                 .attr("fill", function (d){
                     // Pull data for this country
-                    d.total_CO = data.get(d.name) || 0;
+                    d.total_CO = data.get(d.Entity) || 0;
                     // Set the color
                     return colorScale(d.total_CO);
                 })
