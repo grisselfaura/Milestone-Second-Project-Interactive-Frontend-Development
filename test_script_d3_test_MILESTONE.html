@@ -7,11 +7,23 @@
     <title>Second Milestone Project</title>
 
     <style>
-    /* #choropleth {
-    display: block;
-    margin: auto;
+
+    /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
+    .countries {
+        fill: none;
+        stroke: #fff; 
+        stroke-linejoin: round;
     }
-    
+    .legendThreshold {
+        font-size: 12px;
+        font-family: sans-serif;
+    }
+    .caption {
+        fill: #000;
+        text-anchor: start;
+        font-weight: bold;
+    }
+
     .tooltip{
         background-color:rgba(68,136,187,0.5);
         margin: 10px;
@@ -26,23 +38,7 @@
         opacity: 0; 
         position: absolute;
         text-align: center;
-    }  */
-
-    /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
-    .countries {
-        fill: none;
-        stroke: #fff;
-        stroke-linejoin: round;
-    }
-    .legendThreshold {
-        font-size: 12px;
-        font-family: sans-serif;
-    }
-    .caption {
-        fill: #000;
-        text-anchor: start;
-        font-weight: bold;
-    }
+    } 
 
     </style>
 
@@ -77,22 +73,30 @@
     <script src="https://d3js.org/topojson.v1.min.js"></script> 
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-    <!-- <script src="https://d3js.org/queue.v1.min.js"></script> -->
-    <!-- <script type="text/javascript" src="assets/js/queue.min.js"></script> -->
-    <!-- <script type="text/javascript" src="assets/js/graphs/tooltip.js" ></script>  -->
+    <script type="text/javascript" src="assets/js/queue.min.js"></script>
      
 </head>
 <body>
+    <div id="tooltip"></div>
     <svg width="960" height="600">test</svg>
     <!-- <button type="button" id="change">Change</button> -->
  
 <script>
     // original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
     // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
+    
+     // Define body
+    var body = d3.select("body");
+
     // The svg
     var svg = d3.select("svg"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
+
+    // Define the div for the tooltip
+    var tooltip = body.append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
 
     // Map and projection
     //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
@@ -103,12 +107,11 @@
     var path = d3.geoPath()
         .projection(projection);
 
-    const tooltip = d3.select('body').append('div').attr('id', 'tooltip');
+    // const tooltip = d3.select('body').append('div').attr('id', 'tooltip');
     
     // Data and color scale
-    // CO emission Data 
-    var data = d3.map();
-    // console.log(data)
+    var data = d3.map(); // CO emission Dataset
+    console.log(data)
     var colorScheme = d3.schemeBlues[9]; // modify from original
     colorScheme.unshift("#eee") // check how to check the palete of colors so do start at white
     var colorScale = d3.scaleThreshold()
@@ -135,7 +138,7 @@
     // Load external data and boot, asynchronous tasks
     d3.queue()
         .defer(d3.json, "data/world_countries.json")
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) { data.set(d.Entity, +d.total_CO); })
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set(d.Entity, +d.total_CO);})
         .await(ready);
   
             //data = {};
@@ -143,9 +146,9 @@
         //   data[d.GEO] = d['2013'];
         // });
 
-    function ready(error, topo, CO_data) {
+    function ready(error, topo) {
         if (error) throw error;
-        // console.log(topo);
+        console.log(topo);
         // console.log(CO_data);
 
         let mouseOver = function(d) {
@@ -158,6 +161,14 @@
                 .duration(200)
                 .style("opacity", 1)
                 .style("stroke", "black")
+        }
+
+        let mousemove = function(d) {
+            d3.selectAll(".Country")
+                tooltip.style("opacity", 1)
+                    .html( d.properties.name + "<br>"+  d.total_CO )
+                    .style("left", (d3.mouse(this)[0]+70) + "px")
+                    .style("top", (d3.mouse(this)[1]) + "px")
         }
 
         let mouseLeave = function(d) {
@@ -192,7 +203,7 @@
                 // set the color of each country
                 .attr("fill", function (d){
                     // Pull data for this country
-                    d.total_CO = data.get(d.Entity) || 0;
+                    d.total_CO = data.get(d.name) || 0;
                     // Set the color
                     return colorScale(d.total_CO);
                 })
@@ -200,6 +211,7 @@
                 .attr("class", function(d){ return "Country" } )
                 .style("opacity", .8)
                 .on("mouseover", mouseOver)
+                .on("mousemove", mousemove)
                 .on("mouseleave", mouseLeave)
 
     }    

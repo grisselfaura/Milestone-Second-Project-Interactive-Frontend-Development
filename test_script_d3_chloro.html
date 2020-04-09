@@ -44,34 +44,26 @@
         font-weight: bold;
     }
 
-    .d3-tip {
-        line-height: 1;
-        padding: 12px;
-        background: rgba(43,43,43, 0.8);
-        color: #fff;
-        border-radius: 2px;
-    }
-
     </style>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">   -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  
     <!--Bootstrap v4.3.1-->
    
     <!-- CHECK IF WE NEED THIS LINK -->
-    <!-- <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css"> -->
+    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
 
     <!-- Custom fonts for this template -->
-    <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-     -->
+    
     <!-- Custom styles for this template -->
-    <!-- <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
     <link href="assets/css/landing-page.css" rel="stylesheet">
-     -->
+    
     <!-- Personal Styles for this website -->
-    <!-- <link rel="stylesheet" href="assets/css/style.css" type="text/css"> -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link href="assets/css/dc.css" rel="stylesheet"> <!-- for the charts -->
 
     <!-- Bootstrap core JavaScript -->
@@ -123,8 +115,8 @@
         .projection(projection);
     
     // Data and color scale
-    var data = d3.map();// CO emission Data 
-    // console.log(data)
+    var data = d3.map();// CO emission Dataset
+    console.log(data)
     var colorScheme = d3.schemeBlues[6]; // modify from origianal
     colorScheme.unshift("#eee")
     var colorScale = d3.scaleThreshold()
@@ -139,7 +131,7 @@
         .attr("class", "caption")
         .attr("x", 0)
         .attr("y", -6)
-        .text("CO-2 levels");
+        .text("example");
     var labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
     var legend = d3.legendColor()
         .labels(function (d) { return labels[d.i]; })
@@ -152,15 +144,16 @@
     d3.queue()
         .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
         // .defer(d3.json, "data/countries-50m.json")
-        .defer(d3.csv, "data/mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+            .defer(d3.csv, "data/mooc-countries.csv", function(d) {data.set(d.code, +d.total); })
         // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
         .await(ready);
 
-        
     // const selectedState = returnGroup().all().filter(item => item.key === d.properties.name)[0] from crossfilter chat???
 
     function ready(error, topo) {
         if (error) throw error;
+        // console.log(topo);
+        // console.log(xdata);
 
         let mouseOver = function(d) {
             d3.selectAll(".Country")
@@ -181,24 +174,6 @@
                     .style("left", (d3.mouse(this)[0]+70) + "px")
                     .style("top", (d3.mouse(this)[1]) + "px")
         }
-            
-        // let mousemove = function(d) {
-        //     d3.selectAll(".Country")
-        //         tooltip.style("opacity", 1)
-        //             .html (function(d) {
-        //                 var dataRow = data.get(d.properties.name);
-        //                     if (dataRow) {
-        //                         console.log(dataRow);
-        //                         return dataRow.name + ": " + dataRow.total;
-        //                     } else {
-        //                         console.log("no dataRow", d);
-        //                         return d.properties.name + ": No data.";
-        //                     }
-        //             })
-        //             .style("left", (d3.mouse(this)[0]+70) + "px")
-        //             .style("top", (d3.mouse(this)[1]) + "px")
-        // }
-
 
         let mouseLeave = function(d) {
             d3.selectAll(".Country")
