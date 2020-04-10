@@ -138,39 +138,18 @@
     // Load external data and boot, asynchronous tasks
     d3.queue()
         .defer(d3.json, "data/world_countries.json")
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set( d.Code +d.total_CO);})
-        // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", filterData ) // process
-        // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(data) {
-        //     let countryAverage = d3.nest()
-        //         .key(function(d) {return d.Entity})
-        //         .rollup(function(byCO) {
-        //             let count = byCO.length;
-        //             let total = d3.sum(byCO, function(d) {return d.total_CO})
-        //             return total/count;
-        //         })
-        //         .entries(data)
-        // })
+        // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set( d.Code, +d.total_CO);})
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 1990) 
+        {return (data.set(d.Code, +d.total_CO));}}) // process
+        //JSON DATA IS NOT LINK TO THE CSV DATA??
+
 
         .await(ready);
-  
- 
-            //data = {};
-        // povrate.forEach(function(d) {
-        //   data[d.GEO] = d['2013'];
-        // });
 
-        // function filterData(d) {
-        // if (d.Year === 2010) {
-        //     d.total_CO = +d.total_CO;
-        //     data.set(d.Entity, d);
-        //     return d;
-        // }}
-        // console.log(d)
-
-    function ready(error, topo) {
+    function ready(error, topo, CO_data) {
         if (error) throw error;
         console.log(topo);
-        // console.log(CO_data);
+        console.log(CO_data);
 
         let mouseOver = function(d) {
             d3.selectAll(".Country")

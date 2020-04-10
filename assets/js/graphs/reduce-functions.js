@@ -7,10 +7,6 @@ function makeGraphs(error, emissionData){
     // console.log(emissionData);
     // console.log(typeof(emissionData));
 
-var ndx = crossfilter(emissionData);
-var all = ndx.groupAll();
-var parseDate = d3.time.format("%Y").parse;
-
 // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
@@ -37,6 +33,12 @@ var parseDate = d3.time.format("%Y").parse;
         d.total_CO = Number(d.total_CO);      
         // console.log(d.total_CO);
     });
+
+    var ndx = crossfilter(emissionData);
+    var all = ndx.groupAll();
+    var parseDate = d3.time.format("%Y").parse;
+
+
                 
     show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport" );
     show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");
