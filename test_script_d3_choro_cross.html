@@ -70,9 +70,9 @@
     <!-- Load D3 -->
     <script src="https://d3js.org/d3.v4.min.js"></script><!-- how to combine to different libraries versions-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-    <!-- <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
      <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
     <!-- <script src="https://d3js.org/topojson.v1.min.js"></script>  -->
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
     <script type="text/javascript" src="assets/js/dc.min.js"></script>
@@ -83,7 +83,12 @@
 
 </head>
 <body>
-    <div id="pie-chart"></div> <!-- pie chart showing top 5 based on avg -->
+    <div id="pie-chart">
+        <strong>TOP 5 countries CO2 average measurements </strong>
+                <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+    </div> <!-- pie chart showing top 5 based on avg -->
     <h1>Geo Choropleth Chart: US Venture Capital Landscape 2011</h1>
     <div id="geoChoroplethChart"></div> <!-- dc crossfilter -->
  
@@ -100,6 +105,10 @@
         if (error) throw error;
         console.log(emissionData);
         // console.log(typeof(emissionData));
+
+    var ndx = crossfilter(emissionData);
+    var all = ndx.groupAll();
+    var parseDate = d3.time.format("%Y").parse;
 
     // Loop through data and parse/convert appropriate formats
         emissionData.forEach(function(d){
@@ -128,9 +137,7 @@
             // console.log(d.total_CO);
         });
     
-    var ndx = crossfilter(emissionData);
-    var all = ndx.groupAll();
-    var parseDate = d3.time.format("%Y").parse;
+
 
     show_CO_average_per_country(ndx);
     
@@ -196,6 +203,8 @@
 
     // // original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
     // // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
+    // // http://bl.ocks.org/lwhitaker3/e8090246a20d9515789b
+    // // https://busy.org/@faad/tutorial-11-dive-into-dc-js-a-javascript-library-geo-choropleth-chart
     
     //  // Define body
     // var body = d3.select("body");

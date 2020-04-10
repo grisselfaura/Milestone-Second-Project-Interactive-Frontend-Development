@@ -139,7 +139,7 @@
     d3.queue()
         .defer(d3.json, "data/world_countries.json")
         // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set( d.Code, +d.total_CO);})
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 1990) 
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 2010) 
         {return (data.set(d.Code, +d.total_CO));}}) // process
         //JSON DATA IS NOT LINK TO THE CSV DATA??
 
@@ -200,11 +200,17 @@
                 .attr("d", d3.geoPath()
                 .projection(projection)
                 )
-                // .attr("d", path);
-                // set the color of each country
+                // // .attr("d", path);
+                // // set the color of each country
+                // .attr("fill", function (d){
+                //     // Pull data for this country
+                //     d.total_CO = data.get(d.Entity) || 0;
+                //     // Set the color
+                //     return colorScale(d.total_CO);
+                // })
                 .attr("fill", function (d){
                     // Pull data for this country
-                    d.total_CO = data.get(d.Entity) || 0;
+                    d.total_CO = data.get(d.id) || 0;
                     // Set the color
                     return colorScale(d.total_CO);
                 })
