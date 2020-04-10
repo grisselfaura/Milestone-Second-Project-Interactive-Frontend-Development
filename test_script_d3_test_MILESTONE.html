@@ -9,9 +9,13 @@
     <style>
 
     /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
+    svg {
+        background: #c7f0f9;
+    }
     .countries {
         fill: none;
-        stroke: #fff; 
+        stroke: #333333; 
+        stroke-width: 0.5; 
         stroke-linejoin: round;
     }
     .legendThreshold {
@@ -112,10 +116,10 @@
     // Data and color scale
     var data = d3.map(); // CO emission Dataset
     console.log(data)
-    var colorScheme = d3.schemeBlues[9]; // modify from original
-    colorScheme.unshift("#eee") // check how to check the palete of colors so do start at white
+    var colorScheme = d3.schemeSpectral[9]; // modify from original
+    // colorScheme.unshift("#eee") // check how to check the palete of colors so do start at white
     var colorScale = d3.scaleThreshold()
-        .domain([-1000000, -100000,-10000, 0, 1, 6, 11, 26, 101, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000]) // modify from original
+        .domain([-1000000, -100000,-10000, 0, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000]) // modify from original
         .range(colorScheme);
         // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
         // Legend

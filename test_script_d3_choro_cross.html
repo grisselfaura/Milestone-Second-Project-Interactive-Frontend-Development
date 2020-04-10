@@ -71,9 +71,9 @@
     <script src="https://d3js.org/d3.v4.min.js"></script><!-- how to combine to different libraries versions-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-     <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> -->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
-    <!-- <script src="https://d3js.org/topojson.v1.min.js"></script>  -->
+    <script src="https://d3js.org/topojson.v1.min.js"></script> 
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
     <script type="text/javascript" src="assets/js/dc.min.js"></script>
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
@@ -261,7 +261,7 @@
     //     .defer(d3.json, "data/world_countries.json")
     //     // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set( d.Code, +d.total_CO);})
     //     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 1990) 
-    //     {return (data.set(d.Code, +d.total_CO));}}) // process
+    //     {return (data.set(d.Code, +d.total_CO));}}) // process + convert any string to integer
     //     //JSON DATA IS NOT LINK TO THE CSV DATA??
 
 
