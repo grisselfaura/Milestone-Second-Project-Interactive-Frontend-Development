@@ -7,6 +7,10 @@ function makeGraphs(error, emissionData){
     // console.log(emissionData);
     // console.log(typeof(emissionData));
 
+var ndx = crossfilter(emissionData);
+var all = ndx.groupAll();
+var parseDate = d3.time.format("%Y").parse;
+
 // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function(d){
         d.Code = String(d.Code);
@@ -33,13 +37,7 @@ function makeGraphs(error, emissionData){
         d.total_CO = Number(d.total_CO);      
         // console.log(d.total_CO);
     });
-
-    var ndx = crossfilter(emissionData);
-    var all = ndx.groupAll();
-    var parseDate = d3.time.format("%Y").parse;
-
-
-                
+         
     show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport" );
     show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");
     show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");
@@ -130,11 +128,11 @@ var averagePerCountry = country_dim.group().reduce(
 );
 averagePerCountry.order(v => v.average);// sort values from top to bottom
 
-console.log(typeof(averagePerCountry));// object
-console.log(averagePerCountry.top(1));// object
-let largest = Object.keys(averagePerCountry).reduce(function(a, b){ return averagePerCountry[a] < averagePerCountry[b] ? a : b });
-let smallest = Object.keys(averagePerCountry).reduce(function(a, b){ return averagePerCountry[a] < averagePerCountry[b] ? a : b });
-console.log(averagePerCountry.bottom(0));
+// console.log(typeof(averagePerCountry));// object
+// console.log(averagePerCountry.top(1));// object
+// let largest = Object.keys(averagePerCountry).reduce(function(a, b){ return averagePerCountry[a] < averagePerCountry[b] ? a : b });
+// let smallest = Object.keys(averagePerCountry).reduce(function(a, b){ return averagePerCountry[a] < averagePerCountry[b] ? a : b });
+// console.log(averagePerCountry.bottom(0));
 
 dc.pieChart("#pie-chart")
     .height(480)
