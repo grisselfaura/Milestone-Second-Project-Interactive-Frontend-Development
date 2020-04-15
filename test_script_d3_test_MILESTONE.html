@@ -47,17 +47,17 @@
     </style>
 
     <!-- Bootstrap core CSS -->
-    <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">   -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  
     <!--Bootstrap v4.3.1-->
    
     <!-- CHECK IF WE NEED THIS LINK -->
-    <!-- <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css"> -->
+    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
 
     <!-- Custom fonts for this template -->
-    <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-     -->
+    
     <!-- Custom styles for this template -->
     <!-- <link href="assets/css/scrolling-nav.css" rel="stylesheet">
     <link href="assets/css/landing-page.css" rel="stylesheet">
@@ -117,13 +117,13 @@
     
     // Data and color scale
     var data = d3.map(); // CO emission Dataset
-    console.log(data)
-    var colorScheme = d3.schemeSpectral[9]; // modify from original
+    //console.log(data)
+    var colorScheme = d3.schemePuOr[11]; // modify from original
     // colorScheme.unshift("#eee") // check how to check the palete of colors so do start at white
     var colorScale = d3.scaleThreshold()
-        .domain([-1000000, -100000,-10000, 0, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000]) // modify from original
+        .domain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 2000000000, 500000000, 1000000000]) //  modify from original
         .range(colorScheme);
-        // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
+        // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]); 8 186 042 640
         // Legend
     var g = svg.append("g")
         .attr("class", "legendThreshold")
@@ -133,7 +133,7 @@
         .attr("x", 0)
         .attr("y", -6)
         .text("CO-2 levels");
-    var labels = ['-1000 000', '-100 000','-10 000', '0', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '> 1000 000 000'];
+    var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']; //
     var legend = d3.legendColor()
         .labels(function (d) { return labels[d.i]; })
         .shapePadding(4)

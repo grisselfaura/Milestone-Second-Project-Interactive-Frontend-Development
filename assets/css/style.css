@@ -170,42 +170,40 @@ if it's not present, don't show loader */
 }
 
 /*Dashboard.html world-map */
-    /* path {
-    stroke: red;          
-    stroke-width: 0.5px;  
-    fill: orange;        
+svg {
+        background: #c7f0f9;
+    }
+    .countries {
+        fill: none;
+        stroke: #333333; 
+        stroke-width: 0.5; 
+        stroke-linejoin: round;
+    }
+    .legendThreshold {
+        font-size: 12px;
+        font-family: sans-serif;
+    }
+    .caption {
+        fill: #000;
+        text-anchor: start;
+        font-weight: bold;
     }
 
-    #tooltip {
-    text-align: left;
-    padding: 16px;
-    background-color: lightsalmon;
-    border: 1px solid black;
-    width: auto;
-    opacity: 0;
-    color: black;
-    position: absolute;
-    } */
-    
-/*-  Pie-graph css*/
-/* .chart{
-    clear:left
-}
+    .tooltip{
+        background-color:rgba(68,136,187,0.5);
+        margin: 10px;
+        height: 50px;
+        width: 150px;
+        padding-left: 10px; 
+        padding-top: 10px;
+        -webkit-border-radius:10px;
+        -moz-border-radius:10px;
+        border-radius:10px;
+        pointer-events: none;
+        opacity: 0; 
+        position: absolute;
+        text-align: center;
+    } 
 
-.arc text {
-  font: 10px sans-serif;
-  text-anchor: middle;
-}
 
-.arc path {
-  stroke: #fff;
-}
 
-.arc2 text {
-  font: 10px sans-serif;
-  text-anchor: middle;
-}
-
-.arc2 path {
-  stroke: #fff;
-} */
