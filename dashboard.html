@@ -30,13 +30,25 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
 
-   <!-- Load D3 -->
-    <script src="https://d3js.org/d3.v4.min.js"></script><!-- how to combine to different libraries versions-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-    <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> for map-->
-    <!-- <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>for map --> 
+    <!-- Load D3 -->
+     <!--//for rendering graph d3 v3 as no compatible with latest release <script src="https://d3js.org/d3.v5.min.js"> //-->
+    
+    <!--for rendering the map -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>  
+    <!-- <script type="text/javascript" src="assets/js/d3.min.js"></script> -->
+    <!-- <script type="text/javascript" src="assets/js/d3v4.min_mod.js"></script> -->
+</script>
+    
+    <!--for rendering the map -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> <!--for world_map-->
+    <script src="https://d3js.org/topojson.v1.min.js"></script> <!--for world_map-->
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> <!--for world_map-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> <!--for world_map-->
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
-    <script type="text/javascript" src="assets/js/dc.min.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> -->
+    <!--for dc library compatible with d3 v4 -->
+    <script type="text/javascript" src="assets/js/dc.min_3.0.6.js"></script>
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
 
     
@@ -100,7 +112,8 @@
                 </div>
                 <div id="country-selector" class="chart mb-3">
                     <strong> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true"></i></strong> 
-                </div>    
+                </div> 
+               
                 <!--<div id="yearGraph">
                     <strong>CO2 data measurements by year all of them 262 countries</strong>
                     <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
@@ -142,6 +155,10 @@
 
         <div class="row no-gutters">
             <div id="global-CO2-map" class="chart mb-3"> <!-- global map -->
+                <div id="tooltip">
+                    <svg id="world-map" width="960" height="600">test</svg>   
+                </div>       
+            </div>
         </div>
 
     </div>
@@ -181,5 +198,6 @@
   </footer>
 <script type="text/javascript" src="assets/js/graphs/CO_simple_data_graph.js" ></script> 
 <script type="text/javascript" src="assets/js/graphs/reduce-functions.js" ></script> 
+<script type="text/javascript" src="assets/js/graphs/choropleth_map.js" ></script> 
 </body>
 </html>

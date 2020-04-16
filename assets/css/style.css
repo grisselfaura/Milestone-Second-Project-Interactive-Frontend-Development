@@ -169,8 +169,8 @@ if it's not present, don't show loader */
     line-height: normal;
 }
 
-/*Dashboard.html world-map */
-svg {
+/*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
+    .world-map{
         background: #c7f0f9;
     }
     .countries {

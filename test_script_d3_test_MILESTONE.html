@@ -59,11 +59,11 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
     <!-- Custom styles for this template -->
-    <!-- <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
     <link href="assets/css/landing-page.css" rel="stylesheet">
-     -->
+    
     <!-- Personal Styles for this website -->
-    <!-- <link rel="stylesheet" href="assets/css/style.css" type="text/css"> -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <link href="assets/css/dc.css" rel="stylesheet"> <!-- for the charts -->
 
     <!-- Bootstrap core JavaScript -->
@@ -72,14 +72,20 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
 
     <!-- Load D3 -->
-    <!--<script src="https://d3js.org/d3.v5.min.js"></script> latest release-->
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script>  -->
     <!-- Load D3 -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/js/d3v4.min_mod.js"></script> 
+    <!-- Solution to use different d3 versions -->
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script> 
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/queue.min.js"></script> -->
     <script type="text/javascript" src="assets/js/queue.min.js"></script>
+
+    
      
 </head>
 <body>
@@ -92,10 +98,12 @@
     // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
     
      // Define body
-    var body = d3.select("body");
+    var body = d3v4.select("body");  // D3v4
+    // var body = d3.select("body");
 
     // The svg
-    var svg = d3.select("svg"),
+    var svg = d3v4.select("svg"), // D3v4
+    // var svg = d3.select("svg"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
 
@@ -106,16 +114,19 @@
 
     // Map and projection
     //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
-    var path = d3.geoPath();
-    var projection = d3.geoNaturalEarth()
+    var path = d3v4.geoPath(); // D3v4
+    // var path = d3.geoPath();
+    var projection = d3v4.geoNaturalEarth()// D3v4
+    // var projection = d3.geoNaturalEarth()
         .scale(width / 2 / Math.PI)
         .translate([width / 2, height / 2])
-    var path = d3.geoPath()
+    var path = d3v4.geoPath() // D3v4
+    // var path = d3.geoPath()
         .projection(projection);
 
-    // const tooltip = d3.select('body').append('div').attr('id', 'tooltip');
-    
+        
     // Data and color scale
+    var data = d3.map(); // CO emission Dataset
     var data = d3.map(); // CO emission Dataset
     //console.log(data)
     var colorScheme = d3.schemePuOr[11]; // modify from original
@@ -134,7 +145,8 @@
         .attr("y", -6)
         .text("CO-2 levels");
     var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']; //
-    var legend = d3.legendColor()
+    var legend = d3v4.legendColor() //D3v4
+    // var legend = d3.legendColor()
         .labels(function (d) { return labels[d.i]; })
         .shapePadding(4)
         .scale(colorScale);
@@ -142,27 +154,28 @@
         .call(legend);
 
     // Load external data and boot, asynchronous tasks
+   
     d3.queue()
         .defer(d3.json, "data/world_countries.json")
         // .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {data.set( d.Code, +d.total_CO);})
         .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 2010) 
         {return (data.set(d.Code, +d.total_CO));}}) // process
-        //JSON DATA IS NOT LINK TO THE CSV DATA??
-
 
         .await(ready);
 
     function ready(error, topo, CO_data) {
         if (error) throw error;
-        console.log(topo);
-        console.log(CO_data);
+        // console.log(topo);
+        // console.log(CO_data);
 
         let mouseOver = function(d) {
-            d3.selectAll(".Country")
+            d3v4.selectAll(".Country") //D3v4
+            // d3.selectAll(".Country")
                 .transition()
                 .duration(200)
                 .style("opacity", .5)
-            d3.select(this)
+            d3v4.select(this) //D3v4
+            // d3.select(this)
                 .transition()
                 .duration(200)
                 .style("opacity", 1)
@@ -170,31 +183,29 @@
         }
 
         let mousemove = function(d) {
-            d3.selectAll(".Country")
+            d3v4.selectAll(".Country") //D3v4
+            // d3.selectAll(".Country")
                 tooltip.style("opacity", 1)
                     .html( d.properties.name + "<br>"+  d.total_CO )   
                     // .text(d => d.properties.average_price_per_poundtotal_CO);                
-                    .style("left", (d3.mouse(this)[0]+70) + "px")
-                    .style("top", (d3.mouse(this)[1]) + "px")
+                    .style("left", (d3v4.mouse(this)[0]+70) + "px") //D3v4
+                    .style("top", (d3v4.mouse(this)[1]) + "px") //D3v4
+                    // .style("left", (d3.mouse(this)[0]+70) + "px")
+                    // .style("top", (d3.mouse(this)[1]) + "px")
         }
 
         let mouseLeave = function(d) {
-            d3.selectAll(".Country")
+             d3v4.selectAll(".Country") //D3v4
+            // d3.selectAll(".Country")
                 .transition()
                 .duration(200)
                 .style("opacity", .8)
-            d3.select(this)
+            d3v4.select(this) //D3v4
+            // d3.select(this)
                 .transition()
                 .duration(200)
                 .style("stroke", "transparent")
         }
-
-
-        // var show_CO_average_per_country = {};
-        // console.log(show_CO_average_per_country)
-
-        // population.forEach(function(d) { populationById[d.id] = +d.population; });
-        // // Entity.forEach(function (d) { show_CO_average_per_country = return d.value.average})
 
         // Draw the map
         svg.append("g")
@@ -203,7 +214,8 @@
             .data(topo.features)
             .enter().append("path")
                 // draw each country
-                .attr("d", d3.geoPath()
+                .attr("d", d3v4.geoPath() //D3v4
+                // .attr("d", d3.geoPath()
                 .projection(projection)
                 )
                 // // .attr("d", path);

@@ -1,4 +1,5 @@
-queue() 
+d3.queue() // CHECK IF THIS SOLVE RENDERING ISSUE???
+// queue() 
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 

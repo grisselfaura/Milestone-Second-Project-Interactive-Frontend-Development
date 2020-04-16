@@ -1,4 +1,4 @@
-// original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
+    // original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
     // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
     
      // Define body
@@ -22,16 +22,16 @@
         .translate([width / 2, height / 2])
     var path = d3.geoPath()
         .projection(projection);
-    
+        
     // Data and color scale
     var data = d3.map(); // CO emission Dataset
-    console.log(data)
-    var colorScheme = d3.schemeSpectral[9]; // modify from original
+    //console.log(data)
+    var colorScheme = d3.schemePuOr[11]; // modify from original
     // colorScheme.unshift("#eee") // check how to check the palete of colors so do start at white
     var colorScale = d3.scaleThreshold()
-        .domain([-1000000, -100000,-10000, 0, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 10000000000]) // modify from original
+        .domain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 2000000000, 500000000, 1000000000]) //  modify from original
         .range(colorScheme);
-        // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
+        // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]); 8 186 042 640
         // Legend
     var g = svg.append("g")
         .attr("class", "legendThreshold")
@@ -41,7 +41,7 @@
         .attr("x", 0)
         .attr("y", -6)
         .text("CO-2 levels");
-    var labels = ['-1000 000', '-100 000','-10 000', '0', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '> 1000 000 000'];
+    var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']; //
     var legend = d3.legendColor()
         .labels(function (d) { return labels[d.i]; })
         .shapePadding(4)
@@ -59,8 +59,8 @@
 
     function ready(error, topo, CO_data) {
         if (error) throw error;
-        console.log(topo);
-        console.log(CO_data);
+        // console.log(topo);
+        // console.log(CO_data);
 
         let mouseOver = function(d) {
             d3.selectAll(".Country")
