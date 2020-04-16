@@ -151,7 +151,7 @@ dc.pieChart("#pie-chart")
     .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
     // workaround for #703: not enough data is accessible through .label() to display percentages
     .data(function (group) { // get top five groups
-        return group.top(5);})
+        return group.top(8);})
     .on('pretransition', function(pieChart) {
         pieChart.selectAll('text.pie-slice').text(function(d) {
             return d.data.key ;

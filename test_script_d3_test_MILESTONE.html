@@ -74,9 +74,8 @@
     <!-- Load D3 -->
     <!-- <script src="https://d3js.org/d3.v5.min.js"></script>  -->
     <!-- Load D3 -->
-    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script type="text/javascript" src="assets/js/d3v4.min_mod.js"></script> 
-    <!-- Solution to use different d3 versions -->
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script> 
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -98,12 +97,10 @@
     // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
     
      // Define body
-    var body = d3v4.select("body");  // D3v4
-    // var body = d3.select("body");
+    var body = d3.select("body");
 
     // The svg
-    var svg = d3v4.select("svg"), // D3v4
-    // var svg = d3.select("svg"),
+    var svg = d3.select("svg"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
 
@@ -114,19 +111,15 @@
 
     // Map and projection
     //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
-    var path = d3v4.geoPath(); // D3v4
-    // var path = d3.geoPath();
-    var projection = d3v4.geoNaturalEarth()// D3v4
-    // var projection = d3.geoNaturalEarth()
+    var path = d3.geoPath();
+    var projection = d3.geoNaturalEarth()
         .scale(width / 2 / Math.PI)
         .translate([width / 2, height / 2])
-    var path = d3v4.geoPath() // D3v4
-    // var path = d3.geoPath()
+    var path = d3.geoPath()
         .projection(projection);
 
         
     // Data and color scale
-    var data = d3.map(); // CO emission Dataset
     var data = d3.map(); // CO emission Dataset
     //console.log(data)
     var colorScheme = d3.schemePuOr[11]; // modify from original
@@ -145,8 +138,7 @@
         .attr("y", -6)
         .text("CO-2 levels");
     var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']; //
-    var legend = d3v4.legendColor() //D3v4
-    // var legend = d3.legendColor()
+    var legend = d3.legendColor()
         .labels(function (d) { return labels[d.i]; })
         .shapePadding(4)
         .scale(colorScale);
@@ -169,13 +161,11 @@
         // console.log(CO_data);
 
         let mouseOver = function(d) {
-            d3v4.selectAll(".Country") //D3v4
-            // d3.selectAll(".Country")
+            d3.selectAll(".Country")
                 .transition()
                 .duration(200)
                 .style("opacity", .5)
-            d3v4.select(this) //D3v4
-            // d3.select(this)
+            d3.select(this)
                 .transition()
                 .duration(200)
                 .style("opacity", 1)
@@ -183,25 +173,20 @@
         }
 
         let mousemove = function(d) {
-            d3v4.selectAll(".Country") //D3v4
-            // d3.selectAll(".Country")
+            d3.selectAll(".Country")
                 tooltip.style("opacity", 1)
                     .html( d.properties.name + "<br>"+  d.total_CO )   
                     // .text(d => d.properties.average_price_per_poundtotal_CO);                
-                    .style("left", (d3v4.mouse(this)[0]+70) + "px") //D3v4
-                    .style("top", (d3v4.mouse(this)[1]) + "px") //D3v4
-                    // .style("left", (d3.mouse(this)[0]+70) + "px")
-                    // .style("top", (d3.mouse(this)[1]) + "px")
+                    .style("left", (d3.mouse(this)[0]+70) + "px")
+                    .style("top", (d3.mouse(this)[1]) + "px")
         }
 
         let mouseLeave = function(d) {
-             d3v4.selectAll(".Country") //D3v4
-            // d3.selectAll(".Country")
+            d3.selectAll(".Country")
                 .transition()
                 .duration(200)
                 .style("opacity", .8)
-            d3v4.select(this) //D3v4
-            // d3.select(this)
+            d3.select(this)
                 .transition()
                 .duration(200)
                 .style("stroke", "transparent")
@@ -214,8 +199,7 @@
             .data(topo.features)
             .enter().append("path")
                 // draw each country
-                .attr("d", d3v4.geoPath() //D3v4
-                // .attr("d", d3.geoPath()
+                .attr("d", d3.geoPath()
                 .projection(projection)
                 )
                 // // .attr("d", path);

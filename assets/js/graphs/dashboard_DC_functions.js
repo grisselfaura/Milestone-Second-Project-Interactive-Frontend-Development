@@ -68,8 +68,6 @@ function makeGraphs(error, emissionData){
     show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
     show_global_emissions_per_year(ndx);
     show_country_emissions_stacked(ndx);
-    // show_global_emissions_map(ndx);
-    // show_country_emissions_top_sectors(ndx);
     
     dc.renderAll();
     
