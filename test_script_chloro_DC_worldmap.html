@@ -1,17 +1,107 @@
-var ccgMap = dc.geoChoroplethChart('.map-wrap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Second Milestone Project</title>
+
+    <style>
+
+    /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
+    svg {
+        background: #c7f0f9;
+    }
+    .countries {
+        fill: none;
+        stroke: #333333; 
+        stroke-width: 0.5; 
+        stroke-linejoin: round;
+    }
+    .legendThreshold {
+        font-size: 12px;
+        font-family: sans-serif;
+    }
+    .caption {
+        fill: #000;
+        text-anchor: start;
+        font-weight: bold;
+    }
+
+    .tooltip{
+        background-color:rgba(68,136,187,0.5);
+        margin: 10px;
+        height: 50px;
+        width: 150px;
+        padding-left: 10px; 
+        padding-top: 10px;
+        -webkit-border-radius:10px;
+        -moz-border-radius:10px;
+        border-radius:10px;
+        pointer-events: none;
+        opacity: 0; 
+        position: absolute;
+        text-align: center;
+    } 
+
+    </style>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  
+    <!--Bootstrap v4.3.1-->
+   
+    <!-- CHECK IF WE NEED THIS LINK -->
+    <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    
+    <!-- Custom styles for this template -->
+    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+    <link href="assets/css/landing-page.css" rel="stylesheet">
+    
+    <!-- Personal Styles for this website -->
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <link href="assets/css/dc.css" rel="stylesheet"> <!-- for the charts -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  
+
+    <!-- Load D3 -->
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script>  -->
+    <!-- Load D3 -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/js/d3v4.min_mod.js"></script> 
+    <!-- Solution to use different d3 versions -->
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script> 
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/queue.min.js"></script> -->
+    <script type="text/javascript" src="assets/js/queue.min.js"></script>
+
+    
+     
+</head>
+<body>
+    <div id="tooltip"></div>
+    <svg width="960" height="600">test</svg>
+    <!-- <button type="button" id="change">Change</button> -->
+ 
+<script>
+    // original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
+    // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
+    
+    var ccgMap = dc.geoChoroplethChart('.map-wrap');
 // var sexPieChart  = dc.pieChart('.pie-chart');
 
-d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv" {
-   
-    function makeGraphs(error, emissionData){ 
-    if (error) throw error;
-    console.log(emissionData);
-    
-    // console.log(typeof(emissionData));
+d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(error, emissionData) {
 
-    var ndx = crossfilter(emissionData);
-    console.log(emissionData);
-    var all = ndx.groupAll();
     var parseDate = d3.time.format("%Y").parse;
 
     // Loop through data and parse/convert appropriate formats
@@ -40,6 +130,17 @@ d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv" {
             d.total_CO = Number(d.total_CO);      
             // console.log(d.total_CO);
         });
+
+    
+    });
+   
+    console.log(emissionData);
+    // console.log(typeof(emissionData));
+
+    var ndx = crossfilter(emissionData);
+    console.log(emissionData);
+    var all = ndx.groupAll();
+    
 
     // ADD FUNCTION FOR GROUPING
     // var country = ndx.dimension(function (d) { return d["Entity"];});// country
@@ -246,3 +347,10 @@ d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv" {
 //             .on("mouseleave", mouseLeave)
 
 // }    
+
+
+</script>
+
+</body>
+</html>
+

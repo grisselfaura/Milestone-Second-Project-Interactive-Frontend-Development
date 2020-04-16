@@ -32,13 +32,7 @@
 
     <!-- Load D3 -->
      <!--//for rendering graph d3 v3 as no compatible with latest release <script src="https://d3js.org/d3.v5.min.js"> //-->
-    
-    <!--for rendering the map -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>  
-    <!-- <script type="text/javascript" src="assets/js/d3.min.js"></script> -->
-    <!-- <script type="text/javascript" src="assets/js/d3v4.min_mod.js"></script> -->
-</script>
-    
+    <script type="text/javascript" src="assets/js/d3.min.js"></script>   
     <!--for rendering the map -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> <!--for world_map-->
@@ -46,12 +40,10 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> <!--for world_map-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> <!--for world_map-->
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
-    <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> -->
+    <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> version not compatible for world_map-->
     <!--for dc library compatible with d3 v4 -->
     <script type="text/javascript" src="assets/js/dc.min_3.0.6.js"></script>
-    <script type="text/javascript" src="assets/js/queue.min.js"></script>
-
-    
+    <script type="text/javascript" src="assets/js/queue.min.js"></script>   
 </head>
 <body>
 
@@ -84,14 +76,14 @@
 
         <div class="row no-gutters">
             <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                <div class="number-box" id="percent-CO-transport"></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-forestry"></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-energy"></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-other_sources"></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-waste" ></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-residential_commercial"></div> <!-- Percentage number show -->
-                <div class="number-box" id="percent-CO-industry"></div> <!-- Percentage number show -->
+                <div class="number-box" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
+                <div class="number-box" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
+                <div class="number-box" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
+                <div class="number-box" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
+                <div class="number-box" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show agriculture,land,use,forestry-->
+                <div class="number-box" id="percent-CO-waste" ></div> <!-- Percentage number show waste-->
+                <div class="number-box" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
+                <div class="number-box" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->
             </div>
             <div class="col-lg-6 order-lg-2 my-auto offset-2">
                 <div id="pie-chart"> <!-- avg pie chart -->
@@ -196,8 +188,8 @@
       </div>
     </div>
   </footer>
-<script type="text/javascript" src="assets/js/graphs/CO_simple_data_graph.js" ></script> 
-<script type="text/javascript" src="assets/js/graphs/reduce-functions.js" ></script> 
-<script type="text/javascript" src="assets/js/graphs/choropleth_map.js" ></script> 
+<script type="text/javascript" src="assets/js/graphs/dashboard_DC_functions.js" ></script> 
+<script type="text/javascript" src="assets/js/graphs/dashboard_DC_reduce_functions.js" ></script> 
+<script type="text/javascript" src="assets/js/graphs/choropleth_D3_world_map.js" ></script> 
 </body>
 </html>

@@ -26,12 +26,10 @@
     // Data and color scale
     var data = d3.map(); // CO emission Dataset
     //console.log(data)
-    var colorScheme = d3.schemePuOr[11]; // modify from original
-    // colorScheme.unshift("#eee") // check how to check the palete of colors so do start at white
+    var colorScheme = d3.schemePuOr[11]; // modified from tutorial
     var colorScale = d3.scaleThreshold()
         .domain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 2000000000, 500000000, 1000000000]) //  modify from original
         .range(colorScheme);
-        // .range(["rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]); 8 186 042 640
         // Legend
     var g = svg.append("g")
         .attr("class", "legendThreshold")
