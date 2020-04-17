@@ -92,15 +92,22 @@
 </head>
 <body>
     <div id="tooltip"></div>
-        <h1>Geo Choropleth Chart: US Venture Capital Landscape 2011</h1>
+        <h1>TEST ZONE</h1>
         <div id="us-chart">
-            <strong>VC Distribution by States (color: total amount raised)</strong>
+            <strong>Geo Choropleth Chart: US Venture Capital Landscape 2011</strong>
             <a class="reset" href="javascript:usChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
             <span class="reset" style="display: none;"> | Current filter: <span class="filter"></span></span>
-
+            <svg width="960" height="600">test</svg>
             <div class="clearfix"></div>
         </div>
-            <!-- <svg width="960" height="600">test</svg> -->
+        <div id="pie-chart"> <!-- avg pie chart -->
+            <strong>TOP 5 countries CO2 average measurements </strong>
+                <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                    <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                    <div class="clearfix"></div>
+        </div> 
+            
+            
     </div>
  
     <script>
@@ -108,6 +115,8 @@
         // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
         
     var usChart = new dc.GeoChoroplethChart("#us-chart");
+    var pieChart = new dc.PieChart("#pie-chart");
+    
     
     // d3.csv,("data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(error, emissionData) {
     d3.csv("data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv").then(function (emissionData) {
@@ -115,7 +124,10 @@
         var ndx = crossfilter(emissionData);
         var all = ndx.groupAll();
         // var parseDate = d3.time.format("%Y").parse;
-        // var parseDate = d3.time.format("%Y");
+        var numberFormat = d3.format(".2f");
+        var parseDate = d3.timeParse("%Y/%m/%d");
+        // var dateFormat = d3.time.format("%m/%d/%Y");
+
 
         // Loop through data and parse/convert appropriate formats
             emissionData.forEach(function(d){
@@ -181,40 +193,78 @@
         );
         averagePerCountry.order(v => v.average);// sort values from top to bottom
 
-        d3.json("data/world_countries.json").then(function (topoData) {
+        d3.json("data/world_countries.json").then(function (topoData, labels) {
         // d3.json("data/world_countries.json", function(error, topoData){
-            console.log(topoData);
+            console.log(topoData); 
+        // Map and projection
+        // Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
+        
+        var projection = d3.geoNaturalEarth();
+            // .scale(width / 2 / Math.PI)
+            // .translate([width / 2, height / 2]);
+        var path = d3.geoPath()
+            .projection(projection);
+     
             usChart.width(990)
                     .height(500)
                     .dimension(entities)
                     .group(averagePerCountry)
-                    // .colorScheme(d3.schemePuOr)
+                    // .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5)).legendText(function (d) { return labels[d.i]; }))
                     .colors(d3.scaleThreshold(d3.schemePuOr[11]))
-                    .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 2000000000, 500000000, 1000000000])
-                    // .colors(d3.scaleQuantize().range(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"]))
-                    // .colorDomain([0, 200])
-                    .colorCalculator(function (d) { return d ? usChart.colors()(d) : '#ccc'; })
+                    .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000])
+                    .colorAccessor(function (d,i) {return d;})
+                    // .colorCalculator(function (d) { return d ? usChart.colors()(d) : '#ccc'; }) // ? equal if
                     .overlayGeoJson(topoData.features, "countries", function (d) {
                         return d.properties.name;
                     })
-                .projection(d3.geoNaturalEarth())
-                    //.scale(width / 2 / Math.PI)
-                    // .translate([width / 2, height / 2])
-                // .path(d3.geoPath().projection(projection))
+                .projection(projection)
+                // .projection(d3.geoNaturalEarth())
                 .valueAccessor(function(kv) {
                     console.log(kv);
-                    return kv.value;
+                    return kv.value.average;
                 })
-                    .title(function (d) {
-                        return "Countries: " + d.key + "\nAVG CO2 levels (1990-2010): " + numberFormat(d.value ? d.value : 0) + "M";
-                    });
-                .legend(new dc.Legend().x(800).y(10).itemHeight(13).gap(5))
-                dc.renderAll();
+                 .title(function (p) {
+                    return p.key + " Avg CO2 levels (1990-2010): " + p.average })
+                
+                .renderTitle(true);
+                // .renderLabel(true);
 
-            // var projection = d3.geo.mercator();
-            // var path = d3.geo.path().projection(projection);
-            // var centre = d3.geo.centroid(topoData);
-            //     var projection = d3.geo.mercator().center(centre).scale(500).translate([200,100]);
+            pieChart.width(480)
+                .height(480)
+                .radius(150)
+                .innerRadius(60)
+                .transitionDuration(500)
+                // .slicesCap(4)// number of slices the pie chart will generate
+                .cap(5)// return group.top(5)
+                .dimension(entities)
+                .group(averagePerCountry) 
+                .valueAccessor(function (d) { return d.value.average})
+                // .colors(d3.scale.ordinal().range(// colors if wanted?
+                // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
+                .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+                // workaround for #703: not enough data is accessible through .label() to display percentages
+                .data(function (group) { // get top five groups
+                    return group.top(8);})
+                .on('pretransition', function(pieChart) {
+                    pieChart.selectAll('text.pie-slice').text(function(d) {
+                        return d.data.key ;
+                    })
+                });
+
+            dc.renderAll();
+        
+            // var labelG = d3.select("svg")
+            //     .append("svg:g") 
+            //     .attr("id", "labelG") 
+            //     .attr("class", "Title");
+        
+            // labelG.selectAll("text") 
+            //     .data(labels.features) 
+            //     .enter().append("svg:text") 
+            //         .text(function(d){return d.properties.name;}) 
+            //         .attr("x", function(d){return project(d.geometry.coordinates)[0];}) 
+            //         .attr("y", function(d){return project(d.geometry.coordinates)[1];}) 
+            //         .attr("dx", "-1em"); 
         });
     });
 

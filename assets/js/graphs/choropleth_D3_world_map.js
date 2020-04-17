@@ -28,7 +28,7 @@
     //console.log(data)
     var colorScheme = d3.schemePuOr[11]; // modified from tutorial
     var colorScale = d3.scaleThreshold()
-        .domain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 2000000000, 500000000, 1000000000]) //  modify from original
+        .domain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000]) //  modify from original
         .range(colorScheme);
         // Legend
     var g = svg.append("g")
