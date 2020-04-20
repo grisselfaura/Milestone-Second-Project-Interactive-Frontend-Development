@@ -160,12 +160,14 @@
         console.log(typeof(emissionData));
 
         // ADD FUNCTION FOR GROUPING
-        
+        var countries_code = ndx.dimension(function (d) { return d['Code'];}); //issue not showing some countries by name
         var entities = ndx.dimension(function (d) { return d['Entity'];});
         var TOTALCO = ndx.dimension(function (d) {if(d.Year == 2010) { return d["total_CO"];}});// country
         var TOTALCOpercountry = TOTALCO.group().reduceSum(function(d){ return d.Entity});
+        var TOTALCOperCode = TOTALCO.group().reduceSum(function(d){ return d.Code});
         
-        var averagePerCountry = entities.group().reduce(
+        // var averagePerCountry = entities.group().reduce(
+        var averagePerCode = countries_code.group().reduce(
             function add_item(p, v) {
                 p.count++;
                 p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
@@ -191,7 +193,8 @@
                 };
             },
         );
-        averagePerCountry.order(v => v.average);// sort values from top to bottom
+        // averagePerCountry.order(v => v.average);// sort values from top to bottom
+        averagePerCode.order(v => v.average);// sort values from top to bottom
 
         d3.json("data/world_countries.json").then(function (topoData, labels) {
         // d3.json("data/world_countries.json", function(error, topoData){
@@ -207,64 +210,84 @@
      
             usChart.width(990)
                     .height(500)
-                    .dimension(entities)
-                    .group(averagePerCountry)
+                    // .dimension(entities)
+                    // .group(averagePerCountry)
+                    .dimension(countries_code)
+                    .group(averagePerCode)
                     // .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5)).legendText(function (d) { return labels[d.i]; }))
                     .colors(d3.scaleThreshold(d3.schemePuOr[11]))
                     .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000])
-                    .colorAccessor(function (d,i) {return d;})
-                    // .colorCalculator(function (d) { return d ? usChart.colors()(d) : '#ccc'; }) // ? equal if
+                    // .colorAccessor(function (d,i) {  console.log(d); return d;})
+                    // .colorAccessor(function (d,i) {  console.log(d); return d ? usChart.colors()(d) : '#ccc'; }) 
+                    .colorCalculator(function (d) { return d ? usChart.colors()(d) : '#ccc'; })
+                    
                     .overlayGeoJson(topoData.features, "countries", function (d) {
-                        return d.properties.name;
+                        return d.id;
                     })
                 .projection(projection)
                 // .projection(d3.geoNaturalEarth())
-                .valueAccessor(function(kv) {
-                    console.log(kv);
-                    return kv.value.average;
-                })
-                 .title(function (p) {
-                    return p.key + " Avg CO2 levels (1990-2010): " + p.average })
+                // .valueAccessor(function(kv) {
+                //     console.log(kv);
+                //     return kv.value.average;
+                // })   check if i need this  
+            //     .title(function (kv, topoData) {
+            //         //   console.log(kv);
+            //     // return d.id + kv.key + " Avg CO2 levels (1990-2010): " + kv.value.average })
+            //    return d.properties.name })
                 
-                .renderTitle(true);
+            //     .renderTitle(true);
                 // .renderLabel(true);
 
-            pieChart.width(480)
-                .height(480)
-                .radius(150)
-                .innerRadius(60)
-                .transitionDuration(500)
-                // .slicesCap(4)// number of slices the pie chart will generate
-                .cap(5)// return group.top(5)
-                .dimension(entities)
-                .group(averagePerCountry) 
-                .valueAccessor(function (d) { return d.value.average})
-                // .colors(d3.scale.ordinal().range(// colors if wanted?
-                // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
-                .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
-                // workaround for #703: not enough data is accessible through .label() to display percentages
-                .data(function (group) { // get top five groups
-                    return group.top(8);})
-                .on('pretransition', function(pieChart) {
-                    pieChart.selectAll('text.pie-slice').text(function(d) {
-                        return d.data.key ;
-                    })
+            usChart.legendables = function () {
+                return usChart.group().all().map(function (d, i) {
+                    var legendable = {name: d.key, data: d.value, others: d.others, chart: usChart};
+            console.log(d.value);
+                    legendable.color = usChart.colorCalculator()(d.value);
+                    return legendable;
                 });
+                    };  
+             
+
+        usChart.legend(dc.legend().x(10).y(10).itemHeight(13).gap(5))
+
+
+            // pieChart.width(480)
+            //     .height(480)
+            //     .radius(150)
+            //     .innerRadius(60)
+            //     .transitionDuration(500)
+            //     // .slicesCap(4)// number of slices the pie chart will generate
+            //     .cap(5)// return group.top(5)
+            //     .dimension(entities)
+            //     .group(averagePerCountry) 
+            //     .group(averagePerCountry) 
+            //     .valueAccessor(function (d) { return d.value.average})
+            //     // .colors(d3.scale.ordinal().range(// colors if wanted?
+            //     // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
+            //     .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+            //     // workaround for #703: not enough data is accessible through .label() to display percentages
+            //     .data(function (group) { // get top five groups
+            //         return group.top(8);})
+            //     .on('pretransition', function(pieChart) {
+            //         pieChart.selectAll('text.pie-slice').text(function(d) {
+            //             return d.data.key ;
+            //         })
+            //     });
 
             dc.renderAll();
         
-            // var labelG = d3.select("svg")
-            //     .append("svg:g") 
-            //     .attr("id", "labelG") 
-            //     .attr("class", "Title");
+            var labelG = d3.select("svg")
+                .append("svg:g") 
+                .attr("id", "labelG") 
+                .attr("class", "Title");
         
-            // labelG.selectAll("text") 
-            //     .data(labels.features) 
-            //     .enter().append("svg:text") 
-            //         .text(function(d){return d.properties.name;}) 
-            //         .attr("x", function(d){return project(d.geometry.coordinates)[0];}) 
-            //         .attr("y", function(d){return project(d.geometry.coordinates)[1];}) 
-            //         .attr("dx", "-1em"); 
+            labelG.selectAll("text") 
+                .data(labels.features) 
+                .enter().append("svg:text") 
+                    .text(function(d){return d.properties.name;}) 
+                    .attr("x", function(d){return project(d.geometry.coordinates)[0];}) 
+                    .attr("y", function(d){return project(d.geometry.coordinates)[1];}) 
+                    .attr("dx", "-1em"); 
         });
     });
 
