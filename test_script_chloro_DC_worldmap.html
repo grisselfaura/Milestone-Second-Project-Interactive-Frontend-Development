@@ -217,7 +217,8 @@
                         // return kv.value.average;})  
                         // .dimension(countries_code) //plucking to id
                         // .group(averagePerCode)//plucking to id
-                    .colors(d3.scaleThreshold(d3.schemePuOr[11]))
+                    .colors(d3.scaleThreshold().domain([-1000000, 1000000000]).range(["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) 
+                    // .colors(d3.scaleThreshold(d3.schemePuOr[11]))
                     // .range(
                    	// 	["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) //https://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11 */
                     .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000])
@@ -233,23 +234,36 @@
             //         //   console.log(kv);
             // //     // return d.id + kv.key + " Avg CO2 levels (1990-2010): " + kv.value.average })
             //    return d.properties.name })
+
+            //         .legend(dc.legend().x(10).y(255).gap(5).horizontal(true).legendText(function(d) {
+            // return d.key + ': ' + d.value;
+
             //      .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5)).legendText(function (d) { return d.key + " CCO " + (d.value.average); }))
             // //     .renderTitle(true);
             //     .renderLabel(true);
             // check legend and map coloring
             usChart.legendables = function () {
+                var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']
                 var range = usChart.colors().range()
                 console.log(range)
                 var domain = usChart.colorDomain()
-                var step = (domain[1] - domain[0]) / range.length
-                var val = domain[0] 
-                        return range.map(function (d, i) {
-                            var legendable = {name: val + "-" + (val+step), chart: usChart};
-                            legendable.color = usChart.colorCalculator()(val);
+                var val = labels.length;
+                    for (index = 0; index < labels.length; index++) { 
+                        console.log(labels[index]); 
+                    } 
+                var step = labels.length;
+                    for (index = 1; index < labels.length; index=9) { 
+                        console.log(labels[index]); 
+                    } 
+                // var step = (domain[1] - domain[0]) / range.length
+                // var val = labels[0] 
+                return range.map(function (d, i) {
+                    var legendable = {name: val + " - " + (val+-step), chart: usChart};
+                    legendable.color = usChart.colorCalculator()(val.average);
                     val += step
-                            return legendable;
-                        });
-                    };  
+                    return legendable;
+                });
+            };  
     
                     
             usChart.legend(dc.legend().x(10).y(10).itemHeight(13).gap(5))
