@@ -73,18 +73,33 @@
 <!-- Dashboard panel --> 
   <section class="showcase">
     <div class="container-fluid p-0">
+         <h2 class="text-center mb-3">CO2 percentages per industries (2010yr)</h2> 
+        <div class="row no-gutters ">
+            <!--<div class="col-lg-6 order-lg-2 "> col-lg-6 order-lg-2 my-auto offset-2 -->
+            <div class="col number-box" id="percent-CO-transport"> </div> <!-- Percentage number show transport -->
+            <div class="col number-box" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
+            <div class="col number-box" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
+            <div class="col number-box" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
+            <div class="col number-box" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show agriculture,land,use,forestry-->
+            <div class="col number-box" id="percent-CO-waste" ></div> <!-- Percentage number show waste-->
+            <div class="col number-box" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
+            <div class="col number-box" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->
+        </div>
+
+
+         <div class="row no-gutters">
+            <div class="col text-percentage"> % CO Transport</div> <!-- Percentage number show transport -->
+            <div class="col text-percentage"> % CO Forestry</div> <!-- Percentage number show forestry-->
+            <div class="col text-percentage"> % CO Energy</div> <!-- Percentage number show energy-->
+            <div class="col text-percentage"> % CO Other sources</div> <!-- Percentage number show other sources-->
+            <div class="col text-percentage"> % CO Agriculture, Land use & forestry</div> <!-- Percentage number show agriculture,land,use,forestry-->
+            <div class="col text-percentage"> % CO Waste</div> <!-- Percentage number show waste-->
+            <div class="col text-percentage"> % CO Residential & Commercial</div> <!-- Percentage number show residential and commercial-->
+            <div class="col text-percentage"> % CO Industry</div> <!-- Percentage number show indsutry-->
+        </div>
+        
 
         <div class="row no-gutters">
-            <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                <div class="number-box" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
-                <div class="number-box" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
-                <div class="number-box" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
-                <div class="number-box" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
-                <div class="number-box" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show agriculture,land,use,forestry-->
-                <div class="number-box" id="percent-CO-waste" ></div> <!-- Percentage number show waste-->
-                <div class="number-box" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
-                <div class="number-box" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->
-            </div>
             <div class="col-lg-6 order-lg-2 my-auto offset-2">
                 <div id="pie-chart"> <!-- avg pie chart -->
                     <strong>TOP 5 countries CO2 average measurements </strong>

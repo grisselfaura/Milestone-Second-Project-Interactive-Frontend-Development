@@ -263,34 +263,6 @@
             usChart.legend(dc.legend().x(10).y(150).itemHeight(13).gap(5))
 
             
-            
-            // usChart.legendables = function () {
-            //     var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']
-            //     var range = usChart.colors().range()
-            //     console.log(range)
-            //     var domain = usChart.colorDomain()
-            //     // var val = labels.length;
-            //     //     for (index = 0; index < labels.length; index++) { 
-            //     //         console.log(labels[index]); 
-            //     //     } 
-            //     // var step = labels.length;
-            //     //     for (index = 1; index < labels.length; index=9) { 
-            //     //         console.log(labels[index]); 
-            //     //     } 
-            //     var step = (domain[1] - domain[0]) / range.length
-            //     var val = labels[0] 
-            //     return range.map(function (d, i) {
-            //         var legendable = {name: val + " - " + (val+-step), chart: usChart};
-            //         legendable.color = usChart.colorCalculator()(val.average);
-            //         val += step
-            //         return legendable;
-            //     });
-            // };  
-    
-                    
-            // usChart.legend(dc.legend().x(10).y(10).itemHeight(13).gap(5))
-
-
             pieChart.width(480)
                 .height(480)
                 .radius(150)

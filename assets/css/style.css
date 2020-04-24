@@ -164,9 +164,21 @@ if it's not present, don't show loader */
 
 /*Dashboard.html  */
 .number-box {
-    font-size: 32px;
+    font-size: 25px;
     text-align: center;
     line-height: normal;
+    background-color: #eaf5d0;
+    background-clip: content-box;
+    min-height: 20px;
+}
+
+.text-percentage {
+    font-size: 2opx;
+    text-align: center;
+    line-height: normal;
+    background-color: #eaf5d0;
+    background-clip: content-box;
+    min-height: 20px;
 }
 
 /*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
