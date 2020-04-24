@@ -97,7 +97,7 @@
             <strong>Geo Choropleth Chart: US Venture Capital Landscape 2011</strong>
             <a class="reset" href="javascript:usChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
             <span class="reset" style="display: none;"> | Current filter: <span class="filter"></span></span>
-            <svg width="960" height="600">test</svg>
+            <!-- <svg width="960" height="600">test</svg> -->
             <div class="clearfix"></div>
         </div>
         <div id="pie-chart"> <!-- avg pie chart -->
@@ -105,15 +105,15 @@
                 <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                     <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                     <div class="clearfix"></div>
-        </div> 
-            
-            
+        </div>    
     </div>
  
     <script>
         // original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
         // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
         
+    var numberFormat = d3.format(".2f");
+    var scaleFormat = d3.format(",.2r");
     var usChart = new dc.GeoChoroplethChart("#us-chart");
     var pieChart = new dc.PieChart("#pie-chart");
     
@@ -124,7 +124,6 @@
         var ndx = crossfilter(emissionData);
         var all = ndx.groupAll();
         // var parseDate = d3.time.format("%Y").parse;
-        var numberFormat = d3.format(".2f");
         var parseDate = d3.timeParse("%Y/%m/%d");
         // var dateFormat = d3.time.format("%m/%d/%Y");
 
@@ -202,71 +201,94 @@
         // Map and projection
         // Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
         
-        var projection = d3.geoNaturalEarth();
-            // .scale(width / 2 / Math.PI)
-            // .translate([width / 2, height / 2]);
-        var path = d3.geoPath()
-            .projection(projection);
+        // var projection = d3.geoNaturalEarth();
+        //     // .scale(width / 2 / Math.PI)
+        //     // .translate([width / 2, height / 2]);
+        // var path = d3.geoPath()
+        //     .projection(projection);
+
+        // usChart.calculateColorDomain = function () {
+        // var newDomain = [d3.min(usChart.data(), usChart.colorAccessor()),
+        //                  d3.max(usChart.data(), usChart.colorAccessor())];
+        // colors.domain(newDomain);
+        // return _chartusChart;
+        // };
+
      
             usChart.width(990)
                     .height(500)
+                    .transitionDuration(1000) 
                     .dimension(entities)
                     .group(averagePerCountry)
-                        // .valueAccessor(function(kv) {
-                        //     console.log(kv);
-                        // return kv.value.average;})  
                         // .dimension(countries_code) //plucking to id
                         // .group(averagePerCode)//plucking to id
-                    .colors(d3.scaleThreshold().domain([-1000000, 1000000000]).range(["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) 
+                    .colors(d3.scaleQuantize().range(["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) //https://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11 */
                     // .colors(d3.scaleThreshold(d3.schemePuOr[11]))
-                    // .range(
-                   	// 	["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) //https://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11 */
-                    .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000])
-                    .colorCalculator(function (d,i) { return d ? usChart.colors()(d.average) : '#ccc'; })
+                    // .colorDomain(d3.extent(usChart.data(),usChart.colorCalculator()))//didnt work pending to explore
+                    .colorDomain([-1000000, 1000000000])
+                    // .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000])
+                    .colorCalculator(function (d) { console.log(d); return d ? usChart.colors()(d) : '#ccc'; })
                     .overlayGeoJson(topoData.features, "countries", function (d) {
                         // return d.id;//plucking to id
                         return d.properties.name;
                     })
-                .projection(projection)
-                // .projection(d3.geoNaturalEarth())
-                // 
-            //     .title(function (d,i) {
-            //         //   console.log(kv);
-            // //     // return d.id + kv.key + " Avg CO2 levels (1990-2010): " + kv.value.average })
-            //    return d.properties.name })
-
-            //         .legend(dc.legend().x(10).y(255).gap(5).horizontal(true).legendText(function(d) {
-            // return d.key + ': ' + d.value;
-
-            //      .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5)).legendText(function (d) { return d.key + " CCO " + (d.value.average); }))
-            // //     .renderTitle(true);
-            //     .renderLabel(true);
-            // check legend and map coloring
-            usChart.legendables = function () {
-                var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']
-                var range = usChart.colors().range()
-                console.log(range)
-                var domain = usChart.colorDomain()
-                var val = labels.length;
-                    for (index = 0; index < labels.length; index++) { 
-                        console.log(labels[index]); 
+                .projection(d3.geoNaturalEarth())
+                .valueAccessor(function(kv) { 
+                    console.log(kv);
+                    if (typeof kv.value === "undefined") {
+                        return "Undefined value!"
                     } 
-                var step = labels.length;
-                    for (index = 1; index < labels.length; index=9) { 
-                        console.log(labels[index]); 
-                    } 
-                // var step = (domain[1] - domain[0]) / range.length
-                // var val = labels[0] 
-                return range.map(function (d, i) {
-                    var legendable = {name: val + " - " + (val+-step), chart: usChart};
-                    legendable.color = usChart.colorCalculator()(val.average);
-                    val += step
-                    return legendable;
-                });
-            };  
+                    else {
+                        return kv.value.average ; //Cannot read property 'average' of undefined ;
+                    }
+                })
+                    .title(function (d) {
+                        return d.key + ": " + numberFormat(d.value) + " Avg CO2 levels" ; //Solution to relabel nan values as not available pending;
+                    });
+
+                usChart.legendables = function () {
+          				var range = usChart.colors().range()
+                        var domain = usChart.colorDomain()
+                        var step = (domain[1] - domain[0]) / range.length
+                        var val = domain[1] 
+                        // var val = domain[0] 
+			 	        return range.map(function (d, i) {
+			 	            var legendable = {name: scaleFormat(val) + " -  " + scaleFormat(val-step), chart: usChart};
+			 	            legendable.color = usChart.colorCalculator()(val);
+                            val -= step
+			 	            return legendable;
+			 	        });
+			 	};  
+    
+            usChart.legend(dc.legend().x(10).y(150).itemHeight(13).gap(5))
+
+            
+            
+            // usChart.legendables = function () {
+            //     var labels = ['-1000 000', '-100 000','-10 000', '10 000', '100 000', '1000 000', '10 000 000', '100 000 000', '200 000 000', '500 000 000', '> 1000 000 000']
+            //     var range = usChart.colors().range()
+            //     console.log(range)
+            //     var domain = usChart.colorDomain()
+            //     // var val = labels.length;
+            //     //     for (index = 0; index < labels.length; index++) { 
+            //     //         console.log(labels[index]); 
+            //     //     } 
+            //     // var step = labels.length;
+            //     //     for (index = 1; index < labels.length; index=9) { 
+            //     //         console.log(labels[index]); 
+            //     //     } 
+            //     var step = (domain[1] - domain[0]) / range.length
+            //     var val = labels[0] 
+            //     return range.map(function (d, i) {
+            //         var legendable = {name: val + " - " + (val+-step), chart: usChart};
+            //         legendable.color = usChart.colorCalculator()(val.average);
+            //         val += step
+            //         return legendable;
+            //     });
+            // };  
     
                     
-            usChart.legend(dc.legend().x(10).y(10).itemHeight(13).gap(5))
+            // usChart.legend(dc.legend().x(10).y(10).itemHeight(13).gap(5))
 
 
             pieChart.width(480)
