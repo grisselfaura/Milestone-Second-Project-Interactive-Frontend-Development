@@ -164,7 +164,7 @@ if it's not present, don't show loader */
 
 /*Dashboard.html  */
 .custom-chart {
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 }
 
 .number-box {
@@ -222,6 +222,17 @@ if it's not present, don't show loader */
     } 
 
 /*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
+/* .row-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -.75rem;
+    margin-left: -.75rem;
+} */
+.dashboard-section {
+  padding: 50px 0;
+}
+
+
 .shadow {
     box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }
@@ -240,4 +251,10 @@ if it's not present, don't show loader */
     background-clip: border-box;
     border: 1px solid #e3e6f0;
     border-radius: .35rem;
+    margin: 1.25rem 1.5rem 1.25rem 1.5rem;
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    min-height: 500px;
 }

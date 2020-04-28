@@ -134,8 +134,8 @@ averagePerCountry.order(v => v.average);// sort values from top to bottom
 // console.log(averagePerCountry.bottom(0));
 
 dc.pieChart("#pie-chart")
-    .height(480)
-    .width(480)
+    .height(450)
+    .width(500)
     .radius(150)
     .innerRadius(60)
     .transitionDuration(500)
@@ -146,7 +146,7 @@ dc.pieChart("#pie-chart")
     .valueAccessor(function (d) { return d.value.average})
     // .colors(d3.scale.ordinal().range(// colors if wanted?
     // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
-    .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
+    .legend(dc.legend().x(400).y(20).itemHeight(13).gap(5))
     // workaround for #703: not enough data is accessible through .label() to display percentages
     .data(function (group) { // get top five groups
         return group.top(8);})

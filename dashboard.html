@@ -18,7 +18,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
     <!-- Custom styles for this template -->
-    <link href="assets/css/scrolling-nav.css" rel="stylesheet">
     <link href="assets/css/landing-page.css" rel="stylesheet">
     
     <!-- Personal Styles for this website -->
@@ -72,59 +71,55 @@
 
 <!-- Dashboard panel --> 
 <!--  PERCENTAGE AND AVERAGE SECTION --> 
-    <section class="showcase">
+    <section class="dashboard-section">
         <div class="container-fluid p-0">
-            <div class="row no-gutters ">
-                <div class="col-lg-6 mb-4"> <!--  https://startbootstrap.com/previews/sb-admin-2/ -->
+            <div class="row no-gutters">
+                <div class="col-lg-6 mb-1"> <!--  https://startbootstrap.com/previews/sb-admin-2/ -->
                     <!-- Project Card Example --> 
-                    <div class="card shadow mb-4">
+                    <div class="card shadow mb-2">
                         <div class="card-header">
-                            <p class="text-center"><strong> CO <sub>2 </sub> percentages per industries (Year 2010) </strong></p>
+                            <p class="text-center"><strong> CO <sub> 2 </sub> percentages per industries (Year 2010) </strong></p>
                         </div>
-                    <div class="card-body">
-                        <h6 class="font-weight-bold">CO Transport </h4>
-                        <div class="col number-box mb-1" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
-                        <h6 class="font-weight-bold">CO Forestry </h4>
-                        <div class="col number-box mb-1" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
-                        <h6 class="font-weight-bold">CO Energy </h4>
-                        <div class="col number-box mb-1" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
-                        <h6 class="font-weight-bold">CO Other sources </h4>
-                        <div class="col number-box mb-1" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
-                        <h6 class="font-weight-bold">CO Agriculture, Land use & forestry </h4>
-                        <div class="col number-box mb-1" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show Agriculture, Land use & forestry-->
-                        <h6 class="font-weight-bold">CO Waste </h4>
-                        <div class="col number-box mb-1" id="percent-CO-waste"></div> <!-- Percentage number show waste-->
-                        <h6 class="font-weight-bold">CO Residential & Commercial</h4>
-                        <div class="col number-box mb-1" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
-                        <h6 class="font-weight-bold">CO Industry </h4>
-                        <div class="col number-box mb-1" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->
-                        
+                        <div class="card-body">
+                            <h6 class="font-weight-bold">CO Transport </h4>
+                            <div class="col number-box mb-1" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
+                            <h6 class="font-weight-bold">CO Forestry </h4>
+                            <div class="col number-box mb-1" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
+                            <h6 class="font-weight-bold">CO Energy </h4>
+                            <div class="col number-box mb-1" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
+                            <h6 class="font-weight-bold">CO Other sources </h4>
+                            <div class="col number-box mb-1" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
+                            <h6 class="font-weight-bold">CO Agriculture, Land use & forestry </h4>
+                            <div class="col number-box mb-1" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show Agriculture, Land use & forestry-->
+                            <h6 class="font-weight-bold">CO Waste </h4>
+                            <div class="col number-box mb-1" id="percent-CO-waste"></div> <!-- Percentage number show waste-->
+                            <h6 class="font-weight-bold">CO Residential & Commercial</h4>
+                            <div class="col number-box mb-1" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
+                            <h6 class="font-weight-bold">CO Industry </h4>
+                            <div class="col number-box mb-1" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->    
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-1"> <!--  https://startbootstrap.com/previews/sb-admin-2/ -->
+                    <!-- Project Card Example --> 
+                    <div class="card shadow mb-2">
+                        <div class="card-header">
+                             <p class="text-center"><strong>TOP 5 countries CO <sub> 2 </sub> average measurements </strong></p>
+                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <div id="pie-chart"></div> <!-- avg pie chart -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> -->
-
-            
-                    
-                </div>
-                <div class="col-lg-6 mb-4">
-                    <div id="pie-chart" class="custom-chart"> <!-- avg pie chart -->
-                        <p class="text-center"><strong>TOP 5 countries CO<sup>2</sup> average measurements </strong></p>
-                            <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                                <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                <div class="clearfix"></div>
-                    </div> 
-                </div>
-            </div>    
-        </div>
-            
-        
-
-           
+        </div> 
     </section>
 
 <!--  DATA COUNT SECTION --> 
-    <section class="showcase">
+    <section class="dashboard-section">
         <div class="container-fluid p-0">
             <div class="row no-gutters">
                 <div id="country-selector" class="chart mb-3">
