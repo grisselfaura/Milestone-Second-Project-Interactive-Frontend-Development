@@ -163,9 +163,13 @@ if it's not present, don't show loader */
 }
 
 /*Dashboard.html  */
+.custom-chart {
+	margin-bottom: 40px;
+}
+
 .number-box {
-    font-size: 25px;
-    text-align: center;
+    font-size: 0.938em;
+    text-align: right!important;
     line-height: normal;
     background-color: #eaf5d0;
     background-clip: content-box;
@@ -217,5 +221,23 @@ if it's not present, don't show loader */
         text-align: center;
     } 
 
+/*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
+.shadow {
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+}
 
+.card-header:first-child {
+    border-radius: calc(.35rem - 1px) calc(.35rem - 1px) 0 0;
+}
 
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: .35rem;
+}

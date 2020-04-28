@@ -48,7 +48,7 @@
 <body>
 
 <!-- Navigation from https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/index.html (scroll not in used)-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="index.html">Home</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,141 +68,153 @@
         </ul>
       </div>
     </div>
-  </nav>
+    </nav>
 
 <!-- Dashboard panel --> 
-  <section class="showcase">
-    <div class="container-fluid p-0">
-         <h2 class="text-center mb-3">CO2 percentages per industries (2010yr)</h2> 
-        <div class="row no-gutters ">
-            <!--<div class="col-lg-6 order-lg-2 "> col-lg-6 order-lg-2 my-auto offset-2 -->
-            <div class="col number-box" id="percent-CO-transport"> </div> <!-- Percentage number show transport -->
-            <div class="col number-box" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
-            <div class="col number-box" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
-            <div class="col number-box" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
-            <div class="col number-box" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show agriculture,land,use,forestry-->
-            <div class="col number-box" id="percent-CO-waste" ></div> <!-- Percentage number show waste-->
-            <div class="col number-box" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
-            <div class="col number-box" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->
-        </div>
+<!--  PERCENTAGE AND AVERAGE SECTION --> 
+    <section class="showcase">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters ">
+                <div class="col-lg-6 mb-4"> <!--  https://startbootstrap.com/previews/sb-admin-2/ -->
+                    <!-- Project Card Example --> 
+                    <div class="card shadow mb-4">
+                        <div class="card-header">
+                            <p class="text-center"><strong> CO <sub>2 </sub> percentages per industries (Year 2010) </strong></p>
+                        </div>
+                    <div class="card-body">
+                        <h6 class="font-weight-bold">CO Transport </h4>
+                        <div class="col number-box mb-1" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
+                        <h6 class="font-weight-bold">CO Forestry </h4>
+                        <div class="col number-box mb-1" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
+                        <h6 class="font-weight-bold">CO Energy </h4>
+                        <div class="col number-box mb-1" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
+                        <h6 class="font-weight-bold">CO Other sources </h4>
+                        <div class="col number-box mb-1" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
+                        <h6 class="font-weight-bold">CO Agriculture, Land use & forestry </h4>
+                        <div class="col number-box mb-1" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show Agriculture, Land use & forestry-->
+                        <h6 class="font-weight-bold">CO Waste </h4>
+                        <div class="col number-box mb-1" id="percent-CO-waste"></div> <!-- Percentage number show waste-->
+                        <h6 class="font-weight-bold">CO Residential & Commercial</h4>
+                        <div class="col number-box mb-1" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
+                        <h6 class="font-weight-bold">CO Industry </h4>
+                        <div class="col number-box mb-1" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->
+                        
+                    </div>
+                </div>
+            </div>
+        </div> -->
 
-
-         <div class="row no-gutters">
-            <div class="col text-percentage"> % CO Transport</div> <!-- Percentage number show transport -->
-            <div class="col text-percentage"> % CO Forestry</div> <!-- Percentage number show forestry-->
-            <div class="col text-percentage"> % CO Energy</div> <!-- Percentage number show energy-->
-            <div class="col text-percentage"> % CO Other sources</div> <!-- Percentage number show other sources-->
-            <div class="col text-percentage"> % CO Agriculture, Land use & forestry</div> <!-- Percentage number show agriculture,land,use,forestry-->
-            <div class="col text-percentage"> % CO Waste</div> <!-- Percentage number show waste-->
-            <div class="col text-percentage"> % CO Residential & Commercial</div> <!-- Percentage number show residential and commercial-->
-            <div class="col text-percentage"> % CO Industry</div> <!-- Percentage number show indsutry-->
+            
+                    
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div id="pie-chart" class="custom-chart"> <!-- avg pie chart -->
+                        <p class="text-center"><strong>TOP 5 countries CO<sup>2</sup> average measurements </strong></p>
+                            <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                    </div> 
+                </div>
+            </div>    
         </div>
+            
         
 
-        <div class="row no-gutters">
-            <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                <div id="pie-chart"> <!-- avg pie chart -->
-                    <strong>TOP 5 countries CO2 average measurements </strong>
-                        <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                            <div class="clearfix"></div>
-                </div> 
-            </div>
-        </div>
+           
+    </section>
 
-        <div class="row no-gutters">
-            <div class="col-lg-12 order-lg-1 my-auto offset-2"> <!-- y - for classes that set both *-top and *-bottom-->
-                <h2 class="mb-2">Data count</h2>
-                <div class="dc-data-count mb-3">
-                    <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
-                            href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-                </div>
+<!--  DATA COUNT SECTION --> 
+    <section class="showcase">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters">
                 <div id="country-selector" class="chart mb-3">
-                    <strong> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true"></i></strong> 
-                </div> 
-               
-                <!--<div id="yearGraph">
-                    <strong>CO2 data measurements by year all of them 262 countries</strong>
-                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:yearChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div> --> 
-                <!--<div id="countryGraph">
-                    <strong>CO2 data measurements by country all of them 21</strong>
-                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                    <a class="reset" href="javascript:countryChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                    <div class="clearfix"></div>
-                </div> --> 
-                <!-- <table class="table table-hover dc-data-table">
-                </table> -->
+                    <strong> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true" > </i></strong> 
+                </div>
+                <div class="col-lg-12 order-lg-1 my-auto offset-2"> <!-- y - for classes that set both *-top and *-bottom--> 
+                    <h2 class="mb-2">Data count</h2>
+                    <div class="dc-data-count mb-3">
+                        <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
+                                href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="row no-gutters">
-            <div>
-                <h2 class="mb-2">Fossil Fuels Emissions</h2>
+
+<!--  GRAPHS SECTION --> 
+    <section class="showcase">
+        <div class="container-fluid p-0">
+            <h2 class="text-center mb-3">xxxxxx</h2> 
+            <div class="row no-gutters">
+                <div>
+                    <h2 class="mb-2">Fossil Fuels Emissions</h2>
+                </div>
+                <div class="col-lg-6 order-lg-2 my-auto offset-2">
+                    <div id="chart-global-CO2-year" class="chart mb-3"> <!-- line chart -->
+                        <strong> CO2 measurements per year by country </strong>
+                        <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                    </div> 
+                </div>
+                <div class="col-lg-6 order-lg-2 my-auto offset-2">
+                    <div id="stacked-chart" class="dc-chart mb-3"> <!-- stacked chart -->
+                        <strong>Overview of CO2 measurements distribution by sector per country</strong>
+                        <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                    </div> 
+                </div>
             </div>
-            <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                <div id="chart-global-CO2-year" class="chart mb-3"> <!-- line chart -->
-                    <strong> CO2 measurements per year by country </strong>
-                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                        <div class="clearfix"></div>
-                </div> 
-            </div>
-            <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                <div id="stacked-chart" class="dc-chart mb-3"> <!-- stacked chart -->
-                    <strong>Overview of CO2 measurements distribution by sector per country</strong>
-                    <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                        <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                        <div class="clearfix"></div>
-                </div> 
+    </section>
+
+<!-- WORLD MAP SECTION --> 
+    <section class="showcase">
+        <div class="container-fluid p-0">
+            <h2 class="text-center mb-3">Total CO2 levels worldwide distribution  (Year 2010)</h2> 
+            <div class="row-fluid no-gutters">
+                <div id="global-CO2-map" class="chart mb-3"> 
+                    <div id="tooltip">
+                        <svg id="world-map" width="960" height="600">test</svg>   
+                    </div>       
+                </div>
             </div>
         </div>
-
-        <div class="row no-gutters">
-            <div id="global-CO2-map" class="chart mb-3"> <!-- global map -->
-                <div id="tooltip">
-                    <svg id="world-map" width="960" height="600">test</svg>   
-                </div>       
-            </div>
-        </div>
-
-    </div>
-  </section>
+    </section>
 
 
 <!-- Footer -->
-  <footer class="footer bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-          <ul class="list-inline mb-2">
-            <li class="list-inline-item">
-              <a href="#" target="_blank">About us</a> <!--********not connected yet********-->
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#" target="_blank">Links</a> <!--********not connected yet********-->
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="https://climate.nasa.gov/about-us/" target="_blank">Global Climate Change NASA</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="https://www.ipcc.ch/" target="_blank">IPCC</a>
-            </li>
-          </ul>
-          <hr>
-          <p class="text-muted small mb-0 mb-lg-0">Web Design by Grissel Faura Tellez. | 
-          No copyright © infringement intended, as this is for educational use only.</p> 
-          <p class="text-muted small mb-0 mb-lg-0">All Rights Reserved.</p>
+    <footer class="footer bg-light">
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+            <ul class="list-inline mb-2">
+                <li class="list-inline-item">
+                <a href="#" target="_blank">About us</a> <!--********not connected yet********-->
+                </li>
+                <li class="list-inline-item">&sdot;</li>
+                <li class="list-inline-item">
+                <a href="#" target="_blank">Links</a> <!--********not connected yet********-->
+                </li>
+                <li class="list-inline-item">&sdot;</li>
+                <li class="list-inline-item">
+                <a href="https://climate.nasa.gov/about-us/" target="_blank">Global Climate Change NASA</a>
+                </li>
+                <li class="list-inline-item">&sdot;</li>
+                <li class="list-inline-item">
+                <a href="https://www.ipcc.ch/" target="_blank">IPCC</a>
+                </li>
+            </ul>
+            <hr>
+            <p class="text-muted small mb-0 mb-lg-0">Web Design by Grissel Faura Tellez. | 
+            No copyright © infringement intended, as this is for educational use only.</p> 
+            <p class="text-muted small mb-0 mb-lg-0">All Rights Reserved.</p>
+            </div>
+            
         </div>
-        
-      </div>
-    </div>
-  </footer>
+        </div>
+    </footer>
 <script type="text/javascript" src="assets/js/graphs/dashboard_DC_functions.js" ></script> 
 <script type="text/javascript" src="assets/js/graphs/dashboard_DC_reduce_functions.js" ></script> 
 <script type="text/javascript" src="assets/js/graphs/choropleth_D3_world_map.js" ></script> 

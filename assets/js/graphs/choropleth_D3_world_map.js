@@ -75,8 +75,7 @@
         let mousemove = function(d) {
             d3.selectAll(".Country")
                 tooltip.style("opacity", 1)
-                    .html( d.properties.name + "<br>"+  d.total_CO )   
-                    // .text(d => d.properties.average_price_per_poundtotal_CO);                
+                    .html( d.properties.name + "<br>"+  d.total_CO )              
                     .style("left", (d3.mouse(this)[0]+70) + "px")
                     .style("top", (d3.mouse(this)[1]) + "px")
         }
