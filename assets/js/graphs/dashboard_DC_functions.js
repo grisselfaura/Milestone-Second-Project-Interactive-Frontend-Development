@@ -97,7 +97,6 @@ function show_global_emissions_per_year(ndx) {
             // .x(d3.scale.linear().domain([new Date(1990, 0, 1), new Date(2010, 11, 31)]))
             // .y(d3.scale.linear().domain([0, d3.max(emissionData)]).range([0, h]))//check scale and x axus
             .xAxisLabel("Years")
-            .xAxisPadding(50)
             .yAxisLabel("Total CO2 emissions")
             .renderHorizontalGridLines(true)
 }                

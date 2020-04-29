@@ -135,7 +135,7 @@ dc.pieChart("#pie-chart")
     .width(500)
     .height(450)
     // .margins({top: 10, right: 30, bottom: 30, left:30})
-    .radius(150)
+    .radius(180)
     .innerRadius(60)
     .transitionDuration(500)
     // .slicesCap(4)// number of slices the pie chart will generate
@@ -145,7 +145,7 @@ dc.pieChart("#pie-chart")
     .valueAccessor(function (d) { return d.value.average})
     // .colors(d3.scale.ordinal().range(// colors if wanted?
     // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
-    .legend(dc.legend().x(400).y(20).itemHeight(13).gap(5))
+    .legend(dc.legend().x(420).y(0).itemHeight(13).gap(5).horizontal(false).legendWidth(200).autoItemWidth(true).itemWidth(0))
     .data(function (group) { // get top five groups
         return group.top(8);})
     .on('pretransition', function(pieChart) {
