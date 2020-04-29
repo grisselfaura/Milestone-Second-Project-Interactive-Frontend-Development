@@ -132,8 +132,9 @@ averagePerCountry.order(v => v.average);// sort values from top to bottom
 // console.log(averagePerCountry.bottom(0));
 
 dc.pieChart("#pie-chart")
-    .height(450)
     .width(500)
+    .height(450)
+    // .margins({top: 10, right: 30, bottom: 30, left:30})
     .radius(150)
     .innerRadius(60)
     .transitionDuration(500)

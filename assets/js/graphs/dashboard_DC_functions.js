@@ -86,7 +86,7 @@ function show_global_emissions_per_year(ndx) {
     dc.lineChart("#chart-global-CO2-year")
             .width(500)
             .height(300)
-            .margins({top: 10, right: 50, bottom: 30, left:100})
+            .margins({top: 10, right: 30, bottom: 30, left:100})
             .dimension(year_dim)
             .group(yearGlobalEmissionsChart)
             .transitionDuration(500)
@@ -97,6 +97,7 @@ function show_global_emissions_per_year(ndx) {
             // .x(d3.scale.linear().domain([new Date(1990, 0, 1), new Date(2010, 11, 31)]))
             // .y(d3.scale.linear().domain([0, d3.max(emissionData)]).range([0, h]))//check scale and x axus
             .xAxisLabel("Years")
+            .xAxisPadding(50)
             .yAxisLabel("Total CO2 emissions")
             .renderHorizontalGridLines(true)
 }                
@@ -123,9 +124,9 @@ function show_country_emissions_stacked(ndx) {
     var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));/*PLEASE ADAPT*/       
 
     dc.barChart("#stacked-chart")
-                .width(500)
+                .width(600)
                 .height(300)
-                .margins({top: 10, right: 100, bottom: 30, left:100})
+                .margins({top: 10, right: 30, bottom: 30, left:100})
                 .dimension(year_dim)
                 .group(coByYearTransport, "Transport") // first item goes as .group
                 .stack(coByYearForestry, "Forestry") // the rest go in as .stack (to stack on-top)
@@ -151,7 +152,7 @@ function show_country_emissions_stacked(ndx) {
                 .yAxisPadding(50)
                 // .centerBar(true)
                 .x(d3.time.scale().domain([minYear, maxYear]))
-                .legend(dc.legend().x(130).y(0).itemHeight(10).gap(5).horizontal(true).autoItemWidth(true).itemWidth(0))
+                .legend(dc.legend().x(300).y(0).itemHeight(10).gap(5).horizontal(true).legendWidth(200).autoItemWidth(true).itemWidth(0))
                 .brushOn(false)
                 .xAxisLabel("Years")
                 .yAxisLabel("CO2 emissions by sectors")
