@@ -186,7 +186,11 @@ if it's not present, don't show loader */
 }
 
 /*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
-    .world-map{
+    /* svg {
+        background: #c7f0f9;
+    } */
+    
+    #world-map{
         background: #c7f0f9;
     }
     .countries {
@@ -222,16 +226,10 @@ if it's not present, don't show loader */
     } 
 
 /*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
-/* .row-dashboard {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -.75rem;
-    margin-left: -.75rem;
-} */
-.dashboard-section {
-  padding-top: 50px;
-}
 
+.dashboard-section {
+  padding-top: 20px;
+}
 
 .shadow {
     box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
