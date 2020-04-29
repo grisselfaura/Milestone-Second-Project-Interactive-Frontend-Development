@@ -58,7 +58,7 @@ function show_country_selector(ndx) {
     select = dc.selectMenu("#country-selector")
         .dimension(dim)
         .group(group) 
-        .title(kv => kv.key);/*not showing the count numner*/ 
+        .title(kv => kv.key);/*hiding the count number*/ 
 
     dc.renderAll();   
     
@@ -123,7 +123,7 @@ function show_country_emissions_stacked(ndx) {
     var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));/*PLEASE ADAPT*/       
 
     dc.barChart("#stacked-chart")
-                .width(600)
+                .width(500)
                 .height(300)
                 .margins({top: 10, right: 100, bottom: 30, left:100})
                 .dimension(year_dim)
@@ -144,13 +144,6 @@ function show_country_emissions_stacked(ndx) {
                 .title(function (d) { // show only value and not date
                     return d.value;
                 })
-                // .valueAccessor(function (d) { // if number of items is greater than 0, add to the stack
-                //     if (d.value.total > 0) {
-                //         return d.value.match;
-                //     } else { // otherwise, don't add it to the stack
-                //         return 0;
-                //     }
-                // })
                 .transitionDuration(500)
                 .xUnits(function(){return 20;})
                 // .xUnits(function(minYear, maxYear){return Math.abs(maxYear - minYear);})

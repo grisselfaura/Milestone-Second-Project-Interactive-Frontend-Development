@@ -264,6 +264,11 @@ if it's not present, don't show loader */
 .card-body {
     flex: 1 1 auto;
     padding: 1.25rem;
+}
+
+.card-body-size {
+    flex: 1 1 auto;
+    padding: 1.25rem;
     min-height: 500px;
 }
 

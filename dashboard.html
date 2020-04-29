@@ -80,7 +80,7 @@
                         <div class="card-header">
                             <p class="text-center"><strong> CO <sub> 2 </sub> percentages per industries (Year 2010) </strong></p>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-size">
                             <h6 class="font-weight-bold">CO Transport </h4>
                             <div class="col number-box mb-1" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
                             <h6 class="font-weight-bold">CO Forestry </h4>
@@ -109,7 +109,7 @@
                                 <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-size">
                             <div id="pie-chart"></div> <!-- avg pie chart -->
                         </div>
                     </div>
@@ -127,9 +127,8 @@
                         <div class="col-lg-6 mb-1">
                             <div class="card-header">
                                 <p class=""><strong> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true" > </i></strong>
-                                    <div id="country-selector" class="chart mt-3"></div>
+                                <div id="country-selector" class="chart mt-3"></div>
                             </div>
-                        </div>
                         </div>
                         <div class="col-lg-6 mb-1"> 
                             <div class="card-header">
@@ -147,15 +146,45 @@
     </section>
     
 <!--  GRAPHS SECTION follow same format as first section--> 
-    <section class="showcase">
-        <div class="container-fluid p-0">
-            <h2 class="text-center mb-3">xxxxxx</h2> 
+    <section class="dashboard-section">
+         <div class="container-fluid p-0">
             <div class="row no-gutters">
-                <div>
-                    <h2 class="mb-2">Fossil Fuels Emissions</h2>
+                <div class="col-lg-6 mb-1"> 
+                    <!-- Project Card Example --> 
+                    <div class="card shadow mb-2">
+                        <div class="card-header">
+                             <p class="text-center"><strong> CO <sub> 2 </sub> measurements per year by country </strong></p>
+                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart-global-CO2-year"></div> <!-- global line chart -->
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                    <div id="chart-global-CO2-year" class="chart mb-3"> <!-- line chart -->
+                <div class="col-lg-6 mb-1"> 
+                    <!-- Project Card Example --> 
+                    <div class="card shadow mb-2">
+                        <div class="card-header">
+                             <p class="text-center"><strong> Overview of CO  <sub> 2 </sub> measurements distribution by sector per country </strong></p>
+                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="card-body">
+                            <div id="stacked-chart"></div> <!-- global stacked chart -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+
+
+        
+                <!-- <div class="col-lg-6 order-lg-2 my-auto offset-2">
+                    <div id="chart-global-CO2-year" class="chart mb-3"> 
                         <strong> CO2 measurements per year by country </strong>
                         <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                             <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
@@ -163,15 +192,12 @@
                     </div> 
                 </div>
                 <div class="col-lg-6 order-lg-2 my-auto offset-2">
-                    <div id="stacked-chart" class="dc-chart mb-3"> <!-- stacked chart -->
+                    <div id="stacked-chart" class="dc-chart mb-3"> 
                         <strong>Overview of CO2 measurements distribution by sector per country</strong>
                         <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                             <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                             <div class="clearfix"></div>
-                    </div> 
-                </div>
-            </div>
-    </section>
+            -->
 
 <!-- WORLD MAP SECTION --> 
     <section class="showcase">

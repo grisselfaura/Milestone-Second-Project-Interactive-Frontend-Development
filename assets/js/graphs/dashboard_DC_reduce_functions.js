@@ -1,5 +1,4 @@
-d3.queue() // CHECK IF THIS SOLVE RENDERING ISSUE???
-// queue() 
+d3.queue() 
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 
@@ -39,7 +38,7 @@ var parseDate = d3.time.format("%Y").parse;
         // console.log(d.total_CO);
     });
          
-    show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport" );
+    show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport");
     show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");
     show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");
     show_CO_percentage_per_sector_2010(ndx, "Other_sources", "#percent-CO-other_sources");
@@ -50,8 +49,7 @@ var parseDate = d3.time.format("%Y").parse;
 
     show_CO_average_per_country(ndx);
     
-    dc.renderAll();
-    
+    dc.renderAll();    
 };
 
 // help from API https://github.com/square/crossfilter/wiki/API-Reference#dimension_group reduction function
@@ -147,7 +145,6 @@ dc.pieChart("#pie-chart")
     // .colors(d3.scale.ordinal().range(// colors if wanted?
     // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
     .legend(dc.legend().x(400).y(20).itemHeight(13).gap(5))
-    // workaround for #703: not enough data is accessible through .label() to display percentages
     .data(function (group) { // get top five groups
         return group.top(8);})
     .on('pretransition', function(pieChart) {
@@ -155,9 +152,4 @@ dc.pieChart("#pie-chart")
             return d.data.key ;
         })
     });
-
-    // get top five groups
-    // mychart.data(function (group) { 
-    //    return group.top(5); 
-    // });
 }
