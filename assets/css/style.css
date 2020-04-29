@@ -229,7 +229,7 @@ if it's not present, don't show loader */
     margin-left: -.75rem;
 } */
 .dashboard-section {
-  padding: 50px 0;
+  padding-top: 50px;
 }
 
 
@@ -253,8 +253,29 @@ if it's not present, don't show loader */
     border-radius: .35rem;
     margin: 1.25rem 1.5rem 1.25rem 1.5rem;
 }
+
+.card-header {
+    /* padding: .75rem 1.25rem; */
+    margin-bottom: 0;
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
 .card-body {
     flex: 1 1 auto;
     padding: 1.25rem;
     min-height: 500px;
+}
+
+.column-card {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: .35rem;
+    margin: 1.25rem 1.5rem 1.25rem 1.5rem;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }

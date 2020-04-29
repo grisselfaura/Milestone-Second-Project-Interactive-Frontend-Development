@@ -2,9 +2,7 @@ queue()
     .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
     .await(makeGraphs);
 
-// var yearChart = dc.rowChart("#yearGraph"),
-// countryChart = dc.rowChart("#countryGraph"),
-visCount = dc.dataCount(".dc-data-count");
+visCount = dc.dataCount(".dc-data-count"); // following dc tutorial
 
 function makeGraphs(error, emissionData){ 
     if (error) throw error;
@@ -41,25 +39,6 @@ function makeGraphs(error, emissionData){
         d.total_CO = Number(d.total_CO);      
         // console.log(d.total_CO);
     });
-                   
-//    var countryDim = ndx.dimension(function (d) { return d["Entity"];});
-//    var yearDim = ndx.dimension(function (d) { return d["Year"];});
-   
-//    var countryGroup = countryDim.group();
-//    var yearGroup = yearDim.group();
-
-//    yearChart
-//     .height(600)
-//     .dimension(yearDim)
-//     .group(yearGroup)
-//     .elasticX(true)/*allows scale to update with each other*/
-//     .x(d3.time.scale());
-
-//    countryChart
-//     .dimension(countryDim)
-//     .group(countryGroup)
-//     .elasticX(true)
-//     .data(function (group){return group.top(10); }); /*top 10 countries function*/
 
     visCount 
     .dimension(ndx)
@@ -69,8 +48,7 @@ function makeGraphs(error, emissionData){
     show_global_emissions_per_year(ndx);
     show_country_emissions_stacked(ndx);
     
-    dc.renderAll();
-    
+    dc.renderAll();  
 };
 
 function show_country_selector(ndx) {
@@ -93,9 +71,6 @@ function show_country_selector(ndx) {
         //         .title(kv => kv.key);/*not showing the count numner*/ 
         // }
 
-//  test this
-//   .controlsUseVisibility(true)
-//                 .promptText('Day');
 }
 
 function show_global_emissions_per_year(ndx) {
