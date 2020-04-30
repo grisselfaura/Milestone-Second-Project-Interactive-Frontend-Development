@@ -192,9 +192,14 @@ if it's not present, don't show loader */
     
     #world-map{
         background: #c7f0f9;
-        display: block;
+        display: inline-block;
         margin: 0 auto;
         text-align:center;
+        position: relative;
+        left: 80%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
     }
 
     .countries {
