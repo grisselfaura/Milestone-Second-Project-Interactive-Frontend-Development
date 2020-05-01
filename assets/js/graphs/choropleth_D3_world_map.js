@@ -11,7 +11,8 @@
 
     // Define the div for the tooltip
     // var tooltip = d3.select("div.tooltip")
-    var tooltip = body.append("div") // var tooltip = svg.append("tooltip")?
+    var tooltip = d3.select("body").append("div")   
+    // var tooltip = body.append("div") // var tooltip = svg.append("tooltip")?
         .attr("class", "tooltip")
         .style("opacity", 0);
 
@@ -80,9 +81,18 @@
             d3.selectAll(".Country")
                 tooltip.style("opacity", 1)
                     .html( d.properties.name + "<br>" + d.total_CO )       //numberFormat(d.total_CO)       
-                    .style("left", (d3.mouse(this)[0]+70) + "px")
-                    .style("top", (d3.mouse(this)[1]) + "px")
+                    // .style("left", (d3.mouse(this)[0]+70) + "px")
+                    // .style("top", (d3.mouse(this)[1]) + "px")
+                    .style("left", (d3.event.pageX) + "px")     //tooltip location
+                    .style("top", (d3.event.pageY - 10) + "px");    
         }
+
+        // .on("mouseover", function(d) {      
+        // tooltip.transition().duration(200).style("opacity", .9);      
+        // tooltip.html(d)  
+        // .style("left", (d3.event.pageX) + "px")     
+        // .style("top", (d3.event.pageY - 10) + "px");    
+        // })           
 
         let mouseLeave = function(d) {
             d3.selectAll(".Country")
