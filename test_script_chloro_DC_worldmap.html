@@ -201,12 +201,6 @@
         // Map and projection
         // Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
         
-        // var projection = d3.geoNaturalEarth();
-        //     // .scale(width / 2 / Math.PI)
-        //     // .translate([width / 2, height / 2]);
-        // var path = d3.geoPath()
-        //     .projection(projection);
-
         // usChart.calculateColorDomain = function () {
         // var newDomain = [d3.min(usChart.data(), usChart.colorAccessor()),
         //                  d3.max(usChart.data(), usChart.colorAccessor())];
@@ -214,7 +208,6 @@
         // return _chartusChart;
         // };
 
-     
             usChart.width(990)
                     .height(500)
                     .transitionDuration(1000) 
@@ -223,10 +216,7 @@
                         // .dimension(countries_code) //plucking to id
                         // .group(averagePerCode)//plucking to id
                     .colors(d3.scaleQuantize().range(["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) //https://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11 */
-                    // .colors(d3.scaleThreshold(d3.schemePuOr[11]))
-                    // .colorDomain(d3.extent(usChart.data(),usChart.colorCalculator()))//didnt work pending to explore
                     .colorDomain([-1000000, 1000000000])
-                    // .colorDomain([-1000000, -100000, -10000, 10000, 100000, 1000000, 10000000, 100000000, 200000000, 500000000, 1000000000])
                     .colorCalculator(function (d) { console.log(d); return d ? usChart.colors()(d) : '#ccc'; })
                     .overlayGeoJson(topoData.features, "countries", function (d) {
                         // return d.id;//plucking to id
