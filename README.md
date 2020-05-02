@@ -8,7 +8,8 @@ It provides basic information as well as a basic infographic (which have become 
 This website is part of my portfolio to present to prospective employers.
 
 Please note this is merely a course project, and then the information on the side is used for that purpose alone. I only use publicly available data for this purpose.
-Data used on this example = https://ourworldindata.org/grapher/global-carbon-dioxide-emissions-by-sector
+CO2 Data used on this example = https://ourworldindata.org/grapher/global-carbon-dioxide-emissions-by-sector
+WorldMap 
 
 ## Demo
 
@@ -78,15 +79,37 @@ In particular, you should provide all details of the differences between the dep
 
 In addition, if it is not obvious, you should also describe how to run your code locally.
 
+## Deployment
+
+This site is hosted using GitHub pages, deployed directly from the master branch. 
+The deployed site will update automatically upon new commits to the master branch.
+In order for the site to deploy correctly on GitHub pages, the landing page must be named `index.html`.
+
+To run locally, you can clone this repository directly into the editor of your choice by pasting
+```
+ `git clone  https://github.com/grisselfaura/Milestone-Second-Project-Interactive-Frontend-Development/.git` into your terminal. 
+```
+To cut ties with this GitHub repository, type `git remote rm origin` into the terminal.
+
+## Contribution
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Credits
 
 ### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+The original text for the entired site was taken from already published website as this is only an educational exercise. They can be provided if required.
 
 ### Media
-- The photos used in this site were obtained from ...
+The photos used in this site were taken from already published website as this is only an educational exercise.
 
 ### Acknowledgements
 
-- I received inspiration for this project from X
+Regarding the subject I am very deeply concerned about global warming in general and therefore i was motivated to based this project on this theme.
+For the project itself I received inspiration from my tutor and also from other students via Slack. 
+The Bootstrap Nav tutorial was found through this tutorial [here](https://startbootstrap.com/templates/scrolling-nav/).
+The Bootstrap landing page and footer inspiration [here](https://startbootstrap.com/themes/landing-page/).
+The sign up form was inspired on this model [here](https://www.climaterealityproject.org/joinreality?promo_name=Join%20Reality&promo_creative=navig%20ation&promo_position=homepage_top).
+
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
