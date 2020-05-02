@@ -83,7 +83,7 @@
                     .html( d.properties.name + "<br>" + d.total_CO )       //numberFormat(d.total_CO)       
                     // .style("left", (d3.mouse(this)[0]+70) + "px")
                     // .style("top", (d3.mouse(this)[1]) + "px")
-                    .style("left", (d3.event.pageX) + "px")     //tooltip location
+                    .style("left", (d3.event.pageX) + "px")     //tooltip location https://jkeohan.wordpress.com/2015/03/09/using-d3-tooltips/
                     .style("top", (d3.event.pageY - 10) + "px");    
         }
 

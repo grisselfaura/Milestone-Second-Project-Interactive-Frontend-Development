@@ -1,9 +1,20 @@
-# Your Project's Name
+# Global Warming for Dummies (Milestone Project 2)
 
-One or two paragraphs providing an overview of your project.
+Welcome to my Stream Two Project: Interactive Frontend Development - Code Institute!
 
-Essentially, this part is your sales pitch.
- 
+Global Warming for Dummies is a website which interacts with anyone (target age <+ 12years) that my be interested in the subject. 
+It provides basic information as well as a basic infographic (which have become a quite fashionable way to display data). 
+
+This website is part of my portfolio to present to prospective employers.
+
+Please note this is merely a course project, and then the information on the side is used for that purpose alone. I only use publicly available data for this purpose.
+Data used on this example = https://ourworldindata.org/grapher/global-carbon-dioxide-emissions-by-sector
+
+## Demo
+
+You can check out the website [here]( https://grisselfaura.github.io/Milestone-Second-Project-Interactive-Frontend-Development//)!
+![Responsive mockup](https://raw.githubusercontent.com/grisselfaura/Milestone-Second-Project-Interactive-Frontend-Development/master/assets/images/read-mockups/Mock-up-responsive-test.PNG "Responsive mockup")
+
 ## UX
  
 Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
