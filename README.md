@@ -3,13 +3,14 @@
 Welcome to my Stream Two Project: Interactive Frontend Development - Code Institute!
 
 Global Warming for Dummies is a website which interacts with anyone (target age <+ 12years) that my be interested in the subject. 
-It provides basic information as well as a basic infographic (which have become a quite fashionable way to display data). 
+It provides basic information as well as a basic infographic (which have become a quite fashionable way to display data) to show CO2 data emissions per different sectors. 
 
 This website is part of my portfolio to present to prospective employers.
 
 Please note this is merely a course project, and then the information on the side is used for that purpose alone. I only use publicly available data for this purpose.
 CO2 Data used on this example = https://ourworldindata.org/grapher/global-carbon-dioxide-emissions-by-sector
-WorldMap 
+Data can be filtered by country, sector and year. 
+world_countries file for the WorldMap https://github.com/jdamiani27/Data-Visualization-and-D3/blob/master/lesson4/world_countries.json
 
 ## Demo
 
@@ -24,6 +25,24 @@ In particular, as part of this section we recommend that you provide a list of U
 - As a user type, I want to perform an action, so that I can achieve a goal.
 
 This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
+
+## UX
+
+- My goal on the website design was to make it as easy as possible for the potential viewers to access the information on the site while striving for a simple layout approach. 
+
+- The design color scheme was inherited from the Bootstrap landing page to create a consistent and  visual impactful yet straighforward easy-for-the-eye feeling. 
+
+- For the basic viewers, I wanted to provide them with an overview of the  general concepts on global warming and its importance, together with videos and news to make it easy to follow and to connect with the subject. 
+  A contact form was also added for keeping contact and making a database of interested viewers via a user friendly design.
+  This way, they would be able to get a glimpse of the information and a voluntary request for signing up. For this exercise GDPR legal terms were not taken into account. 
+  In the 'Sign Up' section, I wanted them to be able to quickly reach out and connect with this website using a voluntary and transparent approach. 
+ 
+- For advance viewers, I wanted to provide them with a dashboard overview showing data visualization graphs regarding CO2 emissions. In addition 
+ 'Sign up form' section where they can suscribe them for further information. 
+ The footer shows links to other institutions with further and more in-depth information. 
+  *[In future and when available to the general public real live Co2 database will be further used for the infographic}.
+
+- Wireframes available.
 
 ## Features
 
@@ -67,17 +86,6 @@ In addition, you should mention in this section how your project looks and works
 You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
-
-## Deployment
-
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
-
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
-
-In addition, if it is not obvious, you should also describe how to run your code locally.
 
 ## Deployment
 
