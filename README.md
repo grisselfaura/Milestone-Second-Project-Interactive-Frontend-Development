@@ -38,6 +38,8 @@ You can check out the website [here]( https://grisselfaura.github.io/Milestone-S
 ## Features
 
 - ### Existing Features  TO BE ADAPTED
+- This site uses the Scrolling Nav feature in Bootstrap with an extra feature which highlights the nav bar that is being selected by the user. Further work is need to maintained highlighted the tab that has been accessed.
+
 - This site uses the Scrolling Nav feature in Bootstrap with an extra JavaScript function added to create a 'smooth scrolling' effect. 
 - The navbar is fixed to the top that collapses on scroll. The Navbar also uses the scrollSpy feature that highlights active page sections.
 - Buttons are named after corresponding section to promote user friendly approach. In addition hover feature has been added all buttons to highlight user interaction with potential action.

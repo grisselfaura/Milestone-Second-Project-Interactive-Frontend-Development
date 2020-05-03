@@ -137,7 +137,7 @@ dc.pieChart("#pie-chart")
     // .margins({top: 10, right: 30, bottom: 30, left:30})
     .radius(180)
     .innerRadius(60)
-    .transitionDuration(500)
+    // .transitionDuration(500)
     // .slicesCap(4)// number of slices the pie chart will generate
     .cap(5)// return group.top(5)
     .dimension('Entity')
