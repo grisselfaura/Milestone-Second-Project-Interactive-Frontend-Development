@@ -45,6 +45,10 @@ white-text {
     height: 100vh;
 }
 
+.bg-signup {
+    background-position: 60% 25%; 
+}
+
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -60,7 +64,7 @@ white-text {
 }
 
 /*Images*/
-.custom-responsiveness {
+/* .custom-responsiveness { WHERE IS THIS?
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -80,7 +84,7 @@ white-text {
     height: auto;
     width: 100vw;
  
- }
+ } */
 
 
 
@@ -114,25 +118,25 @@ white-text {
   text-align: justify;  
 }
 
-/* Paste this css to your style sheet file or under head tag */
+/* Paste this css to your style sheet file or under head tag  BORRAR */
 /* This only works with JavaScript, 
 if it's not present, don't show loader */
-.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
-.se-pre-con {
+/* .no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; } */
+/* .se-pre-con {
 	position: fixed;
 	left: 0px;
 	top: 0px;
 	width: 100%;
 	height: 100%;
 	z-index: 9999;
-	 /* center no-repeat; */ to investigate
-}
+} */
 
-#isItLoaded {
+/* #isItLoaded {
   display: none;
-}
-#loading {
+} */
+
+/* #loading {
   z-index: 10;
   display: flex;
   flex-flow: row nowrap;
@@ -141,7 +145,7 @@ if it's not present, don't show loader */
   width: 100%;
   height: 90vh;
   background-image: url("assets/css/loader.gif")
-}
+} */
 
 /*Reduce.html*/
 
@@ -186,9 +190,6 @@ if it's not present, don't show loader */
 }
 
 /*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
-    /* svg {
-        background: #c7f0f9;
-    } */
     
     #world-map{
         background: #c7f0f9;
@@ -232,30 +233,6 @@ if it's not present, don't show loader */
         position: absolute;
         text-align: center;
     } 
-
-    /* .tooltip {
-        position: relative;
-        display: inline-block;
-        border-bottom: 1px dotted black;
-    }
-
-    .tooltip .tooltiptext {
-        /* visibility: hidden; */
-        /* width: 120px;
-        background-color: black;
-        color: #fff;
-        text-align: center;
-        border-radius: 6px;
-        -webkit-border-radius:6px;
-        -moz-border-radius:6px;
-        padding: 5px 0; */
-
-        /* Position the tooltip */
-        /* position: absolute;
-        z-index: 1;
-    } */ */
-
-
 /*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
 
 .dashboard-section {
