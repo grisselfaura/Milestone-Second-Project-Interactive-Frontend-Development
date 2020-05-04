@@ -59,10 +59,6 @@ white-text {
     height: 100vh;
 }
 
-.bg-signup {
-    background-position: 60% 25%; 
-}
-
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -78,7 +74,7 @@ white-text {
 }
 
 /*Images*/
-/* .custom-responsiveness { WHERE IS THIS?
+.custom-responsiveness {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -96,10 +92,12 @@ white-text {
     justify-content: center;
     position: relative;
     height: auto;
-    width: 100vw;
- 
- } */
+    width: 100vw; 
+ }
 
+.img-resize {
+    
+ }
 
 
 .icons-padding {
@@ -108,6 +106,9 @@ white-text {
 
 
 /*sign-up.html*/
+.bg-signup {
+    background-position: 60% 25%; 
+}
 
 /*Form*/
 .label-style {
@@ -203,8 +204,7 @@ if it's not present, don't show loader */
     min-height: 20px;
 }
 
-/*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
-    
+    /*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
     #world-map{
         background: #c7f0f9;
         display: inline-block;
@@ -247,8 +247,8 @@ if it's not present, don't show loader */
         position: absolute;
         text-align: center;
     } 
-/*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
 
+/*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
 .dashboard-section {
   padding-top: 20px;
 }

@@ -37,14 +37,13 @@ You can check out the website [here]( https://grisselfaura.github.io/Milestone-S
 
 ## Features
 
-- ### Existing Features  TO BE ADAPTED
+- ### Existing Features 
 - This site uses the Scrolling Nav feature in Bootstrap with an extra feature which highlights the nav bar that is being selected by the user. Further work is need to maintained highlighted the tab that has been accessed.
-
-- This site uses the Scrolling Nav feature in Bootstrap with an extra JavaScript function added to create a 'smooth scrolling' effect. 
-- The navbar is fixed to the top that collapses on scroll. The Navbar also uses the scrollSpy feature that highlights active page sections.
+- The navbar is fixed to the top that collapses on scroll. 
 - Buttons are named after corresponding section to promote user friendly approach. In addition hover feature has been added all buttons to highlight user interaction with potential action.
 
 - ### Features Left to Implement
+* Further work is need to add feature that highlights active pages for example uses the scrollSpy which highlights activated sections.
 * In the future i would like to add a a choropath map direcly using dc.js instead of generated using d3.js so as multiple charts can be quickly drawn (code is already started under test_script_chloro_DC_worldmap.html) but due to time limitation is yet pending to integrate all the functions to generate the infographic).
 * In addition the about us and links from the footnote are yet to be connected.
 * Furthermore the links to social media are not linked for the purpose of this exercise.
