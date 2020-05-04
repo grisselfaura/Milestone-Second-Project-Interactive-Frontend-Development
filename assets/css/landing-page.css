@@ -79,7 +79,7 @@ header.masthead h1 {
     }
 }
 
-@media (min-width: 1401px) {
+@media (min-width: 1401px) and (max-width: 1800px)  {
     .showcase .showcase-img {
     min-height: 10rem;
     }
