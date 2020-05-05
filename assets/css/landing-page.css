@@ -97,7 +97,7 @@ header.masthead h1 {
 
 @media (min-width: 1801px) {
     .showcase .showcase-img {
-    min-height: 60rem;
+    min-height: 50rem;
     background-position-y: center;
     }
 } 

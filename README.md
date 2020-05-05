@@ -39,13 +39,12 @@ You can check out the website [here]( https://grisselfaura.github.io/Milestone-S
 
 - ### Existing Features 
 - This site uses the Scrolling Nav feature in Bootstrap with an extra feature which highlights the nav bar that is being selected by the user. Further work is need to maintained highlighted the tab that has been accessed.
-- The navbar is fixed to the top that collapses on scroll. 
-- Buttons are named after corresponding section to promote user friendly approach. In addition hover feature has been added all buttons to highlight user interaction with potential action.
+- The navbar is fixed to the top and includes an dropdown Menu for the md-screen that collapses when selected. 
 
 - ### Features Left to Implement
 * Further work is need to add feature that highlights active pages for example uses the scrollSpy which highlights activated sections.
 * In the future i would like to add a a choropath map direcly using dc.js instead of generated using d3.js so as multiple charts can be quickly drawn (code is already started under test_script_chloro_DC_worldmap.html) but due to time limitation is yet pending to integrate all the functions to generate the infographic).
-* In addition the about us and links from the footnote are yet to be connected.
+* In addition the "About us" and links from the footnote are yet to be constructed.
 * Furthermore the links to social media are not linked for the purpose of this exercise.
 * Lastly, I would like to be able to have real life data feeding the info-charts. The Database choosed only contained CO2 data for the purpose of this exercise. However on a real case scenario will be more graphics showing additional parameters like temperature and water melting. 
 
@@ -70,60 +69,41 @@ HTML and CSS code checked for coding errors.
 CSS prefixes were checked against https://autoprefixer.github.io/
 
 By clicking on the links in the navbar, the background effect will confirm to the user which tab has been selected. All tabs can be independently accessed without having to go back to the HOME tab. 
+*The footnote and social media links as well as the "About us" tab are pending to be developed (future construction) as for the purpose of this project they will not add any further skill . 
 
-The footnote and social media links as well as the "About us" tab, as it will not add any further skill for the purpose of this project. 
+1. HOME TAB
+-If you try to click on the embeded facebook link it will start displaying and can be paused from the same screen.
+-All navigations link work and will redirect you to the desire tab.
+-If you try to do a quick sign up for news from the quick CALL TO ACTION FORM, it will redirect you to the Sign up Tab and will prefill you email to the new form.
+*Country is by default showing Afghanistan as the country form is being shown in alfabetical display.
 
-//////
-PENDING TO EDIT AS PER THIS MILESTONE
-They can view both the general products category in the "Product" section and specific information of the each product by clicking on the Readmore buttons (website under construction). 
+2. DASHBOARD TAB
+-The infographics is interactive. The user can search for any given country from the database.
+-In addition hover feature has been added to the charts to highlight user interaction with potential action. The hover over on any pie slice/bar chart/country will display detailed data information.
 
-1. Contact form:
--Go to the "Contact Us" page
+3. REDUCE TAB
+-If you try to click on the embeded facebook link it will start displaying and can be paused from the same screen.
+-A color scale map was also added for easy and fun visualization comparing the data of all countries in one single view.
+
+4. SIGN UP TAB
 -If you try to submit the contact form with an invalid email address, there will be an error noting the invalid email address. 
--If you try to to enter text in the mobile and dni field, it would only allow numbers in these fields.
--Furthermore, the 'required' attribute is added to all the fields, so if those fields are not filled in, the form will not submit.
--If all field are valid, the page will reload. If an potential buyer is interested in contacting Agronut Perú, they will have to fill out all fields in order for the form to go through.
+-Furthermore, the 'required' attribute is added to all the fields, so if those fields are not filled in, the form will not submit. There will be an error indicating to the user what it is missing.
+-When form is submitted a loading gif will be show to indicate the user that the website is loading. Furthermore when submission is successfull the user will see an alert message confirming that submission was or not successfull.
 
-In addition other-interested people are able to see colaboration posibilities with the Agronut Perú via the buttons-sections in the "Join us" section. 
-They are also able to view the address location of the company via clicking on the map in the footer. 
+All links will open in a new tab using 'target="_blank" except for the ones that are not yet developed further as previously indicated. 
+All links have been manually tested to ensure that they are pointing to the correct destination with exception to the links that are not yet developed/connected as aboved indicated.
 
-All links will open in a new tab using 'target="_blank" to an under construction page (currently). 
-All links have been manually tested to ensure that they are pointing to the correct destination.
-
--This site was tested across multiple browsers (Chrome, Safari, Internet Explorer, FireFox) and on multiple mobile devices (iPhone 4, 5, 7: Chrome and Safari, iPad, Samsung Galaxy) to ensure compatibility and responsiveness. During the testing phase, I realized that ```background-attachment: fixed``` was not compatible with iOS browsers. On Chrome and Safari in iOS, the background photos appeared zoomed-in and blurry. To fix this, the ```background-attachment: scroll``` property value was added in a media query.
+-This site was tested across multiple browsers (Chrome, Safari, Internet Explorer, FireFox) and on multiple mobile devices (iPhone 4, 5, 7: Chrome and Safari, iPad, Samsung Galaxy) to ensure compatibility and responsiveness. 
 In addition, the site  was tested via  http://ami.responsivedesign.is/ to review how the project looks and works on different screen sizes.
 
 Tabs and sections with interesting bugs or problems discovered during testing:
 - Section padding was to big for the UX desing of this project. This was fixed by modifying the scrolling css from Bootstraap as per our needs (fixed).
 - Footnote on dashboard was not centered. This was achieved with using the correct grid option from Bootstraap (fixed).
 - Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once.
-- Wordlmap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (xxx).
-- Facebook video loading times are very slow and they take long to load (xxx).
+- WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (xxx).
+- Facebook embeeded videos are loading are taking very long time to load in the REDUCE TAB (xxx).
 - Pie charts not smootly loading (xxx).
 
-
-## Testing
-
-In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
-
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
-
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
-
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
-
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
-
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
-
-//////
-PENDING TO EDIT AS PER THIS MILESTONE
 
 ## Deployment
 
