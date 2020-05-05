@@ -61,9 +61,9 @@ In this section, you should mention all of the languages, frameworks, libraries,
 4. Font-awesome (4.7.0) and fonts.googleapis.com used<!--********would u call this a technology********-->
 5. [JQuery](https://jquery.com) The project uses **JQuery** to simplify DOM manipulation.
 6. JavaScript to embedd facebook videos in both the Home and reduce tabs.
-7. Dc.js, crossfilter, queue , topojson and D3.js for the data visualization (graph and world data map)
+7. Dc.js, crossfilter, queue, topojson and D3.js for the data visualization (graph and world data map)
 * this website is only available in english
-8. Email.js 
+8. Email.js to send Email Directly From JavaScript
 
 ## Testing
 HTML and CSS code checked for coding errors.

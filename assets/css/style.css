@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 @import url('https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700');
 
 body { 
@@ -66,11 +73,16 @@ white-text {
 }
 
 .text-effect {
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
 
 .text-effect:hover {
-    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+            transform: scale(1.1);
+}
 }
 
 /*Images*/
@@ -344,7 +356,8 @@ if it's not present, don't show loader */
 }
 
 .shadow {
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }
 
 .card-header:first-child {
@@ -353,8 +366,13 @@ if it's not present, don't show loader */
 
 .card {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
@@ -372,25 +390,35 @@ if it's not present, don't show loader */
 }
 
 .card-body {
-    flex: 1 1 auto;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
     padding: 1.25rem;
 }
 
 .card-body-size {
-    flex: 1 1 auto;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
     padding: 1.25rem;
     min-height: 500px;
 }
 
 .column-card {
     position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
     border: 1px solid #e3e6f0;
     border-radius: .35rem;
     margin: 1.25rem 1.5rem 1.25rem 1.5rem;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }
