@@ -115,33 +115,29 @@ white-text {
     vertical-align: middle;
     margin-top: auto;
     margin-bottom: auto;
-    height: 65%;
-    /* width: 100%; */
+    height: 400px;
  }
 
 .img1 {
-    /* width: 100%; 
-    height: 80vh; */
-    height: auto;
     width: 100vw;
-    min-height: 410px;
+    height: 450px;
+    /* height: auto;
+    min-height: 450px; */
  }
 
  .img2 {
-    width: auto;
+    /* min-width: 100vw;
     min-height: 1000px;
-    height: 100vh;
-    /* width: 100%;
-    height: 180vh;
-    max-height: 1000px;  */
+    height: 100vh; */
+    background-size: 100% auto; /* CHECK IF I CAN USE THIS TO SOLVE RESPONSIVENESS*/
  }
 
  .img3 {
-    /* width: 100%; 
-    height: 130vh; */
-    width: auto;
-    min-height: 800px;
+    width: 100vw;
+    height: 700px;
+    /* width: auto;
     height: 100vh;
+    min-height: 800px; */
  }
 
 .icons-padding {
@@ -151,32 +147,32 @@ white-text {
 /*@ Medias*/
 
 @media only screen and (max-width: 400px)  {
-    reduce-resize .img1 {
-    min-height: 10rem;
+    .reduce-resize {
+    height: 12rem;
     }
     /* .img2 {
     min-height: 100rem;
-    }
+    }*/
     .img3 {
-    min-height: 100rem;
-    } */
+    min-height: 20rem;
+    } 
 }
 
 @media (min-width: 401px) and (max-width: 768px) { 
-    reduce-resize .img1 {
+    .reduce-resize  {
     min-height: 20rem;
     background-position-y: center;
     }
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
-    reduce-resize .img1 {
+    .reduce-resize {
     max-height: 35rem;
     }
 }
 
 @media (min-width: 992px) {
-    reduce-resize .img1 .img3 {
+    .reduce-resize {
     min-height: 45rem;
     /* max-height: auto; */
     }
