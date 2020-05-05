@@ -151,7 +151,7 @@ function show_country_emissions_stacked(ndx) {
                 .yAxisPadding(50)
                 // .centerBar(true)
                 .x(d3.time.scale().domain([minYear, maxYear]))
-                .legend(dc.legend().x(300).y(0).itemHeight(10).gap(5).horizontal(true).legendWidth(200).autoItemWidth(true).itemWidth(0))
+                .legend(dc.legend().x(150).y(0).itemHeight(10).gap(5).horizontal(true).legendWidth(450).autoItemWidth(true).itemWidth(0))
                 .brushOn(false)
                 .xAxisLabel("Years")
                 .yAxisLabel("CO2 emissions by sectors")

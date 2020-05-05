@@ -241,35 +241,6 @@ white-text {
   text-align: justify;  
 }
 
-/* Paste this css to your style sheet file or under head tag  BORRAR */
-/* This only works with JavaScript, 
-if it's not present, don't show loader */
-/* .no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; } */
-/* .se-pre-con {
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	z-index: 9999;
-} */
-
-/* #isItLoaded {
-  display: none;
-} */
-
-/* #loading {
-  z-index: 10;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 90vh;
-  background-image: url("assets/css/loader.gif")
-} */
-
 /*Reduce.html*/
 
 .underline {
