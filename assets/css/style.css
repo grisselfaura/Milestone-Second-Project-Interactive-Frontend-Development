@@ -289,7 +289,7 @@ white-text {
         display: inline-block;
         margin: 0 auto;
         text-align:center;
-        position: relative;
+        position: abs;
         left: 63%;
         -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
