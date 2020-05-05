@@ -69,9 +69,12 @@ In this section, you should mention all of the languages, frameworks, libraries,
 HTML and CSS code checked for coding errors.
 CSS prefixes were checked against https://autoprefixer.github.io/
 
-By clicking on the links in the navbar, the scrollSpy effect will work regardless of whether or not you're viewing the sections in the same order they are listed in the dropdown navbar. 
+By clicking on the links in the navbar, the background effect will confirm to the user which tab has been selected. All tabs can be independently accessed without having to go back to the HOME tab. 
 
-In the about us section, they can read a bit about the organization background.
+The footnote and social media links as well as the "About us" tab, as it will not add any further skill for the purpose of this project. 
+
+//////
+PENDING TO EDIT AS PER THIS MILESTONE
 They can view both the general products category in the "Product" section and specific information of the each product by clicking on the Readmore buttons (website under construction). 
 
 1. Contact form:
@@ -90,11 +93,13 @@ All links have been manually tested to ensure that they are pointing to the corr
 -This site was tested across multiple browsers (Chrome, Safari, Internet Explorer, FireFox) and on multiple mobile devices (iPhone 4, 5, 7: Chrome and Safari, iPad, Samsung Galaxy) to ensure compatibility and responsiveness. During the testing phase, I realized that ```background-attachment: fixed``` was not compatible with iOS browsers. On Chrome and Safari in iOS, the background photos appeared zoomed-in and blurry. To fix this, the ```background-attachment: scroll``` property value was added in a media query.
 In addition, the site  was tested via  http://ami.responsivedesign.is/ to review how the project looks and works on different screen sizes.
 
-Section with interesting bugs or problems discovered during testing:
-- sections not empalming with each others.
-- about us icon losing configuration during responsive (fixed)
-- H1 tittle does not fit screen on iphone 4 even with media query (fixed).
-- background header images for sections reponsive for >md screens (fixed) not yet debugged to scale down for <sm screens.
+Tabs and sections with interesting bugs or problems discovered during testing:
+- Section padding was to big for the UX desing of this project. This was fixed by modifying the scrolling css from Bootstraap as per our needs (fixed).
+- Footnote on dashboard was not centered. This was achieved with using the correct grid option from Bootstraap (fixed).
+- Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once.
+- Wordlmap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (xxx).
+- Facebook video loading times are very slow and they take long to load (xxx).
+- Pie charts not smootly loading (xxx).
 
 
 ## Testing
@@ -116,6 +121,9 @@ In addition, you should mention in this section how your project looks and works
 You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
+
+//////
+PENDING TO EDIT AS PER THIS MILESTONE
 
 ## Deployment
 
