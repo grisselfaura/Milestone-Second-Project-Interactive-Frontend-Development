@@ -42,7 +42,6 @@ You can check out the website [here]( https://grisselfaura.github.io/Milestone-S
 - The navbar is fixed to the top and includes an dropdown Menu for the md-screen that collapses when selected. 
 
 - ### Features Left to Implement
-* Further work is need to add feature that highlights active pages for example uses the scrollSpy which highlights activated sections.
 * In the future i would like to add a a choropath map direcly using dc.js instead of generated using d3.js so as multiple charts can be quickly drawn (code is already started under test_script_chloro_DC_worldmap.html) but due to time limitation is yet pending to integrate all the functions to generate the infographic).
 * In addition the "About us" and links from the footnote are yet to be constructed.
 * Furthermore the links to social media are not linked for the purpose of this exercise.
@@ -98,6 +97,7 @@ In addition, the site  was tested via  http://ami.responsivedesign.is/ to review
 
 Tabs and sections with interesting bugs or problems discovered during testing:
 - Section padding was to big for the UX desing of this project. This was fixed by modifying the scrolling css from Bootstraap as per our needs (fixed).
+- * Further work is need to add feature that highlights active pages for example using similar system than the scrollSpy which highlights activated sections (fixed). 
 - Footnote on dashboard was not centered. This was achieved with using the correct grid option from Bootstraap (fixed).
 - Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once.
 - WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (xxx).

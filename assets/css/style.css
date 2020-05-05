@@ -44,6 +44,12 @@ white-text {
     background-color: rgb(156, 181, 56);
 }
 
+.navbar-dark .navbar-nav .active>.nav-link, 
+.navbar-dark .navbar-nav .nav-link.active, 
+.navbar-dark .navbar-nav .nav-link.show, 
+.navbar-dark .navbar-nav .show>.nav-link {
+    background-color: rgb(156, 181, 56);
+}
 
 .bg-header {
     background-image: url("../images/landing-img.jpg");
@@ -109,7 +115,7 @@ white-text {
 .reduce-resize {
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:  contain;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -126,7 +132,7 @@ white-text {
     vertical-align: middle;
     margin-top: auto;
     margin-bottom: auto;
-    height: 400px;
+    /* height: 400px; */
  }
 
 .img1 {
@@ -140,7 +146,8 @@ white-text {
     /* min-width: 100vw;
     min-height: 1000px;
     height: 100vh; */
-    background-size: 100% auto; /* CHECK IF I CAN USE THIS TO SOLVE RESPONSIVENESS*/
+    /*background-size: 100% auto;*/ /* CHECK IF I CAN USE THIS TO SOLVE RESPONSIVENESS*/
+    background-image: url('/assets/images/reduce_img/accion_cambioclimatico_eng.png');
  }
 
  .img3 {
@@ -415,9 +422,10 @@ if it's not present, don't show loader */
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    border: 1px solid #e3e6f0;
+    border: 1px solid #f0ece3;
     border-radius: .35rem;
     margin: 1.25rem 1.5rem 1.25rem 1.5rem;
     -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
         box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }
+
