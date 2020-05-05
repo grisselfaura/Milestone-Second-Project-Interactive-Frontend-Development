@@ -92,10 +92,10 @@ white-text {
     justify-content: center;
     position: relative;
     height: auto;
-    width: 100vw; 
+    max-width: 100vw; 
  }
 
-.reduce-img-resize {
+.reduce-resize {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -112,15 +112,92 @@ white-text {
     -ms-flex-pack: center;
     justify-content: center;
     position: relative;
-    min-height: 100vh;
-    width: 95vw;  
+    vertical-align: middle;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 65%;
+    /* width: 100%; */
  }
 
+.img1 {
+    /* width: 100%; 
+    height: 80vh; */
+    height: auto;
+    width: 100vw;
+    min-height: 410px;
+ }
+
+ .img2 {
+    width: auto;
+    min-height: 1000px;
+    height: 100vh;
+    /* width: 100%;
+    height: 180vh;
+    max-height: 1000px;  */
+ }
+
+ .img3 {
+    /* width: 100%; 
+    height: 130vh; */
+    width: auto;
+    min-height: 800px;
+    height: 100vh;
+ }
 
 .icons-padding {
     margin-top: 20px; 
 }
 
+/*@ Medias*/
+
+@media only screen and (max-width: 400px)  {
+    reduce-resize .img1 {
+    min-height: 10rem;
+    }
+    /* .img2 {
+    min-height: 100rem;
+    }
+    .img3 {
+    min-height: 100rem;
+    } */
+}
+
+@media (min-width: 401px) and (max-width: 768px) { 
+    reduce-resize .img1 {
+    min-height: 20rem;
+    background-position-y: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+    reduce-resize .img1 {
+    max-height: 35rem;
+    }
+}
+
+@media (min-width: 992px) {
+    reduce-resize .img1 .img3 {
+    min-height: 45rem;
+    /* max-height: auto; */
+    }
+    .img2 {
+    min-height: 80rem;    
+    } 
+}
+
+/*@media (min-width: 350px) {
+    .reduce-img-resize {
+    max-height: auto;
+    }
+}
+
+@media (min-width: 1401px) and (max-width: 1800px)  {
+    .reduce-img-resize {
+    min-height: 10rem;
+    }
+}  */
+/* 
+}  */
 
 /*sign-up.html*/
 .bg-signup {

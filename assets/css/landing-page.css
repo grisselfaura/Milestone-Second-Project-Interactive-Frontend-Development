@@ -65,6 +65,7 @@ header.masthead h1 {
     min-height: 10rem;
     }
 }
+
 @media (min-width: 350px) {
     .showcase .showcase-img {
     max-height: auto;
