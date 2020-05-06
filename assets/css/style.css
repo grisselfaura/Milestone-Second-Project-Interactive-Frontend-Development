@@ -291,9 +291,9 @@ white-text {
         text-align:center;
         position: abs;
         left: 63%;
-        -webkit-transform: translateX(-50%);
+        /* -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
-        transform: translateX(-50%);
+        transform: translateX(-50%); */
     }
 
     .countries {

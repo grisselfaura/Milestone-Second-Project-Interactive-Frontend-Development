@@ -36,8 +36,8 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> <!--for world_map-->
     <script src="https://d3js.org/topojson.v1.min.js"></script> <!--for world_map-->
-    <script src="https://d3js.org/d3-color.v1.min.js"></script> 
-    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <!-- <script src="https://d3js.org/d3-color.v1.min.js"></script> 
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script> -->
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>  <!--for world_map-->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> <!--for world_map-->
@@ -45,7 +45,6 @@
     <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> version not compatible for world_map-->
     <!--for dc library compatible with d3 v4 -->
     <!-- <script type="text/javascript" src="assets/js/dc.4.0.4.js"></script> -->
-    <!-- <script type="text/javascript" src="assets/js/dc.min_3.0.6.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.6/dc.min.js"></script> 
     <script type="text/javascript" src="assets/js/queue.min.js"></script>   
 </head>
@@ -191,14 +190,14 @@
         <div class="container-fluid p-0">
             <div class="row no-gutters">
                 <div class="col-12"> 
-                    <div class="column-card mb-2">
+                    <div class="card mb-2"> <!-- <div class="column-card mb-2"> --> 
                         <div class="card-header">
                             <p class="text-center"><strong> Total CO <sub> 2 </sub> levels worldwide distribution </strong></p>
                         </div>
                         <div class="card-body">
                             <div id="global-CO2-map" class="chart mb-3"></div>
                             <div id="tooltip" class="chart mt-3"></div>
-                            <svg id="world-map" width="1000" height="600"></svg> <!-- not inside the body card div -->        
+                            <svg id="world-map" width="100%" height="600"></svg> <!-- not inside the body card div -->        
                         </div>
                     </div>
                 </div>
