@@ -36,13 +36,17 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> <!--for world_map-->
     <script src="https://d3js.org/topojson.v1.min.js"></script> <!--for world_map-->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> <!--for world_map-->
+    <script src="https://d3js.org/d3-color.v1.min.js"></script> 
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>  <!--for world_map-->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> <!--for world_map-->
     <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
     <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> version not compatible for world_map-->
     <!--for dc library compatible with d3 v4 -->
-    <script type="text/javascript" src="assets/js/dc.4.0.4.js"></script>
+    <!-- <script type="text/javascript" src="assets/js/dc.4.0.4.js"></script> -->
     <!-- <script type="text/javascript" src="assets/js/dc.min_3.0.6.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.6/dc.min.js"></script> 
     <script type="text/javascript" src="assets/js/queue.min.js"></script>   
 </head>
 <body>
@@ -134,7 +138,7 @@
                         <div class="col-lg-6 mb-1"> 
                             <div class="card-header">
                                 <p class=""><strong> DATA COUNT <i class="fas fa-globe" aria-hidden="true" > </i></strong></p>
-                                <div class="dc-data-count mb-2">
+                                <div class="dc-data-count">
                                     <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
                                             href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
                                 </div>
