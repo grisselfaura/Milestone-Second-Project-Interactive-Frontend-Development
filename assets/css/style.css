@@ -112,10 +112,37 @@ white-text {
     max-width: 100vw; 
  }
 
+.img1 {
+    /* width: 100vw;
+    height: 450px; */
+    /* height: auto;
+    min-height: 450px; */
+    background-size: 100% auto;
+    background-image: url('assets/images/reduce_img/individual_impact.jpg');
+ }
+
+ .img2 {
+    /* min-width: 100vw;
+    min-height: 1000px;
+    height: 100vh; */
+    background-size: 100% auto; /* TO visualize image*/
+    background-image: url('/assets/images/reduce_img/accion_cambioclimatico_eng.png');
+ }
+
+ .img3 {
+    /* width: 100vw;
+    height: 700px; */
+    /* width: auto;
+    height: 100vh;
+    min-height: 800px; */
+    background-size: 100% auto;
+    background-image: url('/assets/images/reduce_img/alternative_energy.jpg');
+ }
+
 .reduce-resize {
     background-position: center;
     background-repeat: no-repeat;
-    background-size:  contain;
+    background-size:  cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -132,30 +159,8 @@ white-text {
     vertical-align: middle;
     margin-top: auto;
     margin-bottom: auto;
-    /* height: 400px; */
- }
-
-.img1 {
-    width: 100vw;
-    height: 450px;
-    /* height: auto;
-    min-height: 450px; */
- }
-
- .img2 {
-    /* min-width: 100vw;
-    min-height: 1000px;
-    height: 100vh; */
-    /*background-size: 100% auto;*/ /* CHECK IF I CAN USE THIS TO SOLVE RESPONSIVENESS*/
-    background-image: url('/assets/images/reduce_img/accion_cambioclimatico_eng.png');
- }
-
- .img3 {
-    width: 100vw;
-    height: 700px;
-    /* width: auto;
-    height: 100vh;
-    min-height: 800px; */
+    
+    /* height: 400px;  */
  }
 
 .icons-padding {
@@ -164,40 +169,40 @@ white-text {
 
 /*@ Medias*/
 
-@media only screen and (max-width: 400px)  {
+/* @media only screen and (max-width: 400px)  {
     .reduce-resize {
     height: 12rem;
-    }
+    } */
     /* .img2 {
     min-height: 100rem;
     }*/
-    .img3 {
+    /* .img3 {
     min-height: 20rem;
     } 
-}
+} */
 
-@media (min-width: 401px) and (max-width: 768px) { 
+/* @media (min-width: 401px) and (max-width: 768px) { 
     .reduce-resize  {
     min-height: 20rem;
     background-position-y: center;
     }
-}
+} */
 
-@media (min-width: 769px) and (max-width: 991px) {
+/* @media (min-width: 769px) and (max-width: 991px) {
     .reduce-resize {
     max-height: 35rem;
     }
-}
+} */
 
-@media (min-width: 992px) {
+/* @media (min-width: 992px) {
     .reduce-resize {
     min-height: 45rem;
     /* max-height: auto; */
-    }
+    /* }
     .img2 {
     min-height: 80rem;    
-    } 
-}
+    }  
+} */
 
 /*@media (min-width: 350px) {
     .reduce-img-resize {
