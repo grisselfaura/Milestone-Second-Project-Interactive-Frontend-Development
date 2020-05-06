@@ -286,12 +286,13 @@ white-text {
     /*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
     #world-map{
         background: #c7f0f9;
-        display: inline-block;
+        /* display: inline-block; */
+        display: block;
         margin: 0 auto;
         text-align:center;
-        position: abs;
+        /* position: abs;
         left: 63%;
-        /* -webkit-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
         transform: translateX(-50%); */
     }

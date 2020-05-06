@@ -6,8 +6,15 @@
 
     // The svg
     var svg = d3.select("svg"),
-        width = +svg.attr("width"),
+        width = +svg.attr("width"), 
         height = +svg.attr("height");
+
+    // responsive https://help.visokio.com/support/solutions/articles/42000012405-how-to-create-a-custom-view-choropleth-map-example-using-d3
+    //     var svg = d3.select("svg");
+    //     var width = +parseInt(svg.style("width"), 10);
+    //     var height = +parseInt(svg.style("height"), 10);
+    //     var maxSize = Math.min(width, height);
+    //     var scale = maxSize/ORIGINAL_MAP_SIZE;  // ORIGINAL_MAP_SIZE is the maximum size (width or height) of the original map.
 
     // Define the div for the tooltip
     // var tooltip = d3.select("div.tooltip")
