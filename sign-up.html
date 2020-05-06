@@ -29,8 +29,8 @@
     
     <!-- Script for the email -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
-    <script type="text/javascript">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+    <script>
         (function(){
             emailjs.init("user_UJ2mrzhb0BezS8KVFfnlD");
         })();
@@ -68,9 +68,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-9 mb-4 mx-auto">
-          <h1 class="white-text mb-5"></h1>
-          <p class="text-header">
-          </p>
+          <p class="text-header"></p>
         </div>
       </div>  
     </div>
@@ -101,6 +99,7 @@
               <div class="col">
                 <label for="exampleInputCountry" class="label-style">*Country</label>
                 <select id="exampleInputCountry" name="country" class="form-control-custom" required>
+                    <option value="">Choose</option>
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
                     <option value="Albania">Albania</option>
