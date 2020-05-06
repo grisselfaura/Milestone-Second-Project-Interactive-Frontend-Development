@@ -31,7 +31,7 @@
 
     <!-- Load D3 -->
     <!--//for rendering graph d3 v3 as code used no compatible with latest release <script src="https://d3js.org/d3.v5.min.js"> //-->
-    <script type="text/javascript" src="assets/js/d3.min.js"></script>   
+    <script src="assets/js/d3.min.js"></script>   
     <!--for rendering the map -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> <!--for world_map-->
@@ -41,12 +41,12 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>  <!--for world_map-->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> <!--for world_map-->
-    <script type="text/javascript" src="assets/js/crossfilter.min.js"></script>
+    <script src="assets/js/crossfilter.min.js"></script>
     <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> version not compatible for world_map-->
     <!--for dc library compatible with d3 v4 -->
     <!-- <script type="text/javascript" src="assets/js/dc.4.0.4.js"></script> -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.6/dc.min.js"></script> 
-    <script type="text/javascript" src="assets/js/queue.min.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.6/dc.min.js"></script> 
+    <script src="assets/js/queue.min.js"></script>   
 </head>
 <body>
 
@@ -82,24 +82,24 @@
                     <!-- Project Card Example --> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                            <p class="text-center"><strong> CO <sub> 2 </sub> percentages per industries (Year 2010) </strong></p>
+                            <h5 class="text-center"> CO <sub> 2 </sub> percentages per industries (Year 2010) </h5>
                         </div>
                         <div class="card-body-size">
-                            <h6 class="font-weight-bold">CO Transport </h4>
+                            <h6 class="font-weight-bold">CO Transport </h6>
                             <div class="col number-box mb-1" id="percent-CO-transport"></div> <!-- Percentage number show transport -->
-                            <h6 class="font-weight-bold">CO Forestry </h4>
+                            <h6 class="font-weight-bold">CO Forestry </h6>
                             <div class="col number-box mb-1" id="percent-CO-forestry"></div> <!-- Percentage number show forestry-->
-                            <h6 class="font-weight-bold">CO Energy </h4>
+                            <h6 class="font-weight-bold">CO Energy </h6>
                             <div class="col number-box mb-1" id="percent-CO-energy"></div> <!-- Percentage number show energy-->
-                            <h6 class="font-weight-bold">CO Other sources </h4>
+                            <h6 class="font-weight-bold">CO Other sources </h6>
                             <div class="col number-box mb-1" id="percent-CO-other_sources"></div> <!-- Percentage number show other sources-->
-                            <h6 class="font-weight-bold">CO Agriculture, Land use & forestry </h4>
+                            <h6 class="font-weight-bold">CO Agriculture, Land use & forestry </h6>
                             <div class="col number-box mb-1" id="percent-CO-agriculture_land_use_forestry"></div> <!-- Percentage number show Agriculture, Land use & forestry-->
-                            <h6 class="font-weight-bold">CO Waste </h4>
+                            <h6 class="font-weight-bold">CO Waste </h6>
                             <div class="col number-box mb-1" id="percent-CO-waste"></div> <!-- Percentage number show waste-->
-                            <h6 class="font-weight-bold">CO Residential & Commercial</h4>
+                            <h6 class="font-weight-bold">CO Residential & Commercial</h6>
                             <div class="col number-box mb-1" id="percent-CO-residential_commercial"></div> <!-- Percentage number show residential and commercial-->
-                            <h6 class="font-weight-bold">CO Industry </h4>
+                            <h6 class="font-weight-bold">CO Industry </h6>
                             <div class="col number-box mb-1" id="percent-CO-industry"></div> <!-- Percentage number show indsutry-->    
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                     <!-- Project Card Example --> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                             <p class="text-center"><strong>TOP 5 countries CO <sub> 2 </sub> average measurements </strong></p>
+                             <h5 class="text-center">TOP 5 countries CO <sub> 2 </sub> average measurements</h5>
                              <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                                 <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
@@ -130,13 +130,13 @@
                     <div class="column-card mb-2">
                         <div class="col-lg-6 mb-1">
                             <div class="card-header">
-                                <p class=""><strong> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true" > </i></strong>
+                                <h5> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true" > </i></h5>
                                 <div id="country-selector" class="chart mt-3"></div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-1"> 
                             <div class="card-header">
-                                <p class=""><strong> DATA COUNT <i class="fas fa-globe" aria-hidden="true" > </i></strong></p>
+                                <h5> DATA COUNT <i class="fas fa-globe" aria-hidden="true" > </i></h5>
                                 <div class="dc-data-count">
                                     <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
                                             href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
@@ -157,7 +157,7 @@
                     <!-- Project Card Example --> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                             <p class="text-center"><strong> CO <sub> 2 </sub> measurements per year by country </strong></p>
+                             <h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
                              <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                                 <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
@@ -171,7 +171,7 @@
                     <!-- Project Card Example --> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                             <p class="text-center"><strong> Overview of CO  <sub> 2 </sub> measurements distribution by sector per country </strong></p>
+                             <h5 class="text-center">Overview of CO  <sub> 2 </sub> measurements distribution by sector per country</h5>
                              <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                             <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                             <div class="clearfix"></div>
@@ -192,7 +192,7 @@
                 <div class="col-12"> 
                     <div class="card mb-2"> <!-- <div class="column-card mb-2"> --> 
                         <div class="card-header">
-                            <p class="text-center"><strong> Total CO <sub> 2 </sub> levels worldwide distribution </strong></p>
+                            <h5 class="text-center">Total CO <sub> 2 </sub> levels worldwide distribution</h5>
                         </div>
                         <div class="card-body">
                             <div id="global-CO2-map" class="chart mb-3"></div>
@@ -237,9 +237,9 @@
         </div>
     </footer>
 
-<script type="text/javascript" src="assets/js/graphs/dashboard_DC_functions.js" ></script> 
-<script type="text/javascript" src="assets/js/graphs/dashboard_DC_reduce_functions.js" ></script> 
-<script type="text/javascript" src="assets/js/graphs/choropleth_D3_world_map.js" ></script> 
+<script src="assets/js/graphs/dashboard_DC_functions.js" ></script> 
+<script src="assets/js/graphs/dashboard_DC_reduce_functions.js" ></script> 
+<script src="assets/js/graphs/choropleth_D3_world_map.js" ></script> 
 
 </body>
 </html>
