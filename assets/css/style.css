@@ -96,7 +96,7 @@ white-text {
     height: auto;
 }
 
-.custom-responsiveness {
+/* .custom-responsiveness {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -115,36 +115,36 @@ white-text {
     position: relative;
     height: auto;
     max-width: 100vw; 
- }
+ } */
 
-.img1 {
+/* .img1 {
     /* width: 100vw;
     height: 450px; */
     /* height: auto;
     min-height: 450px; */
-    background-size: 100% auto;
+    /* background-size: 100% auto;
     background-image: url('../images/reduce_img/individual_impact.jpg');
- }
+ } */ 
 
- .img2 {
+ /* .img2 {
     /* min-width: 100vw;
     min-height: 1000px;
     height: 100vh; */
-    background-size: 100% auto; /* TO visualize image*/
-    background-image: url('/assets/images/reduce_img/accion_cambioclimatico_eng.png');
- }
+    /* background-size: 100% auto; /* TO visualize image*/
+    /* background-image: url('/assets/images/reduce_img/accion_cambioclimatico_eng.png');
+ } */ 
 
- .img3 {
+ /* .img3 {
     /* width: 100vw;
     height: 700px; */
     /* width: auto;
     height: 100vh;
     min-height: 800px; */
-    background-size: 100% auto;
+    /* background-size: 100% auto;
     background-image: url('/assets/images/reduce_img/alternative_energy.jpg');
- }
+ } */ 
 
-.reduce-resize {
+/* .reduce-resize {
     background-position: center;
     background-repeat: no-repeat;
     background-size:  cover;
@@ -165,8 +165,8 @@ white-text {
     margin-top: auto;
     margin-bottom: auto;
     
-    /* height: 400px;  */
- }
+    /* height: 400px;  
+ } */
 
 .icons-padding {
     margin-top: 20px; 
