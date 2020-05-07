@@ -53,7 +53,8 @@ white-text {
 
 .bg-header {
     background-image: url("../images/landing-img.jpg");
-    background-color: #212529;
+    background-position: 50% 30%; 
+    background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -67,8 +68,6 @@ white-text {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    position: relative;
-    opacity: 0.9;
     height: 100vh;
 }
 
@@ -224,10 +223,10 @@ white-text {
 /* 
 }  */
 
-/*sign-up.html*/
-.bg-signup {
+/*sign-up.html*/ 
+/* .bg-signup {
     background-position: 60% 25%; 
-}
+} DELETEEEEE */
 
 /*Form*/
 .label-style {
