@@ -24,13 +24,14 @@
 
 <body>
 
-    <!-- Load Facebook SDK for JavaScript--> 
+  <!-- Facebook script from https://developers.facebook.com/docs/plugins/embedded-video-player/#faq--> 
   <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
+  <!-- Placed at the top of the body as per tutorial otherwise get error in the console--> 
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script> <!-- Load Facebook SDK for JavaScript--> 
 
     <!-- Navigation from https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/index.html -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand js-scroll-trigger" href="index.html">HOME</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
