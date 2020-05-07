@@ -91,6 +91,12 @@ white-text {
 }
 
 /*Images*/
+
+.img-fluid {
+    width: 100%; 
+    height: auto;
+}
+
 .custom-responsiveness {
     background-position: center;
     background-repeat: no-repeat;
@@ -118,7 +124,7 @@ white-text {
     /* height: auto;
     min-height: 450px; */
     background-size: 100% auto;
-    background-image: url('assets/images/reduce_img/individual_impact.jpg');
+    background-image: url('../images/reduce_img/individual_impact.jpg');
  }
 
  .img2 {

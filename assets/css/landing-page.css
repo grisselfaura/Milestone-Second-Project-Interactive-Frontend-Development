@@ -102,11 +102,11 @@ header.masthead h1 {
     }
 } 
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .showcase .showcase-text {
     padding: 7rem;
   }
-}
+} */
 
 .features-icons {
   padding-top: 7rem;

@@ -25,12 +25,10 @@
     <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    
 </head>
 <body>
 
-    <!-- Facebook video global warming explanation--> 
+    <!-- Facebook script from https://developers.facebook.com/docs/plugins/embedded-video-player/#faq--> 
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
 
@@ -52,7 +50,7 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="sign-up.html"><strong>SIGN UP!</strong></a>
             <!-- FUTURE IMPLEMENTATION OF GEOCHOROPLAST WITH DC.js  (WORK IN PROGRESS)-->
-            <!-- <a class="nav-link js-scroll-trigger" href="test_script_chloro_DC_worldmap.html"><strong> chloro plus crossfilter test!</strong></a> -->
+            <!-- <a class="nav-link js-scroll-trigger" href="test_script_chloro_DC_worldmap.html"><strong> choro map plus crossfilter test display </strong></a> -->
           </li>
         </ul>
       </div>
@@ -91,8 +89,10 @@
   <section class="showcase">
     <div class="container-fluid p-0">
       <div class="row no-gutters">
-
-        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" style="background-image: url('assets/images/showcase_img/climate_changing.jpg');"></div>
+        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" style="background-image: url('assets/images/showcase_img/climate_changing.jpg');"></div> -->
+        <div class="col-lg-6 order-lg-2 d-flex align-items-center justify-content-center">
+         <img src='assets/images/showcase_img/climate_changing.jpg' class="img-fluid" alt="Responsive image">
+        </div>
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2 class="m-auto text-primary text-effect">Why does it matter that Earth's Climate is changing?</h2>
           <hr>
@@ -106,7 +106,10 @@
         </div>
       </div>
       <div class="row no-gutters">
-        <div class="col-lg-6 text-white showcase-img custom-responsiveness" style="background-image: url('assets/images/showcase_img/globe_melting.png');"></div>
+        <!-- <div class="col-lg-6 text-white showcase-img custom-responsiveness" style="background-image: url('assets/images/showcase_img/globe_melting.png');"></div> -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+         <img src='assets/images/showcase_img/globe_melting.png' class="img-fluid" alt="Responsive image">
+        </div>
         <div class="col-lg-6 my-auto showcase-text">
           <h2 class="m-auto text-primary text-effect">How can so little warming cause so much melting?</h2>
           <hr>
@@ -124,7 +127,10 @@
         </div>
       </div>
       <div class="row no-gutters">
-        <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" style="background-image: url('assets/images/showcase_img/sea_rising.jpg');"></div>
+        <!-- <div class="col-lg-6 order-lg-2 text-white showcase-img custom-responsiveness" style="background-image: url('assets/images/showcase_img/sea_rising.jpg');"></div> -->
+        <div class="col-lg-6 order-lg-2 d-flex align-items-center justify-content-center">
+         <img src='assets/images/showcase_img/sea_rising.jpg' class="img-fluid" alt="Responsive image">
+        </div>
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2 class="m-auto text-primary text-effect">What does sea level tell us about climate change?</h2>
           <hr>
