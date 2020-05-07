@@ -7,8 +7,7 @@
     <title>Second Milestone Project</title>
 
     <style>
-
-    /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
+    /*Code example from World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
     svg {
         background: #c7f0f9;
     }
@@ -58,9 +57,6 @@
     <!-- Custom styles for this template -->
     <link href="assets/css/scrolling-nav.css" rel="stylesheet">
     <link href="assets/css/landing-page.css" rel="stylesheet">
-    
-    <!-- CHECK IF WE NEED THIS LINK -->
-    <!-- <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css"> -->
 
     <!-- Personal Styles for this website -->
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
@@ -108,66 +104,49 @@
  
     <script>
         // original code http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328    
-        // https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
+        // hover over https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
         
     var numberFormat = d3.format(".2f");
     var scaleFormat = d3.format(",.2r");
     var usChart = new dc.GeoChoroplethChart("#us-chart");
     var pieChart = new dc.PieChart("#pie-chart");
     
-    
-    // d3.csv,("data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(error, emissionData) {
     d3.csv("data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv").then(function (emissionData) {
         
         var ndx = crossfilter(emissionData);
         var all = ndx.groupAll();
-        // var parseDate = d3.time.format("%Y").parse;
         var parseDate = d3.timeParse("%Y/%m/%d");
-        // var dateFormat = d3.time.format("%m/%d/%Y");
-
-
+        
         // Loop through data and parse/convert appropriate formats
             emissionData.forEach(function(d){
                 d.Code = String(d.Code);
                 d.Entity = String(d.Entity),
                 d.Year = Number(d.Year);
                 // d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
-                // console.log(d.Year);     
-                d.Transport = Number(d.Transport); //Number(" ")returns 0
-                // console.log(d.Transport);
+                d.Transport = Number(d.Transport); 
                 d.Forestry = Number(d.Forestry); // other alternative to get rid of empty values d.Transport = d.Transport ? parseFloat(d.Transport) : 0
-                // console.log(d.Forestry);
                 d.Energy = Number(d.Energy);
-                // console.log(d.Energy);
                 d.Other_sources = Number(d.Other_sources);
-                // console.log(d.Other_sources);
-                d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
-                // console.log(d.Agriculture_Land_Use_&_Forestry);
+                d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry);
                 d.Waste = Number(d.Waste);
-                // console.log(d.Waste);
                 d.Residential_commercial = Number(d.Residential_commercial);
-                // console.log(d["Residential & commercial"]);
                 d.Industry = Number(d.Industry); 
-                // console.log(d.Industry);
                 d.total_CO = Number(d.total_CO);      
-                // console.log(d.total_CO);
             });
         
-        console.log(emissionData);
-        console.log(typeof(emissionData));
+        // console.log(emissionData);
+        // console.log(typeof(emissionData));
 
         // ADD FUNCTION FOR GROUPING
-        // var countries_code = ndx.dimension(function (d) { return d['Code'];}); //issue not showing some countries by name
         var entities = ndx.dimension(function (d) { return d['Entity'];});
-        var TOTALCO = ndx.dimension(function (d) {if(d.Year == 2010) { return d["total_CO"];}});// country
+        var TOTALCO = ndx.dimension(function (d) {if(d.Year == 2010) { return d["total_CO"];}});
         var TOTALCOpercountry = TOTALCO.group().reduceSum(function(d){ return d.Entity});
         var TOTALCOperCode = TOTALCO.group().reduceSum(function(d){ return d.Code});
         
         var averagePerCountry = entities.group().reduce(
-        // var averagePerCode = countries_code.group().reduce( //plucking to id
             function add_item(p, v) {
                 p.count++;
-                p.total += v.total_CO; // p.total += v["total CO"]; this doesnt work
+                p.total += v.total_CO; 
                 p.average = p.total / p.count;
                 return p;
             },
@@ -191,10 +170,8 @@
             }, 
         );
         averagePerCountry.order(v => v.average);// sort values from top to bottom
-        // averagePerCode.order(v => v.average);// sort values per id from top to bottom
 
         d3.json("data/world_countries.json").then(function (topoData, labels) {
-        // d3.json("data/world_countries.json", function(error, topoData){
             console.log(topoData); 
 
             usChart.width(990)
@@ -202,13 +179,10 @@
                     .transitionDuration(1000) 
                     .dimension(entities)
                     .group(averagePerCountry)
-                        // .dimension(countries_code) //plucking to id
-                        // .group(averagePerCode)//plucking to id
                     .colors(d3.scaleQuantize().range(["#7f3b08", "#b35806", "#e08214", "#fdb863", "#fee0b6", "#f7f7f7", "#d8daeb", "#b2abd2", "#8073ac", "#542788", "#2d004b"])) //https://colorbrewer2.org/#type=diverging&scheme=PuOr&n=11 */
                     .colorDomain([-1000000, 1000000000])
                     .colorCalculator(function (d) { console.log(d); return d ? usChart.colors()(d) : '#ccc'; })
                     .overlayGeoJson(topoData.features, "countries", function (d) {
-                        // return d.id;//plucking to id
                         return d.properties.name;
                     })
                 .projection(d3.geoNaturalEarth())
@@ -218,11 +192,11 @@
                         return "Undefined value!"
                     } 
                     else {
-                        return kv.value.average ; //Cannot read property 'average' of undefined ;
+                        return kv.value.average ; 
                     }
                 })
                     .title(function (d) {
-                        return d.key + ": " + numberFormat(d.value) + " Avg CO2 levels" ; //Solution to relabel nan values as not available pending;
+                        return d.key + ": " + numberFormat(d.value) + " Avg CO2 levels" ; 
                     });
 
                 usChart.legendables = function () {
@@ -230,7 +204,6 @@
                         var domain = usChart.colorDomain()
                         var step = (domain[1] - domain[0]) / range.length
                         var val = domain[1] 
-                        // var val = domain[0] 
 			 	        return range.map(function (d, i) {
 			 	            var legendable = {name: scaleFormat(val) + " -  " + scaleFormat(val-step), chart: usChart};
 			 	            legendable.color = usChart.colorCalculator()(val);
@@ -241,22 +214,17 @@
     
             usChart.legend(dc.legend().x(10).y(150).itemHeight(13).gap(5))
 
-            
             pieChart.width(480)
                 .height(480)
                 .radius(150)
                 .innerRadius(60)
                 .transitionDuration(500)
-                // .slicesCap(4)// number of slices the pie chart will generate
-                .cap(5)// return group.top(5)
+                .cap(5)
                 .dimension(entities)
                 .group(averagePerCountry)  
                 .valueAccessor(function (d) { return d.value.average})
-                // .colors(d3.scale.ordinal().range(// colors if wanted?
-                // [ '#1f78b4', '#b2df8a', '#cab2d6'..., '#bc80bd']);
                 .legend(dc.legend().x(400).y(10).itemHeight(13).gap(5))
-                // workaround for #703: not enough data is accessible through .label() to display percentages
-                .data(function (group) { // get top five groups
+                .data(function (group) { 
                     return group.top(8);})
                 .on('pretransition', function(pieChart) {
                     pieChart.selectAll('text.pie-slice').text(function(d) {
