@@ -73,13 +73,12 @@
     </div>
     </nav>
 
-<!-- Dashboard panel --> 
+<!-- Dashboard panel with Project Card Example code  from https://startbootstrap.com/previews/sb-admin-2/ -->
 <!-- Percentage and average numbers/graphs --> 
     <section class="dashboard-section">
         <div class="container-fluid p-0">
             <div class="row no-gutters  mt-5">
-                <div class="col-lg-6 mb-1"> <!--  https://startbootstrap.com/previews/sb-admin-2/ -->
-                    <!-- Project Card Example --> 
+                <div class="col-lg-6 mb-1"> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
                             <h5 class="text-center"> CO <sub> 2 </sub> percentages per industries (Year 2010) </h5>
@@ -104,8 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-1"> <!--  https://startbootstrap.com/previews/sb-admin-2/ -->
-                    <!-- Project Card Example --> 
+                <div class="col-lg-6 mb-1"> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
                              <h5 class="text-center">TOP 5 countries CO <sub> 2 </sub> average measurements</h5>
@@ -113,7 +111,7 @@
                                 <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
                         </div>
-                        <div class="card-body-size">
+                        <div class="card-body-size text-center">
                             <div id="pie-chart"></div> <!-- avg pie chart -->
                         </div>
                     </div>
@@ -162,7 +160,7 @@
                                 <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <div id="chart-global-CO2-year"></div> <!-- global line chart -->
                         </div>
                     </div>
@@ -176,7 +174,7 @@
                             <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                             <div class="clearfix"></div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <div id="stacked-chart"></div> <!-- global stacked chart -->
                         </div>
                     </div>
@@ -194,7 +192,7 @@
                         <div class="card-header">
                             <h5 class="text-center">Total CO <sub> 2 </sub> levels worldwide distribution</h5>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <div id="global-CO2-map" class="chart mb-3"></div>
                             <div id="tooltip" class="chart mt-3"></div>
                             <svg id="world-map" width="1200" height="600"></svg> <!-- not inside the body card div -->        
