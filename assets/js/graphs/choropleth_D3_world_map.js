@@ -58,11 +58,11 @@
         .call(legend);
 
     // Load external (country coordinates + data) and boot, asynchronous tasks
-    d3.queue() //used to run asynchronous tasks simultaneously and once the tasks are completed, perform operations on the results of the tasks.
-        .defer(d3.json, "data/world_countries.json") // Sets a task
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 2010)  // Sets a function
+    d3.queue() // Used to run asynchronous tasks simultaneously and once the tasks are completed, perform operations on the results of the tasks.
+        .defer(d3.json, "data/world_countries.json") // Call defer function and pass data file
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 2010)  // Call defer function and pass data file
         {return (data.set(d.Code, +d.total_CO));}}) // 
-        .await(ready); // Used to perform operations from any results of the tasks, after all the tasks are finished, . 
+        .await(ready); // Used to perform operations from any results of the tasks, after all the tasks are finished. 
 
     function ready(error, topo, CO_data) {
         if (error) throw error;

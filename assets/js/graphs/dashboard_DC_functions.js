@@ -1,17 +1,21 @@
+/* Queue() used to run asynchronous tasks simultaneously and once the tasks are completed, perform operations on the results of the tasks.
+ Load external data and boot, asynchronous tasks.
+*/
+
 queue() 
-    .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
-    .await(makeGraphs);
+    .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv") // Call defer function and pass data file
+    .await(makeGraphs); // Used to perform operations from any results of the tasks, after all the tasks are finished.
 
-visCount = dc.dataCount(".dc-data-count"); // following dc tutorial
+visCount = dc.dataCount(".dc-data-count"); // Create a variable
 
-function makeGraphs(error, emissionData){ 
-    if (error) throw error;
+function makeGraphs(error, emissionData){ // Create a function called makeGraphs where the data will be downloaded
+    if (error) throw error; 
     // console.log(emissionData);
     // console.log(typeof(emissionData));
 
-   var ndx = crossfilter(emissionData);
-   var all = ndx.groupAll();
-   var parseDate = d3.time.format("%Y").parse;
+   var ndx = crossfilter(emissionData); // Assign the data to a crossfilter to allow interaction
+   var all = ndx.groupAll(); // Define group all for counting
+   var parseDate = d3.time.format("%Y").parse; // Create a new format for the date
 
    // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function(d){
@@ -41,6 +45,7 @@ function makeGraphs(error, emissionData){
 };
 
 function show_country_selector(ndx) {
+    // Define a dimension
     var dim = ndx.dimension(dc.pluck('Entity'));
     var group = dim.group();
     
@@ -56,11 +61,11 @@ function show_country_selector(ndx) {
 }
 
 function show_global_emissions_per_year(ndx) {
-    
+    // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
-   
+    // Map/reduce to group sum
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total_CO'));
-    // console.log(yearGlobalEmissionsChart.all());
+        // console.log(yearGlobalEmissionsChart.all());
 
     // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
@@ -82,14 +87,15 @@ function show_global_emissions_per_year(ndx) {
 }                
 
 function show_country_emissions_stacked(ndx) {
-
+    // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
-    // console.log(year_dim);
+        // console.log(year_dim);
 
     // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
     
+    // Map/reduce to group sum
     var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); 
     var coByYearForestry = year_dim.group().reduceSum(function(d) {return d.Forestry;});
     var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));

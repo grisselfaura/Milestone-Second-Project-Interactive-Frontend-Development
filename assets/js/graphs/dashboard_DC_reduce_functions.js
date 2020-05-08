@@ -1,15 +1,19 @@
-d3.queue() 
-    .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv")
-    .await(makeGraphs);
+/* Queue() used to run asynchronous tasks simultaneously and once the tasks are completed, perform operations on the results of the tasks.
+ Load external data and boot, asynchronous tasks.
+*/
 
-function makeGraphs(error, emissionData){ 
+d3.queue() 
+    .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv") // Call defer function and pass data file
+    .await(makeGraphs); // Used to perform operations from any results of the tasks, after all the tasks are finished.
+
+function makeGraphs(error, emissionData){  // Create a function called makeGraphs where the data will be downloaded
     if (error) throw error;
     // console.log(emissionData);
     // console.log(typeof(emissionData));
 
-var ndx = crossfilter(emissionData);
-var all = ndx.groupAll();
-var parseDate = d3.time.format("%Y").parse;
+var ndx = crossfilter(emissionData); // Assign the data to a crossfilter to allow interaction
+var all = ndx.groupAll(); // Define group all for counting
+var parseDate = d3.time.format("%Y").parse; // Create a new format for the date
 
 // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function(d){
@@ -45,7 +49,7 @@ var parseDate = d3.time.format("%Y").parse;
 */
 
 function show_CO_percentage_per_sector_2010(ndx, attr, element) {
-   
+    // Define a dimension
     var year_dim = ndx.dimension(function(d) {return d.Year;});
         
     // Create functions to compute a value for any attribute. In this case we want to get percentage of individual sector value over the total  
@@ -77,7 +81,7 @@ function show_CO_percentage_per_sector_2010(ndx, attr, element) {
         function reduceInitAvg() {
             return {sum_attr:0, sum_total_CO:0, percentage_attr:0};
         }    
-
+    // Map/reduce to reduce function (percentages)  
     var coPercentage = year_dim.group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
         console.log(coPercentage.all());
 
@@ -85,12 +89,13 @@ function show_CO_percentage_per_sector_2010(ndx, attr, element) {
             .formatNumber(d3.format(".2%"))
             .valueAccessor(function (d) { return d.value.percentage_attr})
             .group(coPercentage)    
-} 
+}
+
 
 function show_CO_average_per_country(ndx) {
-
+    // Define a dimension
     var country_dim = ndx.dimension(dc.pluck('Entity')); 
-
+    // Map/reduce to reduce function (average) 
     var averagePerCountry = country_dim.group().reduce(
     
         function add_item(p, v) {
