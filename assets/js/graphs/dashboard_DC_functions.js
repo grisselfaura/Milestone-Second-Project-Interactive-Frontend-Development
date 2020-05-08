@@ -18,33 +18,22 @@ function makeGraphs(error, emissionData){
         d.Code = String(d.Code);
         d.Entity = String(d.Entity);
         d.Year = parseDate(d.Year);
-        // d.Year = parseDate(d.Year).getFullYear(); //CHECK IF THIS AFFECT TIME SCALES
-            // console.log(d.Year);     
-        d.Transport = Number(d.Transport); //Number(" ")returns 0
-        // console.log(d.Transport);
-        d.Forestry = Number(d.Forestry); // other alternative to get rid of empty values d.Transport = d.Transport ? parseFloat(d.Transport) : 0
-        // console.log(d.Forestry);
-        d.Energy = Number(d.Energy);// other alternative to get rid of empty values parseFloat(d.Transport)|| 0;
-        // console.log(d.Energy);
+        d.Transport = Number(d.Transport); // Using Number() to get to get rid of empty values. Also possible parseFloat(d.Transport)|| 0; or d.Transport = d.Transport ? parseFloat(d.Transport) : 0
+        d.Forestry = Number(d.Forestry); 
+        d.Energy = Number(d.Energy); 
         d.Other_sources = Number(d.Other_sources);
-        // console.log(d.Other_sources);
         d.Agriculture_Land_Use_Forestry = Number(d.Agriculture_Land_Use_Forestry); 
-        // console.log(d.Agriculture_Land_Use_&_Forestry);
         d.Waste = Number(d.Waste);
-        // console.log(d.Waste);
         d.Residential_commercial = Number(d.Residential_commercial);
-        // console.log(d["Residential & commercial"]);
         d.Industry = Number(d.Industry); 
-        // console.log(d.Industry);
         d.total_CO = Number(d.total_CO);      
-        // console.log(d.total_CO);
     });
 
     visCount 
     .dimension(ndx)
     .group(all);
 
-    show_country_selector(ndx); //function takes the ndx crossfilter as its only argument
+    show_country_selector(ndx); // Function takes the (ndx) crossfilter as its only argument
     show_global_emissions_per_year(ndx);
     show_country_emissions_stacked(ndx);
     
@@ -58,28 +47,22 @@ function show_country_selector(ndx) {
     select = dc.selectMenu("#country-selector")
         .dimension(dim)
         .group(group) 
-        .title(kv => kv.key);/*hiding the count number*/ 
+        .title(kv => kv.key); // Hides the count number 
 
     dc.renderAll();   
     
     //Select the first country from the list by default 
     select.replaceFilter([["Afghanistan"]]).redrawGroup();
-
-        //     dc.selectMenu("#country-selector")
-        //         .dimension(dim)
-        //         .group(group) 
-        //         .title(kv => kv.key);/*not showing the count numner*/ 
-        // }
-
 }
 
 function show_global_emissions_per_year(ndx) {
+    
     var year_dim = ndx.dimension(dc.pluck('Year'));
    
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total_CO'));
     // console.log(yearGlobalEmissionsChart.all());
 
-    /*for chart scale*/
+    // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
 
@@ -90,67 +73,53 @@ function show_global_emissions_per_year(ndx) {
             .dimension(year_dim)
             .group(yearGlobalEmissionsChart)
             .transitionDuration(500)
-            .elasticY(true)/*allows scale to update with each other*/
+            .elasticY(true) // Allows scale to update with each other
             .yAxisPadding(100)
             .x(d3.time.scale().domain([minYear, maxYear]))
-            //go back to this in case of error.x(d3.scale.linear().domain([minYear, maxYear]))
-            // .x(d3.scale.linear().domain([new Date(1990, 0, 1), new Date(2010, 11, 31)]))
-            // .y(d3.scale.linear().domain([0, d3.max(emissionData)]).range([0, h]))//check scale and x axus
             .xAxisLabel("Years")
             .yAxisLabel("Total CO2 emissions")
             .renderHorizontalGridLines(true)
 }                
 
 function show_country_emissions_stacked(ndx) {
+
     var year_dim = ndx.dimension(dc.pluck('Year'));
     // console.log(year_dim);
 
-    /*for chart scale*/
+    // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
     
-    var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); /*same result*/
-    // var coByYearTransport = year_dim.group().reduceSum(dc.pluck('Transport'));/*PLEASE ADAPT*/
-    // console.log(coByYearTransport.all());/*testing in inspect*/
-    var coByYearForestry = year_dim.group().reduceSum(function(d) {return d.Forestry;});/*negative values are not plotted in the graph as the for the purpose of the data they can not be treated as positive. Future works needs to be done to display this in the x negative */
-    // console.log(coByYearForestry.all());/*testing in inspect*/
-    var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));/*PLEASE ADAPT*/
-    // console.log(coByYearEnergy.all());/*testing in inspect*/
-    var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other_sources'));/*PLEASE ADAPT*/
-    var coByYearAgricultureLandUseForestry = year_dim.group().reduceSum(dc.pluck('Agriculture_Land_Use_Forestry'));/*PLEASE ADAPT*/
-    var coByYearWaste = year_dim.group().reduceSum(dc.pluck('Waste'));/*PLEASE ADAPT*/    
-    var coByYearResidentialCommercial = year_dim.group().reduceSum(dc.pluck('Residential_commercial'));/*PLEASE ADAPT*/   
-    var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));/*PLEASE ADAPT*/       
+    var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); 
+    var coByYearForestry = year_dim.group().reduceSum(function(d) {return d.Forestry;});
+    var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));
+    var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other_sources'));
+    var coByYearAgricultureLandUseForestry = year_dim.group().reduceSum(dc.pluck('Agriculture_Land_Use_Forestry'));
+    var coByYearWaste = year_dim.group().reduceSum(dc.pluck('Waste'));
+    var coByYearResidentialCommercial = year_dim.group().reduceSum(dc.pluck('Residential_commercial'));
+    var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));       
 
     dc.barChart("#stacked-chart")
                 .width(600)
                 .height(300)
                 .margins({top: 10, right: 30, bottom: 30, left:100})
                 .dimension(year_dim)
-                .group(coByYearTransport, "Transport") // first item goes as .group
-                .stack(coByYearForestry, "Forestry") // the rest go in as .stack (to stack on-top)
-                .stack(coByYearEnergy, "Energy") // .stack on previous
-                .stack(coByYearOtherSources, "Other Sources") // .stack on previous
-                .stack(coByYearAgricultureLandUseForestry, "Agriculture Land Use and Forestry") // .stack on previous
-                .stack(coByYearWaste, "Waste") // .stack on previous
-                .stack(coByYearResidentialCommercial, "Residential and Commercial") // .stack on previous
-                .stack(coByYearIndustry, "Industry") // .stack on previous
-                // .renderLabel(true) // number label on top but messy
-                // .on('renderlet', function(chart) {
-                //     chart.selectAll('rect').on("click", function(d) {
-                //         console.log("click!", d);
-                //     });
-                // })
-                .title(function (d) { // show only value and not date
+                .group(coByYearTransport, "Transport") // First item goes as .group
+                .stack(coByYearForestry, "Forestry") // The others go in as .stack (to stack on-top)
+                .stack(coByYearEnergy, "Energy")
+                .stack(coByYearOtherSources, "Other Sources") 
+                .stack(coByYearAgricultureLandUseForestry, "Agriculture Land Use and Forestry") 
+                .stack(coByYearWaste, "Waste") 
+                .stack(coByYearResidentialCommercial, "Residential and Commercial") 
+                .stack(coByYearIndustry, "Industry") 
+                .title(function (d) { // Shows only data value and not the date
                     return d.value;
                 })
                 .transitionDuration(500)
                 .xUnits(function(){return 20;})
-                // .xUnits(function(minYear, maxYear){return Math.abs(maxYear - minYear);})
-                .elasticY(true)/*allows scale to update with each other*/
+                .elasticY(true) // Allows scale to update with each other
                 .yAxisPadding(50)
-                // .centerBar(true)
-                .x(d3.time.scale().domain([minYear, maxYear]))
+                .x(d3.time.scale().domain([minYear, maxYear])) // Chart scale
                 .legend(dc.legend().x(150).y(0).itemHeight(10).gap(5).horizontal(true).legendWidth(450).autoItemWidth(true).itemWidth(0))
                 .brushOn(false)
                 .xAxisLabel("Years")
