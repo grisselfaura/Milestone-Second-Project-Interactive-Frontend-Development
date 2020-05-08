@@ -78,6 +78,7 @@
     <section class="dashboard-section">
         <div class="container-fluid p-0">
             <div class="row no-gutters  mt-5">
+            <!-- percentages number display -->
                 <div class="col-lg-6 mb-1"> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
@@ -107,10 +108,10 @@
                 <div class="col-lg-6 mb-1"> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                             <h5 class="text-center">TOP 5 countries CO <sub> 2 </sub> average measurements</h5>
+                            <h5 class="text-center">TOP 5 countries CO <sub> 2 </sub> average measurements</h5>
                         </div>
                         <div class="card-body-size text-center">
-                            <div id="pie-chart" class= "dc-chart">
+                            <div id="pie-chart">
                                 <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                                 <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
@@ -160,7 +161,7 @@
                             <h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
                         </div>
                         <div class="card-body text-center">
-                            <div id="chart-global-CO2-year" class= "dc-chart">
+                            <div id="chart-global-CO2-year">
                                 <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                                 <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                                 <div class="clearfix"></div>
@@ -175,7 +176,7 @@
                             <h5 class="text-center">Overview of CO  <sub> 2 </sub> measurements distribution by sector per country</h5>
                         </div>
                         <div class="card-body text-center">
-                            <div id="stacked-chart" class= "dc-chart">
+                            <div id="stacked-chart">
                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
                             <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
                             <div class="clearfix"></div>
@@ -192,17 +193,16 @@
         <div class="container-fluid p-0">
             <div class="row no-gutters">
                 <div class="col-12"> 
-                    <div class="card mb-2"> <!-- <div class="column-card mb-2"> --> 
+                    <div class="card mb-2"> 
                         <div class="card-header">
                             <h5 class="text-center">Total CO <sub> 2 </sub> levels worldwide distribution</h5>
                         </div>
                         <div class="card-body text-center" >
                             <div id="global-CO2-map" class="chart mb-3"></div>
                             <div id="tooltip" class="chart mt-3"></div>
-                            <div id="world-map" class= "dc-chart">
-                                <svg width="1200" height="600" viewBox="-10 -10 68 68"></svg> <!-- not inside the body card div -->  
+                            <div id="world-map">
+                                <svg width="1200" height="600"></svg> 
                             </div>
-                                  
                         </div>
                     </div>
                 </div>
