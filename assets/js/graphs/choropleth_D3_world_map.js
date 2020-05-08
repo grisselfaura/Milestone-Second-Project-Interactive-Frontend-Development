@@ -27,10 +27,10 @@
 
     // Map and projection 
     var projection = d3.geoNaturalEarth() //Converting from geographic coordinates (longitude,latitude) to pixel coordinates is accomplished via a map projection. 
-        .scale(width / 2 / Math.PI) // scale things down so see world map
-        .translate([width / 2, height / 2]) // translate to center of screen
-    var path = d3.geoPath() //path generator that will convert GeoJSON to SVG paths
-        .projection(projection); // tell path generator to use NaturalEarth projection
+        .scale(width / 2 / Math.PI) // Scale things down so see world map
+        .translate([width / 2, height / 2]) // Translate to center of screen
+    var path = d3.geoPath() // Path generator that will convert GeoJSON to SVG paths
+        .projection(projection); // Tell path generator to use NaturalEarth projection
         
     // Data and color scale
     var data = d3.map(); // CO emission Dataset
@@ -58,18 +58,19 @@
         .call(legend);
 
     // Load external (country coordinates + data) and boot, asynchronous tasks
-    d3.queue()
-        .defer(d3.json, "data/world_countries.json")
-        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 2010) 
-        {return (data.set(d.Code, +d.total_CO));}}) // process
-        .await(ready);
+    d3.queue() //used to run asynchronous tasks simultaneously and once the tasks are completed, perform operations on the results of the tasks.
+        .defer(d3.json, "data/world_countries.json") // Sets a task
+        .defer(d3.csv, "data/global-carbon-dioxide-emissions-by-sector_CLEAN.csv", function(d) {if(d.Year == 2010)  // Sets a function
+        {return (data.set(d.Code, +d.total_CO));}}) // 
+        .await(ready); // Used to perform operations from any results of the tasks, after all the tasks are finished, . 
 
     function ready(error, topo, CO_data) {
         if (error) throw error;
         // console.log(topo);
         // console.log(CO_data);
 
-        let mouseOver = function(d) { // retrieve data
+    // Three function that change the tooltip when user hover / move / leave a cell
+        let mouseOver = function(d) { 
             d3.selectAll(".Country")
                 .transition()
                 .duration(200)
@@ -84,8 +85,8 @@
         let mousemove = function(d) {
             d3.selectAll(".Country")
                 tooltip.style("opacity", 1)
-                    .html( d.properties.name + "<br>" + d.total_CO )           
-                    .style("left", (d3.event.pageX) + "px") 
+                    .html( d.properties.name + "<br>" + d.total_CO ) // Custom tooltip content with html      
+                    .style("left", (d3.event.pageX) + "px") // Recover the mouse position and use it to control the tooltip position
                     .style("top", (d3.event.pageY - 10) + "px");    
         }         
 
