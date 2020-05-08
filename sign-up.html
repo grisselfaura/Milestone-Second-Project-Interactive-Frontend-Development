@@ -78,7 +78,8 @@
           <hr>
           <p class="lead mb-0">Join our network of digital activists around the world</p>
           <br>
-          <form id="user-data" onsubmit= "return sendEmail(this)" method="POST"> <!-- sendEmail function is invoke when the form is submitted --> 
+          <!-- <form id="user-data" onsubmit= "return sendEmail(this)" method="POST"> REMOVED POST AS PER UPDATE IN CODE INSTRUCTIONS--> 
+          <form id="user-data" onsubmit= "return sendEmail(this);"> <!-- sendEmail function is invoke when the form is submitted --> 
             <div class="form-row">
               <div class="col">
                 <label for="exampleInputName" class="label-style">*First Name</label>
