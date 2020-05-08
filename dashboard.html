@@ -103,16 +103,18 @@
                         </div>
                     </div>
                 </div>
+                <!-- avg pie chart -->
                 <div class="col-lg-6 mb-1"> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
                              <h5 class="text-center">TOP 5 countries CO <sub> 2 </sub> average measurements</h5>
-                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                                <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                <div class="clearfix"></div>
                         </div>
                         <div class="card-body-size text-center">
-                            <div id="pie-chart"></div> <!-- avg pie chart -->
+                            <div id="pie-chart" class= "dc-chart">
+                                <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:pie-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -137,7 +139,7 @@
                                 <h5> DATA COUNT <i class="fas fa-globe" aria-hidden="true" > </i></h5>
                                 <div class="dc-data-count">
                                     <span class="filter-count "></span> selected out of <span class="total-count"></span> records | <a
-                                            href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                                    href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
                                 </div>
                             </div>
                         </div>
@@ -151,31 +153,33 @@
     <section class="dashboard-section">
          <div class="container-fluid p-0">
             <div class="row no-gutters">
+                <!-- global line chart -->
                 <div class="col-lg-6 mb-1"> 
-                    <!-- Project Card Example --> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                             <h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
-                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                                <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                                <div class="clearfix"></div>
+                            <h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
                         </div>
                         <div class="card-body text-center">
-                            <div id="chart-global-CO2-year"></div> <!-- global line chart -->
+                            <div id="chart-global-CO2-year" class= "dc-chart">
+                                <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                                <a class="reset" href="javascript:chart-global-CO2-year.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                                <div class="clearfix"></div>
+                            </div> 
                         </div>
                     </div>
                 </div>
+                <!-- global stacked chart -->
                 <div class="col-lg-6 mb-1"> 
-                    <!-- Project Card Example --> 
                     <div class="card shadow mb-2">
                         <div class="card-header">
-                             <h5 class="text-center">Overview of CO  <sub> 2 </sub> measurements distribution by sector per country</h5>
-                             <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
-                            <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
-                            <div class="clearfix"></div>
+                            <h5 class="text-center">Overview of CO  <sub> 2 </sub> measurements distribution by sector per country</h5>
                         </div>
                         <div class="card-body text-center">
-                            <div id="stacked-chart"></div> <!-- global stacked chart -->
+                            <div id="stacked-chart" class= "dc-chart">
+                            <span class="reset" style="display: none;">selected: <span class="filter"></span></span>
+                            <a class="reset" href="javascript:stacked-chart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+                            <div class="clearfix"></div>
+                            </div> 
                         </div>
                     </div>
                 </div>
@@ -192,10 +196,13 @@
                         <div class="card-header">
                             <h5 class="text-center">Total CO <sub> 2 </sub> levels worldwide distribution</h5>
                         </div>
-                        <div class="card-body text-center">
+                        <div class="card-body text-center" >
                             <div id="global-CO2-map" class="chart mb-3"></div>
                             <div id="tooltip" class="chart mt-3"></div>
-                            <svg id="world-map" width="1200" height="600"></svg> <!-- not inside the body card div -->        
+                            <div id="world-map" class= "dc-chart">
+                                <svg width="1200" height="600" viewBox="-10 -10 68 68"></svg> <!-- not inside the body card div -->  
+                            </div>
+                                  
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@
     var svg = d3.select("svg"),
         width = +svg.attr("width"), 
         height = +svg.attr("height");
+        
 
     // responsive https://help.visokio.com/support/solutions/articles/42000012405-how-to-create-a-custom-view-choropleth-map-example-using-d3
     //     var svg = d3.select("svg");
