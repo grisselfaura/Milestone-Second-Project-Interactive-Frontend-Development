@@ -86,6 +86,7 @@ function show_CO_percentage_per_sector_2010(ndx, attr, element) {
         console.log(coPercentage.all());
 
         dc.numberDisplay(element)
+            .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
             .formatNumber(d3.format(".2%"))
             .valueAccessor(function (d) { return d.value.percentage_attr})
             .group(coPercentage)    
@@ -127,15 +128,16 @@ function show_CO_average_per_country(ndx) {
     averagePerCountry.order(v => v.average); // Sorts values from top to bottom
 
         dc.pieChart("#pie-chart")
-            .width(500)
-            .height(450)
+            // .width(500) // use carefully with .useViewBoxResizing
+            .height(400)
+            .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
             .radius(180)
             .innerRadius(60)
             .cap(5) 
             .dimension('Entity')
             .group(averagePerCountry) 
             .valueAccessor(function (d) { return d.value.average})
-            .legend(dc.legend().x(420).y(0).itemHeight(13).gap(5).horizontal(false).legendWidth(200).autoItemWidth(true).itemWidth(0))
+            // .legend(dc.legend().x(420).y(0).itemHeight(13).gap(5).horizontal(false).legendWidth(200).autoItemWidth(true).itemWidth(0))
             .data(function (group) { // Shows top eight groups
                 return group.top(8);})
             .on('pretransition', function(pieChart) {

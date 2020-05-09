@@ -49,7 +49,7 @@ function show_country_selector(ndx) {
     var dim = ndx.dimension(dc.pluck('Entity'));
     var group = dim.group();
     
-    select = dc.selectMenu("#country-selector")
+    select = dc.selectMenu("#country-selector") // Create a variable
         .dimension(dim)
         .group(group) 
         .title(kv => kv.key); // Hides the count number 
@@ -72,8 +72,9 @@ function show_global_emissions_per_year(ndx) {
     var maxYear = year_dim.top(1)[0].Year;
 
     dc.lineChart("#chart-global-CO2-year")
-            .width(500)
-            .height(300)
+            // .width(500) // use carefully with .useViewBoxResizing
+            .height(400)
+            .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
             .margins({top: 10, right: 30, bottom: 30, left:100})
             .dimension(year_dim)
             .group(yearGlobalEmissionsChart)
@@ -106,8 +107,9 @@ function show_country_emissions_stacked(ndx) {
     var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));       
 
     dc.barChart("#stacked-chart")
-                .width(600)
-                .height(300)
+                // .width(600) // use carefully with .useViewBoxResizing
+                .height(400)
+                .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
                 .margins({top: 10, right: 30, bottom: 30, left:100})
                 .dimension(year_dim)
                 .group(coByYearTransport, "Transport") // First item goes as .group
