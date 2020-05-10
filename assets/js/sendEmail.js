@@ -3,7 +3,7 @@ I wanted to add a contact form so i can get in contact with interested users.
 I use Email.js as it does not need a backend
 */
 
-//Script which redirect the email entered on the quick contact form from the index.html to the expanded contact form in the sign up */
+//Script which receives redirected the email entered on the quick contact form from the index.html to the expanded contact form in the sign up */
 document.getElementById("exampleInputEmail").value = localStorage.getItem("textOneValue");
 
 /*Script for sendemail*/
