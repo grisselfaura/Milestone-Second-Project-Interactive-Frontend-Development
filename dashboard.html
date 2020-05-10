@@ -27,25 +27,6 @@
 	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
 	<link href="assets/css/dc.css" rel="stylesheet">
 	<!-- for the charts from https://dc-js.github.io/dc.js/css/dc.css-->
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="assets/vendor/jquery/jquery.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-	</script>
-	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Load d3.js & plugin-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> <!--for world_map-->
-    <script src="https://d3js.org/topojson.v1.min.js"></script> <!--for world_map-->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script> <!--for world_map-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script> <!--for world_map-->
-    <script src="assets/js/crossfilter.min.js"></script>
-    <!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> version not compatible for world_map-->
-    <!--for dc library compatible with d3 v5 -->
-    <script src="assets/js/dc.4.0.4.js"></script>
-    <script src="assets/js/queue.min.js"></script>
 </head>
 
 <body>
@@ -59,11 +40,11 @@
         </button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active">
-						<a class="nav-link js-scroll-trigger" href="dashboard.html">DASHBOARD</a>
-					</li>
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger" href="reduce.html">REDUCE</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link js-scroll-trigger" href="dashboard.html">DASHBOARD</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger" href="sign-up.html"><strong>SIGN UP!</strong></a>
@@ -196,8 +177,8 @@
 						<div class="card-header">
 							<h5 class="text-center">Total CO <sub> 2 </sub> levels worldwide distribution</h5>
 						</div>
-						<div class="card-body text-center card-p-0"> 
-                            <div id="world-map"></div>
+						<div class="card-body text-center card-p-0">
+							<div id="world-map"></div>
 						</div>
 					</div>
 				</div>
@@ -238,6 +219,29 @@
 			</div>
 		</div>
 	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="assets/vendor/jquery/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+	</script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Load d3.js & plugin-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+	<!--for world_map-->
+	<script src="https://d3js.org/topojson.v1.min.js"></script>
+	<!--for world_map-->
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<!--for world_map-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+	<!--for world_map-->
+	<script src="assets/js/crossfilter.min.js"></script>
+	<!-- <script type="text/javascript" src="assets/js/dc.min.js"></script> version not compatible for world_map-->
+	<!--for dc library compatible with d3 v5 -->
+	<script src="assets/js/dc.4.0.4.js"></script>
+	<script src="assets/js/queue.min.js"></script>
 
 	<!-- Dashboard scripts -->
 	<script src="assets/js/graphs/dashboard.js"></script>

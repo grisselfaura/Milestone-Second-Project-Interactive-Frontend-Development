@@ -9,11 +9,13 @@ document.getElementById("exampleInputEmail").value = localStorage.getItem("textO
 /*Script for sendemail*/
 function sendEmail(signInForm) {
     //Code to show the loader similar to the code used in the course
-    $("#submitted-data").html( 
+    var buttonElement = $("#submitted-data");
+    var buttonHtml = buttonElement.html();
+    buttonElement.html( 
         `<div id="loader">
-        <img src="assets/css/loader.gif" alt="loading..." />
+            <img src="assets/css/loader.gif" alt="loading..." />
         </div>`
-        );
+    );
 
     emailjs.send("gmail", "template_vuxmZcCD", { //add parameters
         "from_name": signInForm.exampleInputName.value,
@@ -22,24 +24,20 @@ function sendEmail(signInForm) {
         "from_country": signInForm.exampleInputCountry.value,
         })
         //Response code for the promise when the email is successfully sent
-        .then (
-            function(response) { 
-            $("#submitted-data").html(
-            `<button id="submitted-data" onclick="suscribe()" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button>`
-            );
-            alert("Your mail is sent!", response); // success message
-            console.log("SUCCESS!", response);
-            $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
-            $(':checkbox, :radio').prop('checked', false);
+        .then((response) => { 
+                buttonElement.html(buttonHtml);
+                alert("Your mail is sent!", response); // success message
+                console.log("SUCCESS!", response);
+                $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
+                $(':checkbox, :radio').prop('checked', false);
             },
             //Response code for the promise when the email failed to sent
-            function(error) {
-            $("#submitted-data").html(
-            `<button id="submitted-data" onclick="suscribe()" class="btn btn-dark btn-lg btn-block" value="Submit">I am in!</button>`
-            );
-            alert("Oops...", error); // error message
-            console.log("FAILED...", error);
-            },
-        )
+            (error) => {
+                buttonElement.html(buttonHtml);
+                alert("Oops...", error); // error message
+                console.log("FAILED...", error);
+            }
+        );
     return false; // Prevent from loading a new page
 }  
+
