@@ -4,7 +4,9 @@
     https://jkeohan.wordpress.com/2015/03/09/using-d3-tooltips/ to indicate tooltip location
     
 */
-   
+    // var ORIGINAL_MAP_WIDTH = 1200;
+    // var ORIGINAL_MAP_HEIGHT = 600;
+
      // Define body
     var body = d3.select("body");
 
@@ -14,11 +16,17 @@
         height = +svg.attr("height");
     
     // responsive https://help.visokio.com/support/solutions/articles/42000012405-how-to-create-a-custom-view-choropleth-map-example-using-d3
-    //     var svg = d3.select("svg");
-    //     var width = +parseInt(svg.style("width"), 10);
-    //     var height = +parseInt(svg.style("height"), 10);
-    //     var maxSize = Math.min(width, height);
-    //     var scale = maxSize/ORIGINAL_MAP_SIZE;  // ORIGINAL_MAP_SIZE is the maximum size (width or height) of the original map.
+    // var svg = d3.select("svg");
+    //     width = +parseInt(svg.style("width"), 10);
+    //     height = +parseInt(svg.style("height"), 10);
+    // var maxSize = Math.min(width, height);
+    // // Using ORIGINAL_MAP_WIDTH as it's greater than ORIGINAL_MAP_HEIGHT
+    // var scale = maxSize/ORIGINAL_MAP_WIDTH;  
+
+     // Position map in the centre of the view
+    // var widthMargin = width - (ORIGINAL_MAP_WIDTH * scale);
+    // var heightMargin = height - (ORIGINAL_MAP_HEIGHT * scale);
+    // svg.attr("transform", "translate("+widthMargin/2+", "+heightMargin/2+")");
 
     // Define the div for the tooltip
     var tooltip = d3.select("body").append("div")   
@@ -118,12 +126,16 @@
                     return colorScale(d.total_CO);
                 })
                 .style("stroke", "transparent")
+                .attr('width', '100%')
+                .attr('viewBox', '0 0 ' + width + ' ' + height)
+                // .attr("transform", "translate(50,80)");
+                // .attr("transform", "scale("+scale+")") // Responsiveness
                 .attr("class", function(d){ return "Country" } )
                 .style("opacity", .8)
                 .on("mouseover", mouseOver)
                 .on("mousemove", mousemove)
                 .on("mouseleave", mouseLeave)
-        
+                
                 
 
     }    
