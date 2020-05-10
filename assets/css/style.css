@@ -177,12 +177,7 @@ div.fullsize {
 }
 
     /*Dashboard.html world-map */ /*World Choropleth http://bl.ocks.org/palewire/d2906de347a160f38bc0b7ca57721328 */
-    #world-map{
-        /* position: fixed; 
-        left: 0px; 
-        right: 0px; 
-        top: 0px; 
-        bottom: 0px;  */
+    #world-map {
         background: #c7f0f9;
         display: block;
         margin: 0 auto;
@@ -295,9 +290,3 @@ div.fullsize {
     -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
         box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 }
-
-/* @media only screen and (max-width: 1100px)  {
-    svg {
-    max-width: 600px;
-    }
-} */
