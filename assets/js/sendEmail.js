@@ -28,8 +28,8 @@ function sendEmail(signInForm) {
                 buttonElement.html(buttonHtml);
                 alert("Your mail is sent!", response); // success message
                 console.log("SUCCESS!", response);
-                $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val('');
-                $(':checkbox, :radio').prop('checked', false);
+                $(':input').not(':button, :submit, :reset, :hidden, :checkbox, :radio').val(''); // control to check if the following values are not empty
+                $(':checkbox, :radio').prop('checked', false); // if checkbox ticked
             },
             //Response code for the promise when the email failed to sent
             (error) => {

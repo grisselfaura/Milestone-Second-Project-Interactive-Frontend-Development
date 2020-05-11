@@ -146,17 +146,17 @@ white-text {
 
 /*Dashboard.html  */
 /*DC charts resizing  */
-div.fullsize {
+/* div.fullsize {
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-}
+} */
 
-.custom-chart { /* check where is this code */
+/* .custom-chart { /* check where is this code 
 	margin-bottom: 20px;
-}
+} */
 
 .number-box {
     font-size: 0.938em;
