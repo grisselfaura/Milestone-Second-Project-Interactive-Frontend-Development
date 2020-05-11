@@ -108,8 +108,65 @@
 		</div>
 	</section>
 
-	<!-- Data count and number display -->
-	<section class="dashboard-section">
+	<!-- Data count and number display and graphs charts-->
+    <section class="dashboard-section">
+		<div class="container-fluid p-0">
+			<div class="row no-gutters">
+				<div class="card shadow card-color-panel">
+					<div class="column-card mb-2"> 
+						<div class="col-lg-6 mb-1">
+							<div class="card-header">
+								<h5> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true"> </i></h5>
+								<div id="country-selector" class="chart mt-3"></div>
+							</div>
+						</div>
+						<div class="col-lg-6 mb-1">
+							<div class="card-header">
+								<h5> DATA COUNT <i class="fas fa-globe" aria-hidden="true" > </i></h5>
+								<div class="dc-data-count">
+									<span class="filter-count"></span> selected out of
+									<span class="total-count"></span> records | <a
+										href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+								</div>
+							</div>
+						</div>
+                        <!-- Force next columns to break to new line at md breakpoint and up -->
+                        <!-- <div class="w-100 d-none d-md-block"></div> -->
+                    </div>
+                    <div class="column-card mb-2">
+                        <!-- global line chart  -->
+                        <div class="col-md-12 col-lg-6 mb-1">
+                            <div class="card shadow mb-2">
+                                <div class="card-header">
+                                    <h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div id="chart-global-CO2-year"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- global stacked chart -->
+                        <div class="col-md-12 col-lg-6 mb-1">
+                            <div class="card shadow mb-2">
+                                <div class="card-header">
+                                    <h5 class="text-center">Overview of CO <sub> 2 </sub> measurements distribution by sector
+                                        per country</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div id="stacked-chart">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+                </div>
+			</div>
+		</div>
+	</section>
+
+
+    <!-- Data count and number display -->
+	<!-- <section class="dashboard-section">
 		<div class="container-fluid p-0">
 			<div class="row no-gutters">
 				<div class="col-12">
@@ -134,14 +191,14 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 	<!-- Graphs charts-->
-	<section class="dashboard-section">
+	<!-- <section class="dashboard-section">
 		<div class="container-fluid p-0">
-			<div class="row no-gutters">
-				<!-- global line chart -->
-				<div class="col-lg-6 mb-1">
+			<div class="row no-gutters"> -->
+				<!-- global line chart  -->
+				<!-- <div class="col-lg-6 mb-1">
 					<div class="card shadow mb-2">
 						<div class="card-header">
 							<h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
@@ -150,9 +207,9 @@
 							<div id="chart-global-CO2-year"></div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- global stacked chart -->
-				<div class="col-lg-6 mb-1">
+				<!--<div class="col-lg-6 mb-1">
 					<div class="card shadow mb-2">
 						<div class="card-header">
 							<h5 class="text-center">Overview of CO <sub> 2 </sub> measurements distribution by sector
@@ -166,7 +223,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 	<!-- World Map choropleth_D3 -->
 	<section class="dashboard-section">
