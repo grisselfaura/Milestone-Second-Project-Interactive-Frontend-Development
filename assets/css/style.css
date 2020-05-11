@@ -283,11 +283,6 @@ white-text {
     min-width: 0;
     word-wrap: break-word;
     background-clip: border-box;
-    /* border: 1px solid #f0ece3;
-    border-radius: .35rem;
-    margin: 1.25rem 1.5rem 1.25rem 1.5rem;
-    -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
-        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important; */
 }
 .card-color-panel {
     position: relative;
