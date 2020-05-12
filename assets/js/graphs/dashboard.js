@@ -13,8 +13,8 @@ Promise.all([
  */
 function makeGraphs(response) {  // Create a function called makeGraphs where the data will be downloaded
     var [emissionData, topoData] = response;
-    // var parseDate = d3.time.format("%Y").parse; // Create a new format for the date
-    var parseDate = d3.timeParse("%Y");
+    
+    var parseDate = d3.timeParse("%Y"); // Create a new format for the date
 
     // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function (d) {
@@ -35,15 +35,15 @@ function makeGraphs(response) {  // Create a function called makeGraphs where th
     var ndx = crossfilter(emissionData); // Assign the data to a crossfilter to allow interaction
     var all = ndx.groupAll(); // Define group all for counting
 
-    show_CO_percentage_per_sector_2010(ndx, "Transport", "#percent-CO-transport"); // Function takes the (ndx) crossfilter as its only argument
-    show_CO_percentage_per_sector_2010(ndx, "Forestry", "#percent-CO-forestry");
-    show_CO_percentage_per_sector_2010(ndx, "Energy", "#percent-CO-energy");
-    show_CO_percentage_per_sector_2010(ndx, "Other_sources", "#percent-CO-other_sources");
-    show_CO_percentage_per_sector_2010(ndx, "Agriculture_Land_Use_Forestry", "#percent-CO-agriculture_land_use_forestry");
-    show_CO_percentage_per_sector_2010(ndx, "Waste", "#percent-CO-waste");
-    show_CO_percentage_per_sector_2010(ndx, "Residential_commercial", "#percent-CO-residential_commercial");
-    show_CO_percentage_per_sector_2010(ndx, "Industry", "#percent-CO-industry");
-    show_CO_average_per_country(ndx);
+    showCOPercentagePerSector2010(ndx, "Transport", "#percent-CO-transport"); // Function takes the (ndx) crossfilter as its only argument
+    showCOPercentagePerSector2010(ndx, "Forestry", "#percent-CO-forestry");
+    showCOPercentagePerSector2010(ndx, "Energy", "#percent-CO-energy");
+    showCOPercentagePerSector2010(ndx, "Other_sources", "#percent-CO-other_sources");
+    showCOPercentagePerSector2010(ndx, "Agriculture_Land_Use_Forestry", "#percent-CO-agriculture_land_use_forestry");
+    showCOPercentagePerSector2010(ndx, "Waste", "#percent-CO-waste");
+    showCOPercentagePerSector2010(ndx, "Residential_commercial", "#percent-CO-residential_commercial");
+    showCOPercentagePerSector2010(ndx, "Industry", "#percent-CO-industry");
+    showCOAveragePerCountry(ndx);
     showWorldMap(ndx, topoData);
 
     // Create a new crossfilter object to keep pieChart filtering independant.
@@ -52,12 +52,16 @@ function makeGraphs(response) {  // Create a function called makeGraphs where th
         .dimension(ndx2)
         .group(ndx2.groupAll());
 
-    show_global_emissions_per_year(ndx2);
-    show_country_emissions_stacked(ndx2);
-    // notice that this method is calling the dc.renderAll() method.
-    show_country_selector(ndx2); // Function takes the (ndx) crossfilter as its only argument
+    showGlobalEmissionsPerYear(ndx2);
+    showCountryEmissionsStacked(ndx2);
+    // Notice that this method is calling the dc.renderAll() method.
+    showCountrySelector(ndx2); // Function takes the (ndx) crossfilter as its only argument
 };
 
+/**
+ * 
+ * @param {*} entityDim 
+ */
 function retrieveAvgPerEntity(entityDim) {
     return entityDim.group().reduce(
         function add_item(p, v) {
@@ -154,7 +158,7 @@ function showWorldMap(ndx, topoData) {
  * @param {*} attr 
  * @param {*} element 
  */
-function show_CO_percentage_per_sector_2010(ndx, attr, element) {
+function showCOPercentagePerSector2010(ndx, attr, element) {
     // Define a dimension
     var year_dim = ndx.dimension(d => d.Year);
 
@@ -203,7 +207,7 @@ function show_CO_percentage_per_sector_2010(ndx, attr, element) {
  * 
  * @param {*} ndx Crossfilter instance.
  */
-function show_CO_average_per_country(ndx) {
+function showCOAveragePerCountry(ndx) {
     // Define a dimension
     var countryDim = ndx.dimension(dc.pluck('Entity'));
     // Map/reduce to reduce function (average) 
@@ -229,7 +233,7 @@ function show_CO_average_per_country(ndx) {
  * 
  * @param {*} ndx 
  */
-function show_country_selector(ndx) {
+function showCountrySelector(ndx) {
     // Define a dimension
     var dim = ndx.dimension(dc.pluck('Entity'));
     var group = dim.group();
@@ -249,7 +253,7 @@ function show_country_selector(ndx) {
  * 
  * @param {*} ndx 
  */
-function show_global_emissions_per_year(ndx) {
+function showGlobalEmissionsPerYear(ndx) {
     // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
     // Map/reduce to group sum
@@ -280,7 +284,7 @@ function show_global_emissions_per_year(ndx) {
  * 
  * @param {*} ndx 
  */
-function show_country_emissions_stacked(ndx) {
+function showCountryEmissionsStacked(ndx) {
     // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
         // console.log(year_dim);
