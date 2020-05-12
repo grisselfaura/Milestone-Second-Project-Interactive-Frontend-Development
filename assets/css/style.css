@@ -271,6 +271,11 @@ white-text {
 .card-p-0 {
     padding: 0;
 }
+
+.row-width {
+    width: 100%;
+}
+
 .column-card {
     position: relative;
     display: -webkit-box;
@@ -284,6 +289,7 @@ white-text {
     word-wrap: break-word;
     background-clip: border-box;
 }
+
 .card-color-panel {
     position: relative;
     display: -webkit-box;
@@ -293,7 +299,7 @@ white-text {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    width: 100vw;
+    width: 100%;
     word-wrap: break-word;
     background-clip: border-box;
     border: 1px solid #e3e6f0;

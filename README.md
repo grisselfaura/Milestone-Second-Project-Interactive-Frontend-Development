@@ -9,8 +9,9 @@ This website is part of my portfolio to present to prospective employers.
 
 Please note this is merely a course project, and then the information on the side is used for that purpose alone. I only use publicly available data for this purpose.
 CO2 Data used on this example = https://ourworldindata.org/grapher/global-carbon-dioxide-emissions-by-sector
-Data can be filtered by country, sector and year. 
+Data can be filtered by country, sector and year. One disadvantage is that a few countries are missing from this database which will be shown in the map as gray.
 world_countries file for the WorldMap https://github.com/jdamiani27/Data-Visualization-and-D3/blob/master/lesson4/world_countries.json
+
 
 ## Demo
 
@@ -42,7 +43,8 @@ You can check out the website [here]( https://grisselfaura.github.io/Milestone-S
 - The navbar is fixed to the top and includes an dropdown Menu for the md-screen that collapses when selected. 
 
 - ### Features Left to Implement
-* In the future i would like to add a a choropath map direcly using dc.js instead of generated using d3.js so as multiple charts can be quickly drawn (code is already started under test_script_chloro_DC_worldmap.html) but due to time limitation is yet pending to integrate all the functions to generate the infographic).
+* In the future i would like to add a a choropath map direcly using dc.js instead of generated using d3.js so as multiple charts can be quickly drawn (code is already started under test_script_chloro_DC_worldmap.html) but due to time limitation is yet pending to integrate all the functions to generate the infographic). 
+Fixed with the help from mentor during last session. However the generated map is not centered on the div and cant not be target via css.
 * In addition the "About us" and links from the footnote are yet to be constructed.
 * Furthermore the links to social media are not linked for the purpose of this exercise.
 * Lastly, I would like to be able to have real life data feeding the info-charts. The Database choosed only contained CO2 data for the purpose of this exercise. However on a real case scenario will be more graphics showing additional parameters like temperature and water melting. 
@@ -101,9 +103,9 @@ Tabs and sections with interesting bugs or problems discovered during testing:
 - The required attribute with the select element in a single choice form needs an empty value attribute or first child element with no text for our sign-in form (fixed).
 - Footnote on dashboard was not centered. This was achieved with using the correct grid option from Bootstraap (fixed).
 - Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once.
-- WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (xxx).
+- WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (fixed).
 - Facebook embeeded videos are loading are taking very long time to load in the REDUCE TAB (fixed).
-- Pie charts not smootly loading (xxx).
+- Pie charts not smootly loading (fixed).
 
 
 ## Deployment
