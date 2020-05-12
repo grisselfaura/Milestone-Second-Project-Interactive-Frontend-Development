@@ -15,12 +15,13 @@ function makeGraphs(response) {  // Create a function called makeGraphs where th
     var [emissionData, topoData] = response;
     
     var parseDate = d3.timeParse("%Y"); // Create a new format for the date
-
+    
     // Loop through data and parse/convert appropriate formats
     emissionData.forEach(function (d) {
         d.Code = String(d.Code);
         d.Entity = String(d.Entity);
-        d.Year = parseDate(d.Year).getFullYear(); // Using Full year for better date format display "d.Year = parseDate(d.Year);"
+        d.Year_Parsed = parseDate(d.Year); // used for dc functions
+        d.Year = parseDate(d.Year).getFullYear(); // Using Full year for better date format display  for reduce functions"d.Year = parseDate(d.Year);"
         d.Transport = Number(d.Transport); // Using Number() to get to get rid of empty values. Also possible parseFloat(d.Transport)|| 0; or d.Transport = d.Transport ? parseFloat(d.Transport) : 0
         d.Forestry = Number(d.Forestry);
         d.Energy = Number(d.Energy);
@@ -258,12 +259,15 @@ function showCountrySelector(ndx) {
 function showGlobalEmissionsPerYear(ndx) {
     // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
+    console.log(year_dim);
     // Map/reduce to group sum
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total_CO'));
-        
+        console.log(yearGlobalEmissionsChart.all());
     // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
+    console.log(minYear); 
+    console.log(maxYear);
 
     dc.lineChart("#chart-global-CO2-year")
         // .width(500) // use carefully with .useViewBoxResizing
