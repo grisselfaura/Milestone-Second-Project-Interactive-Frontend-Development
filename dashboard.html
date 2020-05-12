@@ -7,10 +7,9 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Second Milestone Project</title>
 
-	<!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS v4.3.1-->
 	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!--Bootstrap v4.3.1-->
-
+	
 	<!-- Custom fonts for this template -->
 	<link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
 	<link href="assets/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
@@ -20,13 +19,9 @@
 	<!-- Custom styles for this template -->
 	<link href="assets/css/landing-page.css" rel="stylesheet">
 
-	<!-- min version not used -->
-	<!-- <link rel="stylesheet" href="assets/css/dc.min.css" type="text/css"> -->
-
 	<!-- Personal Styles for this website -->
 	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
 	<link href="assets/css/dc.css" rel="stylesheet">
-	<!-- for the charts from https://dc-js.github.io/dc.js/css/dc.css-->
 </head>
 
 <body>
@@ -36,8 +31,8 @@
 		<div class="container-fluid">
 			<a class="navbar-brand js-scroll-trigger" href="index.html">HOME</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <span class="navbar-toggler-icon"></span>
+            </button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
@@ -108,7 +103,7 @@
 		</div>
 	</section>
 
-	<!-- Data count and number display and graphs charts-->
+	<!-- Data count + number display + graphs charts-->
     <section class="dashboard-section">
 		<div class="container-fluid p-0">
 			<div class="row no-gutters">
@@ -133,7 +128,7 @@
                     </div>
                     <div class="column-card mb-2">
                         <div class="row row-width">
-                        <!-- global line chart  -->
+                            <!-- global line chart -->
                             <div class="col-12 col-lg-6 mb-1">
                                 <div class="card shadow mb-2">
                                     <div class="card-header">
@@ -163,67 +158,6 @@
 			</div>
 		</div>
 	</section>
-
-
-    <!-- Data count and number display -->
-	<!-- <section class="dashboard-section">
-		<div class="container-fluid p-0">
-			<div class="row no-gutters">
-				<div class="col-12">
-					<div class="column-card mb-2">
-						<div class="col-lg-6 mb-1">
-							<div class="card-header">
-								<h5> SELECT COUNTRY <i class="fas fa-flag" aria-hidden="true"> </i></h5>
-								<div id="country-selector" class="chart mt-3"></div>
-							</div>
-						</div>
-						<div class="col-lg-6 mb-1">
-							<div class="card-header">
-								<h5> DATA COUNT <i class="fas fa-globe" aria-hidden="true" > </i></h5>
-								<div class="dc-data-count">
-									<span class="filter-count"></span> selected out of
-									<span class="total-count"></span> records | <a
-										href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
-
-	<!-- Graphs charts-->
-	<!-- <section class="dashboard-section">
-		<div class="container-fluid p-0">
-			<div class="row no-gutters"> -->
-				<!-- global line chart  -->
-				<!-- <div class="col-lg-6 mb-1">
-					<div class="card shadow mb-2">
-						<div class="card-header">
-							<h5 class="text-center">CO <sub> 2 </sub> measurements per year by country</h5>
-						</div>
-						<div class="card-body text-center">
-							<div id="chart-global-CO2-year"></div>
-						</div>
-					</div>
-				</div> -->
-				<!-- global stacked chart -->
-				<!--<div class="col-lg-6 mb-1">
-					<div class="card shadow mb-2">
-						<div class="card-header">
-							<h5 class="text-center">Overview of CO <sub> 2 </sub> measurements distribution by sector
-								per country</h5>
-						</div>
-						<div class="card-body text-center">
-							<div id="stacked-chart">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
 
 	<!-- World Map choropleth_D3 -->
 	<section class="dashboard-section">
@@ -272,8 +206,7 @@
 						No copyright © infringement intended, as this is for educational use only.</p>
 					<p class="text-muted small mb-0 mb-lg-0">All Rights Reserved.</p>
 				</div>
-
-			</div>
+            </div>
 		</div>
 	</footer>
 
@@ -300,6 +233,7 @@
 
 	<!-- Dashboard scripts -->
 	<script src="assets/js/graphs/dashboard.js"></script>
+
 </body>
 
 </html>
