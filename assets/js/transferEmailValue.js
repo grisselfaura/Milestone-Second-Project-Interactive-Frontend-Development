@@ -2,9 +2,9 @@
 Script to transfer email value from the form in index.html into the contact form from the sign-up.html 
 */
 
-var textOneValue;
+var textOneValue; // Create variable
 
-    function redirectToForm() {
+    function redirectToForm() { // Function to fecth email value and transfer to sign up form
 
         textOneValue = document.getElementById("myemail").value; 
         localStorage.setItem("textOneValue",textOneValue)
