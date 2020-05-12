@@ -31,6 +31,7 @@ white-text {
     font-size: 1.75em;
 }
 
+/*---------------------------------Nav*/
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255,255,255,.5);
     font-weight: 700;
@@ -77,6 +78,14 @@ white-text {
     display: block
 }
 
+/*Images*/
+
+.img-fluid {
+    width: 100%; 
+    height: auto;
+}
+
+/*index.html*/ 
 .text-effect {
     -webkit-transition: all .2s ease-in-out;
     -o-transition: all .2s ease-in-out;
@@ -87,13 +96,6 @@ white-text {
     -webkit-transform: scale(1.1);
         -ms-transform: scale(1.1);
             transform: scale(1.1);
-}
-
-/*Images*/
-
-.img-fluid {
-    width: 100%; 
-    height: auto;
 }
 
 .icons-padding {
