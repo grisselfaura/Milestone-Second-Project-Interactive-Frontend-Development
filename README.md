@@ -76,7 +76,7 @@ By clicking on the links in the navbar, the background effect will confirm to th
 -If you try to click on the embeded facebook link it will start displaying and can be paused from the same screen.
 -All navigations link work and will redirect you to the desire tab.
 -If you try to do a quick sign up for news from the quick CALL TO ACTION FORM, it will redirect you to the Sign up Tab and will prefill you email to the new form.
-*Country is by default showing Afghanistan as the country form is being shown in alfabetical display.
+*Country was by default showing Afghanistan as the country form is being shown in alfabetical display. (Fixed to show a choose value instead)
 
 2. DASHBOARD TAB
 -The infographics is interactive. The user can search for any given country from the database.
@@ -99,13 +99,13 @@ In addition, the site  was tested via  http://ami.responsivedesign.is/ to review
 
 Tabs and sections with interesting bugs or problems discovered during testing:
 - Section padding was to big for the UX desing of this project. This was fixed by modifying the scrolling css from Bootstraap as per our needs (fixed).
-- * Further work is need to add feature that highlights active pages for example using similar system than the scrollSpy which highlights activated sections (fixed). 
+- * Further work is need to add feature that highlights active pages for example using similar system than the scrollSpy which highlights activated sections (fixed all taps except HOME). 
 - The required attribute with the select element in a single choice form needs an empty value attribute or first child element with no text for our sign-in form (fixed).
 - Footnote on dashboard was not centered. This was achieved with using the correct grid option from Bootstraap (fixed).
-- Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once.
-- WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (fixed).
+- Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once (fixed when added as images).
+- WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (fixed). Centering WordMap remains pending to be address.
 - Facebook embeeded videos are loading are taking very long time to load in the REDUCE TAB (fixed).
-- Pie charts not smootly loading (fixed).
+- Charts delay a few seconds to load.
 
 
 ## Deployment

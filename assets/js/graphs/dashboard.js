@@ -59,7 +59,56 @@ function makeGraphs(response) {  // Create a function called makeGraphs where th
 };
 
 /**
- * 
+ * Function used to compute the percentage value of each individual sector CO value over the total CO values for the year 2010/
+ * @param {*} ndx Crossfilter instance
+ * @param {*} attr Sector
+ * @param {*} element Percentage value number
+ */
+function showCOPercentagePerSector2010(ndx, attr, element) {
+    // Define a dimension
+    var year_dim = ndx.dimension(d => d.Year);
+
+    // Create functions to compute a value for any attribute.  
+    function reduceAddAvg(attr) {
+        return function (p, v) {
+            if (v.Year === 2010) { // Filter by specific year
+                p.sum_attr += v[attr];
+                p.sum_total_CO += v.total_CO;
+                p.percentage_attr = (p.sum_attr / p.sum_total_CO);
+            }
+            return p;
+        };
+    }
+    function reduceRemoveAvg(attr) {
+        return function (p, v) {
+            if (v.Year === 2010) {
+                p.sum_attr -= v[attr];
+                if (p.sum_attr == 0) {
+                    p.sum_total_CO -= v.total_CO;
+                    p.percentage_attr = 0;
+                } else {
+                    p.sum_total_CO -= v.total_CO;
+                    p.percentage_attr = (p.sum_attr / p.sum_total_CO);
+                }
+            }
+            return p;
+        };
+    }
+    function reduceInitAvg() {
+        return { sum_attr: 0, sum_total_CO: 0, percentage_attr: 0 };
+    }
+
+    // Map/reduce to reduce function (percentages)  
+    var coPercentage = year_dim.group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
+    dc.numberDisplay(element)
+        .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor((d) => d.value.percentage_attr)
+        .group(coPercentage)
+}
+
+/**
+ * Function used to compute for each country (entity) the average value for all the sectors =  total CO value (during 1990-2010)
  * @param {*} entityDim 
  */
 function retrieveAvgPerEntity(entityDim) {
@@ -92,8 +141,9 @@ function retrieveAvgPerEntity(entityDim) {
 }
 
 /**
- * 
- * @param {*} ndx 
+ * Function used to generate a world color map displaying the computed above average value. 
+ * @param {*} ndx Crossfilter instance
+ * @param {*} topoData COuntries data for generating world map
  */
 function showWorldMap(ndx, topoData) {
     var usChart = new dc.GeoChoroplethChart("#world-map");
@@ -107,10 +157,10 @@ function showWorldMap(ndx, topoData) {
             return d["total_CO"];
         }
     });
-    var TOTALCOpercountry = TOTALCO.group().reduceSum((d) => d.Entity);
-    var TOTALCOperCode = TOTALCO.group().reduceSum((d) => d.Code);    
+    var TOTALCOpercountry = TOTALCO.group().reduceSum((d) => d.Entity);// check if we need this
+    var TOTALCOperCode = TOTALCO.group().reduceSum((d) => d.Code); //   check if we need this
     var averagePerCountry = retrieveAvgPerEntity(entities);
-    averagePerCountry.order(v => v.average);// sort values from top to bottom
+    averagePerCountry.order(v => v.average);// sort values from top to bottom check if we need this
 
     usChart
         .height(500)
@@ -152,56 +202,7 @@ function showWorldMap(ndx, topoData) {
     usChart.legend(dc.legend().x(10).y(150).itemHeight(13).gap(5));
 }
 
-/**
- * 
- * @param {*} ndx Crossfilter instance
- * @param {*} attr 
- * @param {*} element 
- */
-function showCOPercentagePerSector2010(ndx, attr, element) {
-    // Define a dimension
-    var year_dim = ndx.dimension(d => d.Year);
 
-    // Create functions to compute a value for any attribute. In this case we want to get percentage of individual sector value over the total  
-    function reduceAddAvg(attr) {
-        return function (p, v) {
-            if (v.Year === 2010) { // Filter by specific year
-                p.sum_attr += v[attr];
-                p.sum_total_CO += v.total_CO;
-                p.percentage_attr = (p.sum_attr / p.sum_total_CO);
-            }
-            return p;
-        };
-    }
-
-    function reduceRemoveAvg(attr) {
-        return function (p, v) {
-            if (v.Year === 2010) {
-                p.sum_attr -= v[attr];
-                if (p.sum_attr == 0) {
-                    p.sum_total_CO -= v.total_CO;
-                    p.percentage_attr = 0;
-                } else {
-                    p.sum_total_CO -= v.total_CO;
-                    p.percentage_attr = (p.sum_attr / p.sum_total_CO);
-                }
-            }
-            return p;
-        };
-    }
-
-    function reduceInitAvg() {
-        return { sum_attr: 0, sum_total_CO: 0, percentage_attr: 0 };
-    }
-
-    // Map/reduce to reduce function (percentages)  
-    var coPercentage = year_dim.group().reduce(reduceAddAvg(attr), reduceRemoveAvg(attr), reduceInitAvg);
-    dc.numberDisplay(element)
-        .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
-        .formatNumber(d3.format(".2%"))
-        .valueAccessor((d) => d.value.percentage_attr)
-        .group(coPercentage)
-}
 
 /**
  * 
