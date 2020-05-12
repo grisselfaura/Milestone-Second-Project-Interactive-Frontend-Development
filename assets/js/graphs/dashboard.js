@@ -143,24 +143,27 @@ function retrieveAvgPerEntity(entityDim) {
 /**
  * Function used to generate a world color map displaying the computed above average value. 
  * @param {*} ndx Crossfilter instance
- * @param {*} topoData COuntries data for generating world map
+ * @param {*} topoData Countries data for generating world map
  */
 function showWorldMap(ndx, topoData) {
     var usChart = new dc.GeoChoroplethChart("#world-map");
-    var numberFormat = d3.format(".2f");
-    var scaleFormat = d3.format(",.2r");
+    var numberFormat = d3.format(".2f");  // Create a new format for the date
+    var scaleFormat = d3.format(",.2r"); // Create a new scale format for the legend
 
-    // ADD FUNCTION FOR GROUPING
-    var entities = ndx.dimension((d) => d['Entity']);
-    var TOTALCO = ndx.dimension((d) => {
-        if (d.Year == 2010) { 
-            return d["total_CO"];
-        }
-    });
-    var TOTALCOpercountry = TOTALCO.group().reduceSum((d) => d.Entity);// check if we need this
-    var TOTALCOperCode = TOTALCO.group().reduceSum((d) => d.Code); //   check if we need this
-    var averagePerCountry = retrieveAvgPerEntity(entities);
-    averagePerCountry.order(v => v.average);// sort values from top to bottom check if we need this
+    // Define a dimension
+    var entities = ndx.dimension((d) => d['Entity']); // Define a dimension
+    var averagePerCountry = retrieveAvgPerEntity(entities); // Map to reduce function (average)
+    // check if we need this
+    // var TOTALCO = ndx.dimension((d) => {
+    //     if (d.Year == 2010) { 
+    //         return d["total_CO"];
+    //     }
+    // });
+    // check if we need this
+    // var TOTALCOpercountry = TOTALCO.group().reduceSum((d) => d.Entity);
+    // var TOTALCOperCode = TOTALCO.group().reduceSum((d) => d.Code); 
+    
+    // averagePerCountry.order(v => v.average);// sort values from top to bottom check if we need this
 
     usChart
         .height(500)
@@ -202,16 +205,14 @@ function showWorldMap(ndx, topoData) {
     usChart.legend(dc.legend().x(10).y(150).itemHeight(13).gap(5));
 }
 
-
-
 /**
- * 
+ * Create a function called showCOAveragePerCountry where the computed average data will be loaded to generate a pie chart showing top 8 countries with highest CO values
  * @param {*} ndx Crossfilter instance.
  */
 function showCOAveragePerCountry(ndx) {
     // Define a dimension
     var countryDim = ndx.dimension(dc.pluck('Entity'));
-    // Map/reduce to reduce function (average) 
+    // Map/reduce to reduce to function (average) 
     var averagePerCountry = retrieveAvgPerEntity(countryDim);
     averagePerCountry.order(v => v.average); // Sorts values from top to bottom
     dc.pieChart("#pie-chart")
@@ -231,7 +232,7 @@ function showCOAveragePerCountry(ndx) {
 }
 
 /**
- * 
+ * Function used to generate acountry selector which will be link to a series of graphs. 
  * @param {*} ndx 
  */
 function showCountrySelector(ndx) {
@@ -251,16 +252,15 @@ function showCountrySelector(ndx) {
 }
 
 /**
- * 
- * @param {*} ndx 
+ * Function used to generate a line chart to show fluctuation of total CO2 values in a range of time (1990-2010).
+ * @param {*} ndx Crossfilter instance.
  */
 function showGlobalEmissionsPerYear(ndx) {
     // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
     // Map/reduce to group sum
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total_CO'));
-        // console.log(yearGlobalEmissionsChart.all());
-
+        
     // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
@@ -282,20 +282,19 @@ function showGlobalEmissionsPerYear(ndx) {
 }                
 
 /**
- * 
- * @param {*} ndx 
+ * Function used to generate a stack chart to show distribution of generated CO values per sector in a range of time (1990-2010). 
+ * @param {*} ndx Crossfilter instance.
  */
 function showCountryEmissionsStacked(ndx) {
     // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
-        // console.log(year_dim);
-
+    
     // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
     
     // Map/reduce to group sum
-    var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); 
+    var coByYearTransport = year_dim.group().reduceSum(function(d) {return d.Transport;}); // old function syntax example works with d3 v5 library
     var coByYearForestry = year_dim.group().reduceSum(function(d) {return d.Forestry;});
     var coByYearEnergy = year_dim.group().reduceSum(dc.pluck('Energy'));
     var coByYearOtherSources = year_dim.group().reduceSum(dc.pluck('Other_sources'));
@@ -305,7 +304,6 @@ function showCountryEmissionsStacked(ndx) {
     var coByYearIndustry = year_dim.group().reduceSum(dc.pluck('Industry'));       
 
     dc.barChart("#stacked-chart")
-        // .width(600) // use carefully with .useViewBoxResizing
         .height(400)
         .useViewBoxResizing(true) // allows chart to be responsive (might need to add CSS 'width')
         .margins({top: 10, right: 30, bottom: 30, left:100})
@@ -322,7 +320,7 @@ function showCountryEmissionsStacked(ndx) {
             return d.value;
         })
         .transitionDuration(500)
-        .xUnits((d) => 20)
+        .xUnits((d) => 20) //new calling function syntax
         .elasticY(true) // Allows scale to update with each other
         .yAxisPadding(50)
         .x(d3.scaleTime().domain([minYear, maxYear])) // Chart scale

@@ -147,18 +147,6 @@ white-text {
 }
 
 /*Dashboard.html  */
-/*DC charts resizing  */
-/* div.fullsize {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-} */
-
-/* .custom-chart { /* check where is this code 
-	margin-bottom: 20px;
-} */
 
 .number-box {
     font-size: 0.938em;
@@ -186,23 +174,23 @@ white-text {
         text-align:center;
     }
 
-    .countries {
+    /* .countries {
         fill: none;
         stroke: #333333; 
         stroke-width: 0.5; 
         stroke-linejoin: round;
-    }
-    .legendThreshold {
+    } */
+    /* .legendThreshold {
         font-size: 15px;
         font-family: sans-serif;
-    }
-    .caption {
+    } */
+    /* .caption {
         fill: #000;
         text-anchor: start;
         font-weight: bold;
-    }
+    } */
 
-    .tooltip{
+    /* .tooltip{
         background-color:black;
         color: #fff;
         margin: 10px;
@@ -212,10 +200,10 @@ white-text {
         -moz-border-radius:6px;
         border-radius:6px;
         pointer-events: none; /*to instruct the mouse event to go "through" the element and target whatever is "underneath" that element instead*/
-        opacity: 0; 
+        /* opacity: 0; 
         position: absolute;
-        text-align: center;
-    } 
+        text-align: center; */
+    }  */
 
 /*Dashboard bootstraap https://startbootstrap.com/previews/sb-admin-2/*/
 .dashboard-section {
