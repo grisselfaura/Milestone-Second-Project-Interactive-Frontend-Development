@@ -20,7 +20,6 @@ function makeGraphs(response) {  // Create a function called makeGraphs where th
     emissionData.forEach(function (d) {
         d.Code = String(d.Code);
         d.Entity = String(d.Entity);
-        d.Year_Parsed = parseDate(d.Year); // used for dc functions
         d.Year = parseDate(d.Year).getFullYear(); // Using Full year for better date format display  for reduce functions"d.Year = parseDate(d.Year);"
         d.Transport = Number(d.Transport); // Using Number() to get to get rid of empty values. Also possible parseFloat(d.Transport)|| 0; or d.Transport = d.Transport ? parseFloat(d.Transport) : 0
         d.Forestry = Number(d.Forestry);
@@ -154,17 +153,6 @@ function showWorldMap(ndx, topoData) {
     // Define a dimension
     var entities = ndx.dimension((d) => d['Entity']); // Define a dimension
     var averagePerCountry = retrieveAvgPerEntity(entities); // Map to reduce function (average)
-    // check if we need this
-    // var TOTALCO = ndx.dimension((d) => {
-    //     if (d.Year == 2010) { 
-    //         return d["total_CO"];
-    //     }
-    // });
-    // check if we need this
-    // var TOTALCOpercountry = TOTALCO.group().reduceSum((d) => d.Entity);
-    // var TOTALCOperCode = TOTALCO.group().reduceSum((d) => d.Code); 
-    
-    // averagePerCountry.order(v => v.average);// sort values from top to bottom check if we need this
 
     usChart
         .height(500)
@@ -259,11 +247,12 @@ function showCountrySelector(ndx) {
 function showGlobalEmissionsPerYear(ndx) {
     // Define a dimension
     var year_dim = ndx.dimension(dc.pluck('Year'));
-    console.log(year_dim);
+    
     // Map/reduce to group sum
     var yearGlobalEmissionsChart = year_dim.group().reduceSum(dc.pluck('total_CO'));
         console.log(yearGlobalEmissionsChart.all());
-    // For chart scale
+    
+        // For chart scale
     var minYear = year_dim.bottom(1)[0].Year;
     var maxYear = year_dim.top(1)[0].Year;
     console.log(minYear); 
@@ -280,6 +269,7 @@ function showGlobalEmissionsPerYear(ndx) {
         .elasticY(true) // Allows scale to update with each other
         .yAxisPadding(100)
         .x(d3.scaleTime().domain([minYear, maxYear]))
+        // .tickFormat(d => d.getFullYear()))
         .xAxisLabel("Years")
         .yAxisLabel("Total CO2 emissions")
         .renderHorizontalGridLines(true)
