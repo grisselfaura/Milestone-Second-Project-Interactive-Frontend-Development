@@ -58,7 +58,7 @@ In this section, you should mention all of the languages, frameworks, libraries,
 3. Bootstrap (4.4.1)
 3.1. Scrolling Nav
 3.2. Landing Page
-4. Font-awesome (4.7.0) and fonts.googleapis.com used<!--********would u call this a technology********-->
+4. Font-awesome (4.7.0) and fonts.googleapis.com used.
 5. [JQuery](https://jquery.com) The project uses **JQuery** to simplify DOM manipulation.
 6. JavaScript to embedd facebook videos in both the Home and reduce tabs.
 7. Dc.js, crossfilter, queue, topojson and D3.js for the data visualization (graph and world data map)
