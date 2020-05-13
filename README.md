@@ -104,7 +104,7 @@ Tabs and sections with interesting bugs or problems discovered during testing:
 - Footnote on dashboard was not centered. This was achieved with using the correct grid option from Bootstraap (fixed).
 - Showcase and reduce images were all different sizes and therefore dificult to scale up for responsiveness design without using targetting images individually. Aspect ratio strategy was not a successful approach to scale them up at once (fixed when added as images).
 - WordlMap responsiveness needs to be address and removed from the header div to avoid shadow bug inside the worldmap div (fixed). Centering WordMap remains pending to be address.
-- Facebook embeeded videos are loading are taking very long time to load in the REDUCE TAB (fixed). Error in the console needs to be further explored however all videos are reachable and react to play/pause. 
+- Facebook embeeded videos are loading are taking very long time to load in the REDUCE TAB (fixed). Error in the console was found when uploading more than one video. Still needs to be further explored however all videos are reachable and react to play/pause. 
 - Charts delay a few seconds to load.
 
 
